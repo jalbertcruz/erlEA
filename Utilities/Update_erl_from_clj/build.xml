@@ -1,0 +1,25 @@
+
+<project name="Program" basedir="." default="main">
+
+	<property name="scalalib.dir"     value="c:/Program Files/typesafe-stack/lib/"/>
+	<property name="clojurelib.dir"   value="c:/Program Files/clojure-1.3.0/"/>
+	<property name="doc.dir"          value="../../spec/src/doc/"/>
+    <property name="jars.dir"         value="../Libs"/>
+
+    <path id="classpath">
+		<fileset dir="${scalalib.dir}" includes="*.jar"/>
+		<fileset dir="${clojurelib.dir}" includes="*.jar"/>
+		<fileset dir="${jars.dir}" includes="Update_erl_from_clj.jar"/>
+		<fileset dir="${jars.dir}" includes="CljJavaCommon.jar"/>
+ 	    <pathelement path="${doc.dir}"/>
+    </path>
+
+    <target name="run">
+        <java fork="true" classname="update_erl_from_clj.Update_erl_from_clj">
+            <classpath>
+                <path refid="classpath"/>
+            </classpath>
+        </java>
+    </target>
+
+</project>

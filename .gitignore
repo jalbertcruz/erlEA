@@ -1,0 +1,8 @@
+.cache
+spec/.idea/
+spec/spec.iml
+Utilities/.metadata/
+*.class
+*.jar
+*.beam
+mochijson2.erl
