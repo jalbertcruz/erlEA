@@ -47,6 +47,6 @@ class Clj2src extends ConfigurationCljJava("config.clj", "doc.config/configurati
     }
   }
   def apply_license {
-    apply_license_to_file(parent)
+    apply_license_to_file(root)
   }
 }

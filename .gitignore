@@ -1,8 +1,12 @@
 .cache
 spec/.idea/
 spec/spec.iml
-Utilities/.metadata/
+.metadata/
 *.class
 *.jar
 *.beam
 mochijson2.erl
+bin/
+ebin/
+.project
+.prefs

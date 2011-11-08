@@ -21,7 +21,8 @@ import license.FileUtility._
 class ConfigurationCljJava(cljScript: String, expression: String) {
 
   protected[this] var associations: Map[String, String] = Map[String, String]()
-  protected[this] var parent: File = null
+  protected[this] var target: File = null
+  protected[this] var root: File = null
   protected[this] var excluded: ListBuffer[File] = new ListBuffer[File]()
   protected[this] var header: String = _
   protected[this] var header_lines_count: Int = _
@@ -53,7 +54,9 @@ class ConfigurationCljJava(cljScript: String, expression: String) {
 
   header_lines_count = header.split("\n").length
 
-  parent = new File(map.get(Keyword.intern("target")).asInstanceOf[String])
+  target = new File(map.get(Keyword.intern("target")).asInstanceOf[String])
+  
+  root = new File(map.get(Keyword.intern("root")).asInstanceOf[String])
 
   protected[this] def Prefix(f: File) = {
     var res = "";

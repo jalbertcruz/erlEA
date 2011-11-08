@@ -12,7 +12,9 @@
 
 (def configuration
   {
-    :target "../../"
+    :target "../../EA/src/"
+
+    :root "../../"
 
     :header ; Encabezado a poner
     "

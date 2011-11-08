@@ -14,7 +14,7 @@ import java.io.File
 
 object Update_erl_from_clj extends App {
 
-  for (file <- (new File("../../")).listFiles) {
+  for (file <- (new File("../../EA/src")).listFiles) {
     if (file.getName.endsWith(".erl")) {
       val cc = new Clj2erlConversor()
       cc.genModuleErldoc(file.getName.substring(0, file.getName.length - 4));

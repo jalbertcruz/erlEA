@@ -27,7 +27,7 @@ class Clj2erlConversor extends ConfigurationCljJava ("config.clj", "doc.config/c
 
    def genModuleErldoc( moduleName: String ){
         
-        val erlf = new File(parent, moduleName + ".erl");
+        val erlf = new File(target, moduleName + ".erl");
         
 //        System.out.println("Procesando: " + erlf.getName())
         if (isExcluded(erlf)) {

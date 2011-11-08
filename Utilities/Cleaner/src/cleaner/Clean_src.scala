@@ -43,6 +43,6 @@ class Clean_src extends ConfigurationCljJava("config.clj", "doc.config/configura
   }
 
   def clean {
-    clean_comments_from_file(parent)
+    clean_comments_from_file(root)
   }
 }

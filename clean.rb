@@ -11,4 +11,4 @@
 
 require 'fileutils'
 
-puts %x{rm *.beam}
+puts %x{rm ./EA/ebin/*.beam}
