@@ -1,13 +1,3 @@
-// 
-// Author José Albert Cruz Almaguer <jalbertcruz@gmail.com>
-// Copyright 2011 by José Albert Cruz Almaguer.
-// 
-// This program is licensed to you under the terms of version 3 of the
-// GNU Affero General Public License. This program is distributed WITHOUT
-// ANY EXPRESS OR IMPLIED WARRANTY, INCLUDING THOSE OF NON-INFRINGEMENT,
-// MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE. Please refer to the
-// AGPL (http://www.gnu.org/licenses/agpl-3.0.txt) for more details.
-// 
 package license
 
 import collection.mutable.HashTable
@@ -21,7 +11,6 @@ import license.FileUtility._
 class ConfigurationCljJava(cljScript: String, expression: String) {
 
   protected[this] var associations: Map[String, String] = Map[String, String]()
-  protected[this] var target: File = null
   protected[this] var root: File = null
   protected[this] var excluded: ListBuffer[File] = new ListBuffer[File]()
   protected[this] var header: String = _
@@ -36,7 +25,7 @@ class ConfigurationCljJava(cljScript: String, expression: String) {
   // Determinación de los excluidos:
   var pv: PersistentVector = map.get(Keyword.intern("excluded")).asInstanceOf[PersistentVector]
 
-  var it = pv.iterator();
+  var it = pv.iterator()
   while (it.hasNext) {
     val g = it.next().asInstanceOf[String]
     excluded += new File(g)
@@ -44,7 +33,7 @@ class ConfigurationCljJava(cljScript: String, expression: String) {
 
   pv = map.get(Keyword.intern("associations")).asInstanceOf[PersistentVector]
 
-  it = pv.iterator();
+  it = pv.iterator()
   while (it.hasNext) {
     val g = it.next().asInstanceOf[PersistentVector]
     associations += (g.get(0).asInstanceOf[String] -> g.get(1).asInstanceOf[String])
@@ -54,8 +43,6 @@ class ConfigurationCljJava(cljScript: String, expression: String) {
 
   header_lines_count = header.split("\n").length
 
-  target = new File(map.get(Keyword.intern("target")).asInstanceOf[String])
-  
   root = new File(map.get(Keyword.intern("root")).asInstanceOf[String])
 
   protected[this] def Prefix(f: File) = {

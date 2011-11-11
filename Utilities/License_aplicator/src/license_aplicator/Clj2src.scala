@@ -1,13 +1,3 @@
-// 
-// Author José Albert Cruz Almaguer <jalbertcruz@gmail.com>
-// Copyright 2011 by José Albert Cruz Almaguer.
-// 
-// This program is licensed to you under the terms of version 3 of the
-// GNU Affero General Public License. This program is distributed WITHOUT
-// ANY EXPRESS OR IMPLIED WARRANTY, INCLUDING THOSE OF NON-INFRINGEMENT,
-// MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE. Please refer to the
-// AGPL (http://www.gnu.org/licenses/agpl-3.0.txt) for more details.
-// 
 package license_aplicator
 
 import java.io.File
@@ -15,7 +5,7 @@ import java.io.File
 import license.ConfigurationCljJava
 import license.FileUtility._
 
-class Clj2src extends ConfigurationCljJava("config.clj", "doc.config/configuration") {
+class Clj2src(cljScript: String, expression: String) extends ConfigurationCljJava(cljScript, expression) {
 
   def apply_license_to_file(f: File) {
     val exc = isExcluded(f)

@@ -1,13 +1,3 @@
-// 
-// Author José Albert Cruz Almaguer <jalbertcruz@gmail.com>
-// Copyright 2011 by José Albert Cruz Almaguer.
-// 
-// This program is licensed to you under the terms of version 3 of the
-// GNU Affero General Public License. This program is distributed WITHOUT
-// ANY EXPRESS OR IMPLIED WARRANTY, INCLUDING THOSE OF NON-INFRINGEMENT,
-// MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE. Please refer to the
-// AGPL (http://www.gnu.org/licenses/agpl-3.0.txt) for more details.
-// 
 package update_erl_from_clj
 
 import clojure.lang.APersistentMap
@@ -23,21 +13,21 @@ import java.util.Set
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
-class Clj2erlConversor extends ConfigurationCljJava ("config.clj", "doc.config/configuration") {
+class Clj2erlConversor(cljScript: String, expression: String) extends ConfigurationCljJava(cljScript, expression) {
 
-   def genModuleErldoc( moduleName: String ){
+   def genModuleErldoc(target: File, moduleName: String, appName: String ){
         
-        val erlf = new File(target, moduleName + ".erl");
+        val erlf = new File(target, moduleName + ".erl")
         
 //        System.out.println("Procesando: " + erlf.getName())
         if (isExcluded(erlf)) {
-            System.out.println("Exluido: " + erlf.getName())
+            System.out.println("Exluido: " + erlf.getCanonicalPath)
             return;
         }
 
-        RT.loadResourceScript(moduleName + ".clj");
+        RT.loadResourceScript(moduleName + ".clj")
 
-        val pv = clojure.lang.Compiler.eval(RT.readString("(eval '" + "doc." + moduleName + "/module-" + moduleName + ")")).asInstanceOf[PersistentVector]
+        val pv = clojure.lang.Compiler.eval(RT.readString("(eval '" + appName + "." + moduleName + "/module-" + moduleName + ")")).asInstanceOf[PersistentVector]
 
         var hm : Map[String, String] = Map[String, String]()
 
@@ -86,13 +76,13 @@ class Clj2erlConversor extends ConfigurationCljJava ("config.clj", "doc.config/c
       
          var res = Map[String, String]()
 
-         val it = pmap.keySet.iterator()
+         val it = pmap.keySet.iterator
          
          while (it.hasNext) {
            
 		    val k = it.next().asInstanceOf[String]
 			    
-            val spts = pmap.get(k).toString().trim().split("\n")
+            val spts = pmap.get(k).toString.trim.split("\n")
             
             val spts1 = spts.map(_.trim)
             
@@ -115,7 +105,7 @@ class Clj2erlConversor extends ConfigurationCljJava ("config.clj", "doc.config/c
           
            val k = it.next.asInstanceOf[Keyword]
            
-           val spts = pmap.get(k).toString().trim().split("\n")
+           val spts = pmap.get(k).toString.trim.split("\n")
            
            val spts1 = spts.map(_.trim)
 
