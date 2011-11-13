@@ -1,11 +1,15 @@
-﻿Prerequisitos:
+﻿Prerrequisitos:
 
 - Erlang (R14B04)
 - Ruby 1.9
 - JDK 1.6
 
-1. Cargar el shell de Erlang en ./EA/ebin: 
-	cd ./EA/ebin
+
+0. Compilar:
+	compile.rb
+
+1. Cargar el shell de Erlang:
+	cd ./MasterSlaveModel/src
 	erl
 
 2. Iniciar la aplicación:
