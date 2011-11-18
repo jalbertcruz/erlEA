@@ -11,4 +11,10 @@
 
 require 'fileutils'
 
-puts %x{rm ./EA/ebin/*.beam}
+Dir.chdir('./MasterSlaveModel/src')
+puts 'Eliminando los .beam de MasterSlaveModel'
+%x{rm *.beam}
+
+Dir.chdir('../../IslandModel/src')
+puts 'Eliminando los .beam de IslandModel'
+%x{rm *.beam}
