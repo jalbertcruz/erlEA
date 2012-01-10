@@ -43,4 +43,6 @@ Para correrlo:
 	
    Para terminar con la ejecución de los procesos.
 
-Notas: En el directorio donde esté Manager.jar aparecerá el script R (result.r) con el que se generó el gráfico.
+Notas: 
+	En el directorio donde esté Manager.jar aparecerá el script R (result.r) con el que se generó el gráfico.
+	Se debe tener configurada la variable de entorno ERL_EPMD_PORT con el mismo número en todas las PCs que se usen con Erlang.
