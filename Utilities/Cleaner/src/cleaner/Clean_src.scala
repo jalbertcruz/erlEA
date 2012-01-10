@@ -30,7 +30,8 @@ class Clean_src(cljScript: String, expression: String) extends ConfigurationCljJ
 
           val res = scala.io.Source.fromFile(f, "utf-8").getLines.drop(header_lines_count - 1).filter((l: String) => {
             if (f.getName().endsWith(".erl")) {
-              !l.trim().startsWith("%%")
+              //!l.trim().startsWith("%%")
+              true
             } else true
           }).mkString(lnseparator)
 

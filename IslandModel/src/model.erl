@@ -8,6 +8,14 @@
 %% MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE. Please refer to the
 %% AGPL (http://www.gnu.org/licenses/agpl-3.0.txt) for more details.
 %% 
+%%%-------------------------------------------------------------------
+%%% @author  <>
+%%% @copyright (C) 2012, 
+%%% @doc
+%%%
+%%% @end
+%%% Created :  3 Jan 2012 by  <>
+%%%-------------------------------------------------------------------
 -module(model).
 
 -compile(export_all).

@@ -58,7 +58,8 @@ run(GraphicalNode)->
 			N2 ! fin,
 			N3 ! fin,
 			N4 ! fin,
-			N5 ! fin
+			N5 ! fin,
+			manager ! fin
 		end,
 
     StartEvolution = fun()->
@@ -66,7 +67,7 @@ run(GraphicalNode)->
 			     N2 ! startEvolution,
 			     N3 ! startEvolution,
 			     N4 ! startEvolution,
-			     N5 ! startEvolution 
+			     N5 ! startEvolution
 		     end,
     ChangeParameters = fun(NPmts, Mark) -> 
 			       N1 ! {chPmts, NPmts#imodelGA{doWhenEnd=fun(_, _) -> manager ! finalize end, doWhenIterate = fun(_, Pop) -> Notif(Mark, Pop) end}},
@@ -82,4 +83,4 @@ run(GraphicalNode)->
     Terminate.
 
 run()->
-    run('java@10.13.13.232').
+    run('java@10.13.13.233').

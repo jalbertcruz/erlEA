@@ -26,7 +26,7 @@ loop(Pmts, StartEvolution, ChangeParameters, GraphicalNode, Values) ->
 	finalize ->
 	    case length(Pmts) of
 		0 -> {monitor, GraphicalNode} ! {list, [3000] ++ [ X || {X, _} <- Values ], [3000] ++ [ Y || {_, Y} <- Values ]},
-		     self() ! fin,
+		    loop([], StartEvolution, ChangeParameters, GraphicalNode, Values),
 		    ok;
 		
 		_ -> 
@@ -40,6 +40,7 @@ loop(Pmts, StartEvolution, ChangeParameters, GraphicalNode, Values) ->
 	    loop(Pmts, StartEvolution, ChangeParameters, GraphicalNode, [ {Id, Count} | Values ]);
 
 	fin ->
+	    {monitor, GraphicalNode} ! {fin, 0},
 	    ok
     end.
 

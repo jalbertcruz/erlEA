@@ -13,3 +13,5 @@ ebin/
 .prefs
 .settings/
 .log
+/Monitoring tools/Manager/build/
+/Monitoring tools/Manager/dist/

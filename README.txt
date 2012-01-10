@@ -34,9 +34,13 @@ Para correrlo:
 6. Ejecutar el programa Manager.jar
 	
 7. En el shell de Erlang obtenido en 4.1 ordenar:
-	experiment:run().	
+	T = experiment:run().
 
 8. Esperar a que el experimento acabe para que se muestren los resultados en una gráfica R que aparecerá en la interfaz de Manager.
 
+9. Ejecuto: 
+	T().
+	
+   Para terminar con la ejecución de los procesos.
 
 Notas: En el directorio donde esté Manager.jar aparecerá el script R (result.r) con el que se generó el gráfico.

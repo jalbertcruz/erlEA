@@ -39,7 +39,7 @@ public class ErlComInterface extends Thread {
         try {
 
             OtpErlangTuple tup = (OtpErlangTuple) mb.receive();
-
+            
             while (!tup.elementAt(0).toString().equals("fin")) {
 
                 switch (tup.elementAt(0).toString()) {
@@ -47,13 +47,15 @@ public class ErlComInterface extends Thread {
                         
                         String a = convertToRList((OtpErlangList) tup.elementAt(1));
                         String b = convertToRList((OtpErlangList) tup.elementAt(2));
-//                        System.out.println(a);
-                        frame.plot(a, b);
                         
+                        frame.plot(a, b);
                         break;
+                        
                 }
                 tup = (OtpErlangTuple) mb.receive();
             }
+            
+            frame.dispose();
 
         } catch (OtpErlangExit | OtpErlangDecodeException ex) {
             Logger.getLogger(ErlComInterface.class.getName()).log(Level.SEVERE, null, ex);

@@ -8,6 +8,13 @@
 %% MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE. Please refer to the
 %% AGPL (http://www.gnu.org/licenses/agpl-3.0.txt) for more details.
 %% 
+%%% @author  <>
+%%% @copyright (C) 2012, 
+%%% @doc
+%%% Module to work as an island
+%%% @end
+%%% Created :  1 Jan 2012 by  <>
+
 -module(island).
 
 -compile(export_all).
