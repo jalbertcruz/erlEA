@@ -1,41 +1,42 @@
-﻿Prerrequisitos:
+﻿Prerrequisitos para el uso del proyecto IslandModel
 
-- Erlang (R14B04)
+- Erlang R15B
 - Ruby 1.9
-- JDK 1.6
+- JDK 1.7
+	Bibliotecas
+		- gson 2.1 (http://code.google.com/p/google-gson/)
+		- jinterface 1.5.5 (en Libs de la instalación de Erlang)
+		- Rserve.jar, REngine.jar (del paquete Rserve de R)
+		
+- R 2.14.1
+	- Rserve 0.6-6 (http://cran.r-project.org/web/packages/Rserve/index.html)
 
+	
+Para correrlo:
 
-0. Compilar:
+1. Descompactar packages/Manager.7z
+	1.1 - En el fichero config.json especificar el IP (<IP local>) de la PC en la que se correrá el experimento
+	
+2. Ir al fichero ./MasterSlaveModel/src/experiment.erl y poner en la última línea el mismo IP especificado en 1.1
+
+3. Ir a la raíz y compilar:
 	compile.rb
 
-1. Cargar el shell de Erlang:
-	cd ./MasterSlaveModel/src
-	erl
+4. cd ./MasterSlaveModel/src
 
-2. Iniciar la aplicación:
+4.1 Ejecutar:
+	erl -name master@<IP local> -setcookie pas
 
-	g:s(CantidadDeTrabajadores). %% CantidadDeTrabajadores == Número de esclavos (clientes)
+5. Ejecutar las instrucciones R:
+	library(Rserve)
+	Rserve()
+	
+6. Ejecutar el programa Manager.jar
+	
+7. En el shell de Erlang obtenido en 4.1 ordenar:
+	experiment:run().	
 
-3. Obtener una población aleatoria (y ponerla en la variable P):
+8. Esperar a que el experimento acabe para que se muestren los resultados en una gráfica R que aparecerá en la interfaz de Manager.
 
-	P = g:gp(40, 10).  %% de 120 individuos y de 10 genes cada cromosoma.
 
-4. Mandar a correr al algoritmo en 5 generaciones:
-
-	g ! {calc, P, 5}.
-
-El resultado se mostrará en consola.
-
-5. Para ver el tiempo que se tomó en trabajar:
-
-	profiler ! duracionEvolucion. %% Inicio y fin de la corrida total.
-
-	profiler ! duracionColectas. %% Inicio y fin de cada generación, los mensajes que informan sobre cada iteración presentan la numeración invertida (de manera que "0. 000001 segundos en la generacion 1" significa la última generación).
-
-6. Añadir procesos clientes:
-
-	g ! {addW, 6, fun trabajador:fitness/1}.  %% Añade 6 clientes que usaran la función trabajador:fitness/1 como función para evaluar el fitness.
-
-7. Disminuir los procesos clientes:
-
-	g ! {remW, 5}.  %% Elimina 5 clientes.
+Notas: En el directorio donde esté Manager.jar aparecerá el script R (result.r) con el que se generó el gráfico.

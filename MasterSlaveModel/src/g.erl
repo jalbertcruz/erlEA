@@ -8,15 +8,9 @@
 %% MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE. Please refer to the
 %% AGPL (http://www.gnu.org/licenses/agpl-3.0.txt) for more details.
 %% 
-%% 
-%% @doc Módulo principal. Encargado de brindar los servicios,registra un proceso bajo el nombre de <g>.
-%% 
 -module(g).
 -compile(export_all).
 
-%% 
-%% @doc Función de inicio, es la que debe usarse para levantar el proceso principal (denominado <g>), el colector (de nombre <colector>) y los procesos trabajadores (se crean inicialmente dada la cantidad especificada por parámetros).
-%% 
 s(NTrabajadores)->
     colector:start(NTrabajadores),
 	profiler:start(),
@@ -24,9 +18,6 @@ s(NTrabajadores)->
     register(g, Pid),
     ok.
 
-%% 
-%% @doc Función de inicio por defecto, construye 150 procesos trabajadores y levanta el colector y el proceso principal.
-%% 
 s()->
     colector:start(150),
     Pid = spawn(g, init,[]),
@@ -37,9 +28,6 @@ s()->
 init()->
     loop().
 
-%% 
-%% @doc Dada una selección de cromosomas y funciones para obtener los pares a cruzar, el cruce y la mutación. Devuelve la nueva población.
-%% 
 iterar(Seleccion, FSeleccionPares, FCruce, FMutar)->
     Pares = FSeleccionPares(Seleccion),
     NuevosIndividuos = [FCruce(I) || I <- Pares],
@@ -52,23 +40,18 @@ iterar(Seleccion, FSeleccionPares, FCruce, FMutar)->
 loop()->
   receive
   
-      %% Mensaje que dado un número <N> y una función <FF> le manda un mensaje equivalente al <colector> (aumenta la cantiadd de trabajores).
       {addW, N, FF} ->
 	  colector ! {addW, N, FF},
 	  loop();
 
-      %% Mensaje que dado un número <N> le manda un mensaje equivalente al <colector> (disminuye la cantidad de trabajadores).
       {remW, N} ->
 	  colector ! {remW, N},
 	  loop();
 
-      %% Mensaje que dada una función <NF> le manda un mensaje equivalente al <colector>
-      %% (camiando la función de fitness que se usa en los trabajadores).
       {chfitness, NF} ->
 	  colector ! {chfitness, NF},
 	  loop();
 
-      %% Aplicación de un caso de pruebas con 150 individuos y cromosomas de 8 genes.
       {calc, Generaciones} ->
 	  {A1,A2,A3} = now(),
 	  random:seed(A1,A2,A3),
@@ -76,7 +59,6 @@ loop()->
 	  colector ! {filtrar, g:gp(50, 8), Generaciones},
 	  loop();
 
-      %% Mensaje mediante el que se le pide a <g> que calcule para una población <Población> y una cantidad de generaciones <Generaciones> la población resultante.
       {calc, Poblacion, Generaciones} ->
 	  {A1,A2,A3} = now(),
 	  random:seed(A1,A2,A3),
@@ -84,13 +66,11 @@ loop()->
 	  colector ! {filtrar, Poblacion, Generaciones},
 	  loop();
 
-      %% Se han realizado todas las iteraciones (mensaje privado)
       {itera, Seleccion, N} when N == 0 ->
 	  Res = iterar(Seleccion, fun g:seleccionPares/1, fun g:cruce/1,fun  g:mutar/1),
 	  self() ! {calculado, Res}, % Reporte de la solución
 	  loop();
 		
-      %% 
       {itera, Seleccion, N} when N > 0 ->
 	  Res = iterar(Seleccion, fun g:seleccionPares/1, fun g:cruce/1,fun  g:mutar/1),
 	  colector ! {filtrar, Res, N},
@@ -109,9 +89,6 @@ loop()->
 
   end.
 
-%% 
-%% @doc En el caso de esta funcion he decidido no usar los esclavos dado que es utilitaria (ver los individuos)...
-%% 
 imprimirPoblacion(P)->
     Pares = [ {trabajador:fitness(I), I} || I <- P ],
     Lista = lists:keysort(1, Pares),
@@ -134,17 +111,11 @@ cruce(Parent1, Parent2, Pivote1, Pivote2)->
     Frag1 ++ Frag2 ++ Frag3.
 
 % TODO: Probar varias veces
-%% 
-%% @doc Cruce usando dos puntos, se genera uno de ellos y luego el segundo se obtiene de forma también aleatoria hacia el extremo derecho del primero.
-%% 
 cruce({P1, P2})->
     Pivote1 = random:uniform(length(P1) - 1),
     Pivote2 = Pivote1 + random:uniform(length(P1) - Pivote1),
     cruce(P1, P2, Pivote1, Pivote2).
 
-%% 
-%% @doc Dado un cromosoma realiza una mutación en un gen aleatorio.
-%% 
 mutar(S)->
     MutationPoint = random:uniform(length(S)-1),
     {Pre, [X|Post]} = lists:split(MutationPoint-1, S),
@@ -162,9 +133,6 @@ generarCromosomaAux(N) ->
 generarPoblacionAux(1, NCromosomas)-> [generarCromosoma(NCromosomas)];
 generarPoblacionAux(N, NCromosomas) -> [generarCromosoma(NCromosomas) | generarPoblacionAux(N - 1, NCromosomas)].
 
-%% 
-%% @doc Generador de poblaciones, por razones de comodidad en esta versión se generan múltiplos de 3.
-%% 
 gp(Tam, NCromosomas)->
     TReal = Tam * 3,
     generarPoblacionAux(TReal, NCromosomas).
@@ -187,9 +155,6 @@ fitness0(L) ->
 fitnessL(L) ->
     fitness(0, L).
 
-%% 
-%% @doc Cálculo de la longitud de la subcadena con la cantidad máxima de 1s.
-%% 
 fitness(Max, [])->
     Max;
 fitness(Max, [0|R]) ->

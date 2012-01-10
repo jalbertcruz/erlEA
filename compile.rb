@@ -9,16 +9,18 @@
 ## AGPL (http://www.gnu.org/licenses/agpl-3.0.txt) for more details.
 ## 
 
-Dir.chdir('./MasterSlaveModel/src')
-puts 'Compilando MasterSlaveModel'
+if false
+	Dir.chdir('./MasterSlaveModel/src')
+	puts 'Compilando MasterSlaveModel'
+
+	Dir["*.erl"].each { |e|
+	 puts %x{"erlc" #{e}}
+	}
+end
+
+Dir.chdir('./IslandModel/src')
+puts 'cd IslandModel'
 
 Dir["*.erl"].each { |e|
- puts %x{"erlc" #{e}}
-}
-
-Dir.chdir('../../IslandModel/src')
-puts 'Compilando IslandModel'
-
-Dir["*.erl"].each { |e|
- puts %x{"erlc" #{e}}
+ puts "Compilando #{e}", %x{"erlc" #{e}}
 }

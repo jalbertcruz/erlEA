@@ -8,9 +8,6 @@
 %% MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE. Please refer to the
 %% AGPL (http://www.gnu.org/licenses/agpl-3.0.txt) for more details.
 %% 
-%% 
-%% @doc Módulo que implementa el comportamiento de los trabajadores.
-%% 
 -module(trabajador).
 -compile(export_all).
 
@@ -26,7 +23,6 @@ init(Fitness)->
 loop(Fitness) ->
   receive
 
-      %% Mensaje que le ordena a un trabajador realizar el cálculo.
       {calcula, Cromosoma} ->
 	  colector ! {calculado, Cromosoma, Fitness(Cromosoma), self()},
           loop(Fitness);

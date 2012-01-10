@@ -8,8 +8,24 @@
 // MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE. Please refer to the
 // AGPL (http://www.gnu.org/licenses/agpl-3.0.txt) for more details.
 // 
-package model
+package config;
 
-class Individual(
-  var cromosom: String,
-  var fitness: () => Double)
+public class Data {
+
+    String nodeName;
+
+    public Data(String nodeName) {
+        this.nodeName = nodeName;
+    }
+
+    public Data() {
+    }
+
+    public String getNodeName() {
+        return nodeName;
+    }
+
+    public void setNodeName(String nodeName) {
+        this.nodeName = nodeName;
+    }
+}
