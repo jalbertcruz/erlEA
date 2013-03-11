@@ -15,12 +15,12 @@
 -compile(export_all).
 
 createGeneralConfiguration() ->
-  #configArchGA{
-      clientsCount = 8,
-      clientModuleName = client,
-      poolModuleName = pool,
-      population = model:genInitPop(256, 16)
-  }.
+    #configArchGA{
+       clientsCount = 8,
+       clientModuleName = client,
+       poolModuleName = pool,
+       population = model:genInitPop(256, 16)
+      }.
 
 createExperimentConfig(PopulationSize, ChromosomeSize) ->
     {A1, A2, A3} = now(),
@@ -34,16 +34,21 @@ createExperimentConfig(PopulationSize, ChromosomeSize) ->
        selectNewPopulation = fun model:selectNewPopulation/2, %% function to obtain the new individuals for the next iteration
        selReplacement = fun model:selReplacement/3, %% function to select the individuals that be replaced
        terminationCondition = fun(Population) -> 
-                                      Maxs = lists:map(fun(Ind) ->  {Ind, model:maxOnes(Ind)} end, Population),
-                                      Pairs = lists:filter(fun({_, Fit})-> Fit =:= ChromosomeSize end, Maxs),
+                                      Pairs = lists:filter(fun({_, Fit})-> Fit =:= ChromosomeSize end, Population),
                                       L = length(Pairs) =:= 0,
                                       if L -> 
-                                         {false, null};
+                                              io:format(": ~p~n", [Population]),
+                                              {false, null};
+
                                          true -> [{_, F} | _] = Pairs,
-                                         F
-                                         end
+                                                 io:format("ENCONTRADOOOOOOOOO: ~p~n", [F]),
+                                                 {true, F}
+                                      end
 
 
-                              end %% function to determinate when to stop
+                              end, %% function to determinate when to stop
+       dividePopulation = fun model:dividePopulation/2,
+       replaceIndividuals = fun model:replaceIndividuals/2,
+       selectIndividuals = fun model:selectIndividuals/2
       }.
-    
+

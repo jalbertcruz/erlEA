@@ -19,7 +19,7 @@ start() ->
     register(manager, spawn(manager, init, [])).
 
 init() ->
-    loop(null, null, null, null).
+    loop(null, null, null, []).
 
 loop(Conf, GeneralConf, Pool, Clients) ->
     receive
@@ -31,7 +31,7 @@ loop(Conf, GeneralConf, Pool, Clients) ->
             ok;
 
         createPool ->
-            Pool1 = spawn(Conf#configArchGA.poolModuleName, init, [null, GeneralConf]),
+            Pool1 = spawn(Conf#configArchGA.poolModuleName, init, [[], GeneralConf]),
             loop(Conf, GeneralConf, Pool1, Clients),
             ok;
 
@@ -52,7 +52,7 @@ loop(Conf, GeneralConf, Pool, Clients) ->
             ok;
 
         initEvolution ->
-			io:format("mandando: ~p~n", [Conf#configArchGA.population]),
+		%	io:format("mandando: ~p~n", [Conf#configArchGA.population]),
             Pool ! {initEvolution, Conf#configArchGA.population},
             loop(Conf, GeneralConf, Pool, Clients),
             ok;

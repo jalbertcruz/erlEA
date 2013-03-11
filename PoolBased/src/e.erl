@@ -30,12 +30,14 @@ run() ->
     manager ! registerClientsOnPool,
     manager ! initEvolution.
 
-r() ->
+r0() ->
     manager:start(),
     manager ! configurate,
     manager ! createPool,
-    manager ! createClients,
+    manager ! createClients.
+
+r1() ->
     manager ! registerClientsOnPool.
-	
-e()->
+
+a() ->
     manager ! initEvolution.

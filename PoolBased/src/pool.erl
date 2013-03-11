@@ -25,11 +25,13 @@ loop(Clients, IM) ->
             loop(Clients, NIM);
 
         {register2me, Pid} ->
+                                                %io:format("Client register: ~p~n", [Pid]),
             loop([Pid | Clients], IM);
 
         {initEvolution, NPopulation} ->
             DividePopulation = IM#imodelGA.dividePopulation,
             Parts = DividePopulation(NPopulation, length(Clients)),
+                                                %io:format("parts length: ~p~n", [length(Parts)]),
             Pairs = lists:zip(Clients, Parts),
             lists:foreach(fun({C, P}) ->
                                   C ! {evolve, P}
@@ -39,7 +41,7 @@ loop(Clients, IM) ->
         {generationEnd, Pid, NewIndividuals} ->
             TerminationCondition = IM#imodelGA.terminationCondition,
             {NTerminateValue, Solution} = TerminationCondition(NewIndividuals),
-			TerminateValue = not NTerminateValue,
+            TerminateValue = not NTerminateValue,
             if TerminateValue ->
                     ReplaceIndividuals = IM#imodelGA.replaceIndividuals,
                     SelectIndividuals = IM#imodelGA.selectIndividuals,
