@@ -1,0 +1,14 @@
+.cache
+.classpath
+spec/.idea/
+spec/spec.iml
+.metadata/
+*.class
+*.jar
+*.beam
+mochijson2.erl
+bin/
+ebin/
+.project
+.prefs
+.settings/

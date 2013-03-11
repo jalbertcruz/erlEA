@@ -18,8 +18,8 @@ if false
 	}
 end
 
-Dir.chdir('./IslandModel/src')
-puts 'cd IslandModel'
+Dir.chdir('./PoolBased/src')
+puts 'cd PoolBased'
 
 Dir["*.erl"].each { |e|
  puts "Compilando #{e}", %x{"erlc" #{e}}

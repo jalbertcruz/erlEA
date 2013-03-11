@@ -8,99 +8,107 @@
 %% MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE. Please refer to the
 %% AGPL (http://www.gnu.org/licenses/agpl-3.0.txt) for more details.
 %% 
+%% 
+%% @doc Módulo encargado de administrar los procesos esclavos que harán el cálculo del fitness. Durante su inicio se registra un proceso bajo el nombre de <colector> encargado de brindar los servicios del módulo.
+%% 
 -module(colector).
 -compile(export_all).
 
-start(NTrabajadores)->
-    Trabajadores = crearTrabajadores(NTrabajadores, fun trabajador:fitness/1),
-    Pid = spawn(colector, init,[Trabajadores]),
-    register(colector, Pid),
-    ok.
+start(NTrabajadores) ->
+  Trabajadores = crearTrabajadores(NTrabajadores, fun trabajador:fitness/1),
+  Pid = spawn(colector, init, [Trabajadores]),
+  register(colector, Pid),
+  ok.
 
 init(Trabajadores) ->
   loop(Trabajadores, [], 0, [], 0).
 
 loop(Trabajadores, ResultadosActuales, NIndividuosPoblacion, IndividuosFaltantes, Generacion) ->
 
-    receive
-	
+  receive
+
+%% Cambio de la función fitness en los procesos trabajadores.
     {chfitness, NF} ->
-	    lists:foreach(fun(T) -> T ! {change, NF} end, Trabajadores),
-	    loop(Trabajadores, ResultadosActuales, NIndividuosPoblacion, IndividuosFaltantes, Generacion);
+      lists:foreach(fun(T) -> T ! {change, NF} end, Trabajadores),
+      loop(Trabajadores, ResultadosActuales, NIndividuosPoblacion, IndividuosFaltantes, Generacion);
 
+%% Aumento de los trabajadores (en la cantidad <N> y usando la función <FF>).
     {addW, N, FF} ->
-	  NuevosTrabajadores = crearTrabajadores(N, FF),
-	  loop(lists:append(NuevosTrabajadores, Trabajadores), ResultadosActuales, NIndividuosPoblacion, IndividuosFaltantes, Generacion);
-	
-      {remW, N} ->
-		  {RemTrabajadores, NuevosTrabajadores} = lists:split(N, Trabajadores),
-		  apagarTrabajadores(RemTrabajadores),
-		  loop(NuevosTrabajadores, ResultadosActuales, NIndividuosPoblacion, IndividuosFaltantes, Generacion);
-	
-	{filtrar, Poblacion, Generaciones} ->
-	    profiler ! {inicioGeneracion, now()},
-	    NP = length(Poblacion), NTrabajadores = length(Trabajadores),
-	    DistribuidorInicial = fun(P_i, T_i)-> 
-				  P1 = lists:zip(P_i, T_i),
-				  lists:foreach(
-				    fun(TPar) ->
- 					    {Individuo, Trabajador} = TPar, 
-					    Trabajador ! {calcula, Individuo}
-				    end, P1)
-                          end,
-	    if 
-		NP == NTrabajadores -> 
-		    DistribuidorInicial(Poblacion, Trabajadores),
-		    loop(Trabajadores, [], NP, [], Generaciones);
-		NP < NTrabajadores -> % Si tengo menos cromosomas que trabajadores
-		    {STrabajadores, _} = lists:split(NP, Trabajadores),
-		    DistribuidorInicial(Poblacion, STrabajadores),
-		    loop(Trabajadores, [], NP, [], Generaciones);
-		true -> % Si tengo más cromosomas que trabajadores
-		    {PrimerosIndividuos, RestoIndividuos} = lists:split(NTrabajadores, Poblacion),
-		    DistribuidorInicial(PrimerosIndividuos, Trabajadores),
-		    loop(Trabajadores, [], NP, RestoIndividuos, Generaciones)
-	    end;
+      NuevosTrabajadores = crearTrabajadores(N, FF),
+      loop(lists:append(NuevosTrabajadores, Trabajadores), ResultadosActuales, NIndividuosPoblacion, IndividuosFaltantes, Generacion);
+
+%% Eliminación de trabajadores.
+    {remW, N} ->
+      {RemTrabajadores, NuevosTrabajadores} = lists:split(N, Trabajadores),
+      apagarTrabajadores(RemTrabajadores),
+      loop(NuevosTrabajadores, ResultadosActuales, NIndividuosPoblacion, IndividuosFaltantes, Generacion);
+
+%% Servicio de cálculo de los fitness por los trabajadores.
+    {filtrar, Poblacion, Generaciones} ->
+      profiler ! {inicioGeneracion, now()},
+      NP = length(Poblacion), NTrabajadores = length(Trabajadores),
+      DistribuidorInicial = fun(P_i, T_i) ->
+        P1 = lists:zip(P_i, T_i),
+        lists:foreach(
+          fun(TPar) ->
+            {Individuo, Trabajador} = TPar,
+            Trabajador ! {calcula, Individuo}
+          end, P1)
+      end,
+      if
+        NP == NTrabajadores ->
+          DistribuidorInicial(Poblacion, Trabajadores),
+          loop(Trabajadores, [], NP, [], Generaciones);
+        NP < NTrabajadores -> % Si tengo menos cromosomas que trabajadores
+          {STrabajadores, _} = lists:split(NP, Trabajadores),
+          DistribuidorInicial(Poblacion, STrabajadores),
+          loop(Trabajadores, [], NP, [], Generaciones);
+        true -> % Si tengo más cromosomas que trabajadores
+          {PrimerosIndividuos, RestoIndividuos} = lists:split(NTrabajadores, Poblacion),
+          DistribuidorInicial(PrimerosIndividuos, Trabajadores),
+          loop(Trabajadores, [], NP, RestoIndividuos, Generaciones)
+      end;
 
 
-	{calculado, Cromosoma, Fitness, Pid} ->
-	    Cant = length(ResultadosActuales),
-	    if 
-		Cant == NIndividuosPoblacion - 1 -> % Llegar el ultimo!
-		    Pares = [{Fitness, Cromosoma} | ResultadosActuales],
-		    lists:keysort(1, Pares),
-		    P = [ P1 || {_, P1} <- Pares ],
-		    NRes = length(P) div 3,
-		    {_, Res} = lists:split(NRes, P), % Elimino el primer tercio
-		    g ! {itera, Res, Generacion - 1},
-		    profiler ! {finGeneracion, now(), Generacion}, %% Fin del calculo de los trabajadores
-		    loop(Trabajadores, [], 0, [], 0);
+%% Mensaje que le llega al colector cada vez que un trabajador realiza su tarea.
+    {calculado, Cromosoma, Fitness, Pid} ->
+      Cant = length(ResultadosActuales),
+      if
+        Cant == NIndividuosPoblacion - 1 -> % Llegar el ultimo!
+          Pares = [{Fitness, Cromosoma} | ResultadosActuales],
+          lists:keysort(1, Pares),
+          P = [P1 || {_, P1} <- Pares],
+          NRes = length(P) div 3,
+          {_, Res} = lists:split(NRes, P), % Elimino el primer tercio
+          g ! {itera, Res, Generacion - 1},
+          profiler ! {finGeneracion, now(), Generacion}, %% Fin del calculo de los trabajadores
+          loop(Trabajadores, [], 0, [], 0);
 
-		true -> % Cuando todavia faltan trabajadores por responder
-		    NIndf = length(IndividuosFaltantes),
-		    if % Si tengo cromosomas esperando trabajadores...
-			NIndf > 0 ->
-			    [IndividuoFaltante | ColaIndividuosFaltantes] = IndividuosFaltantes,
-			    Pid ! {calcula, IndividuoFaltante},
-			    loop(Trabajadores, [{Fitness, Cromosoma} | ResultadosActuales], NIndividuosPoblacion , ColaIndividuosFaltantes, Generacion);
+        true -> % Cuando todavia faltan trabajadores por responder
+          NIndf = length(IndividuosFaltantes),
+          if % Si tengo cromosomas esperando trabajadores...
+            NIndf > 0 ->
+              [IndividuoFaltante | ColaIndividuosFaltantes] = IndividuosFaltantes,
+              Pid ! {calcula, IndividuoFaltante},
+              loop(Trabajadores, [{Fitness, Cromosoma} | ResultadosActuales], NIndividuosPoblacion, ColaIndividuosFaltantes, Generacion);
 
-			true -> % Sino hay cromosomas pendientes a analizar
-			    loop(Trabajadores, [{Fitness, Cromosoma} | ResultadosActuales], NIndividuosPoblacion, [], Generacion)
-		    end
-	    end;
+            true -> % Sino hay cromosomas pendientes a analizar
+              loop(Trabajadores, [{Fitness, Cromosoma} | ResultadosActuales], NIndividuosPoblacion, [], Generacion)
+          end
+      end;
 
-      terminar ->
-           apagarTrabajadores(Trabajadores),
-	   ok
-		
-    end.
+    terminar ->
+      apagarTrabajadores(Trabajadores),
+      ok
+
+  end.
 
 crearTrabajadores(0, _) -> [];
-crearTrabajadores(N, F) -> [ trabajador:start(F) | crearTrabajadores(N - 1, F) ].
+crearTrabajadores(N, F) -> [trabajador:start(F) | crearTrabajadores(N - 1, F)].
 
-apagarTrabajadores(T)->
-    lists:foreach( fun(Trab)-> 
-			   Trab ! parar 
-		    end, 
-		   T).
+apagarTrabajadores(T) ->
+  lists:foreach(fun(Trab) ->
+    Trab ! parar
+  end,
+    T).
 	

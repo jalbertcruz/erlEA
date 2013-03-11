@@ -15,32 +15,31 @@
 -compile(export_all).
 
 
-start(Pmts, StartEvolution, ChangeParameters, GraphicalNode)->
-    register(manager, spawn(manager, init, [Pmts, StartEvolution, ChangeParameters, GraphicalNode])).
+start(Pmts, StartEvolution, ChangeParameters, GraphicalNode) ->
+  register(manager, spawn(manager, init, [Pmts, StartEvolution, ChangeParameters, GraphicalNode])).
 
-init(Pmts, StartEvolution, ChangeParameters, GraphicalNode)->
-    loop(Pmts, StartEvolution, ChangeParameters, GraphicalNode, []).
+init(Pmts, StartEvolution, ChangeParameters, GraphicalNode) ->
+  loop(Pmts, StartEvolution, ChangeParameters, GraphicalNode, []).
 
 loop(Pmts, StartEvolution, ChangeParameters, GraphicalNode, Values) ->
-    receive
-	finalize ->
-	    case length(Pmts) of
-		0 -> {monitor, GraphicalNode} ! {list, [3000] ++ [ X || {X, _} <- Values ], [3000] ++ [ Y || {_, Y} <- Values ]},
-		    loop([], StartEvolution, ChangeParameters, GraphicalNode, Values),
-		    ok;
-		
-		_ -> 
-		    [{Next, Mark} | Rest] = Pmts,
-		    ChangeParameters(Next, Mark),
-		    StartEvolution(),
-		    loop(Rest, StartEvolution, ChangeParameters, GraphicalNode, Values)
-		end;
+  receive
+    finalize ->
+      case length(Pmts) of
+        0 -> {monitor, GraphicalNode} ! {list, [3000] ++ [X || {X, _} <- Values], [3000] ++ [Y || {_, Y} <- Values]},
+          loop([], StartEvolution, ChangeParameters, GraphicalNode, Values),
+          ok;
 
-	{iterate, Id, Count} ->
-	    loop(Pmts, StartEvolution, ChangeParameters, GraphicalNode, [ {Id, Count} | Values ]);
+        _ ->
+          [{Next, Mark} | Rest] = Pmts,
+          ChangeParameters(Next, Mark),
+          StartEvolution(),
+          loop(Rest, StartEvolution, ChangeParameters, GraphicalNode, Values)
+      end;
 
-	fin ->
-	    {monitor, GraphicalNode} ! {fin, 0},
-	    ok
-    end.
+    {iterate, Id, Count} ->
+      loop(Pmts, StartEvolution, ChangeParameters, GraphicalNode, [{Id, Count} | Values]);
 
+    fin ->
+      {monitor, GraphicalNode} ! {fin, 0},
+      ok
+  end.
