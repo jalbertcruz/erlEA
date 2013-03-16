@@ -27,13 +27,11 @@ loop(Conf, GeneralConf, Pool, Clients) ->
         configurate ->
             Conf1 = configBuilder:createGeneralConfiguration(),
             NGeneralConf = configBuilder:createExperimentConfig(512, 32),
-            loop(Conf1, NGeneralConf, Pool, Clients),
-            ok;
+            loop(Conf1, NGeneralConf, Pool, Clients);
 
         createPool ->
             Pool1 = spawn(Conf#configArchGA.poolModuleName, init, [[], GeneralConf]),
-            loop(Conf, GeneralConf, Pool1, Clients),
-            ok;
+            loop(Conf, GeneralConf, Pool1, Clients);
 
         createClients ->
             N = Conf#configArchGA.clientsCount,
@@ -41,21 +39,18 @@ loop(Conf, GeneralConf, Pool, Clients) ->
             NClients = lists:map(fun(_) ->
                                         spawn(Conf#configArchGA.clientModuleName, init, [Pool, GeneralConf])
                                 end, L1),
-            loop(Conf, GeneralConf, Pool, NClients),
-            ok;
+            loop(Conf, GeneralConf, Pool, NClients);
 
         registerClientsOnPool ->
             lists:foreach(fun(C) ->
                                   C ! register
                           end, Clients),
-            loop(Conf, GeneralConf, Pool, Clients),
-            ok;
+            loop(Conf, GeneralConf, Pool, Clients);
 
         initEvolution ->
 		%	io:format("mandando: ~p~n", [Conf#configArchGA.population]),
             Pool ! {initEvolution, Conf#configArchGA.population},
-            loop(Conf, GeneralConf, Pool, Clients),
-            ok;
+            loop(Conf, GeneralConf, Pool, Clients);
 
         finalize ->
             Pool ! finalize,

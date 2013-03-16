@@ -25,20 +25,18 @@ loop(Clients, IM) ->
             loop(Clients, NIM);
 
         {register2me, Pid} ->
-                                                %io:format("Client register: ~p~n", [Pid]),
             loop([Pid | Clients], IM);
 
         {initEvolution, NPopulation} ->
             DividePopulation = IM#imodelGA.dividePopulation,
             Parts = DividePopulation(NPopulation, length(Clients)),
-                                                %io:format("parts length: ~p~n", [length(Parts)]),
             Pairs = lists:zip(Clients, Parts),
             lists:foreach(fun({C, P}) ->
                                   C ! {evolve, P}
                           end, Pairs),
             loop(Clients, IM#imodelGA{population = NPopulation});
 
-        {generationEnd, Pid, NewIndividuals} ->
+        {generationEnd, Pid, NewIndividuals, OldIndexes} ->
             TerminationCondition = IM#imodelGA.terminationCondition,
             {NTerminateValue, Solution} = TerminationCondition(NewIndividuals),
             TerminateValue = not NTerminateValue,
@@ -46,9 +44,10 @@ loop(Clients, IM) ->
                     ReplaceIndividuals = IM#imodelGA.replaceIndividuals,
                     SelectIndividuals = IM#imodelGA.selectIndividuals,
                     Population = IM#imodelGA.population,
-                    NPopulation = ReplaceIndividuals(Population, NewIndividuals),
-                    Inds2Send = SelectIndividuals(Population, length(Clients)),
-                    Pid ! {evolve, Inds2Send},
+                    NPopulation = ReplaceIndividuals(Population, NewIndividuals, OldIndexes),
+                    {Inds2Send, NIndexes} = SelectIndividuals(Population, length(Clients)),
+                    Pid ! {evolve, Inds2Send, NIndexes},
+                    io:format("Resultado: ~p~n", [NPopulation]),
                     loop(Clients, IM#imodelGA{population = NPopulation});
                true -> 
                     io:format("Solution reached: ~p~n", [Solution]),

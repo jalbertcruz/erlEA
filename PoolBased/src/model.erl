@@ -103,18 +103,25 @@ selectNewPopulation(PopulationMutated, {Parents, IndNoSelected}) ->
                 LParents ++ SelNP
     end ++ PopulationMutated.
 
+%% 
+%% Selects ramdomly N individuals from Population
+%% Input:  
+%%     Population: [Ind] -- list with a population
+%%     N: int -- Amount of individuals to select
+%% Output:
+%%     {[Subpopulation], [Indixes]} -- The selection and the corresponding indixes
+%%
 selectIndividuals(Population, N) ->
-    lists:sublist(Population, 1, N).
-
-replaceIndividuals(Population, NewIndividuals) ->
-    NPop = lists:sublist(Population, 1, length(Population) - length(NewIndividuals)),
-    lists:append(NPop, NewIndividuals).
+    L = lists:seq(1, N),
+    ResIndxs = [X || {_, X} <- lists:sort([ {random:uniform(), N1} || N1 <- L]) ],
+    Res = [ lists:nth(I, Population) || I <- ResIndxs ],
+    {Res, ResIndxs}.
 
 
 %% Input:
 %%   Population: [Ind] -- list with a population.
 %%   Cant: int -- Amount.
-%%  Returns a list: [[Ind]] -- With Cant subpopulations.
+%%  Returns: A list [[Ind]] -- With Cant subpopulations.
 %%
 dividePopulation(Population, Cant) ->
    % io:format("population length: ~p cantidad~p~n", [length(Population), Cant]),
@@ -124,3 +131,24 @@ dividePopulation(Population, Cant) ->
                               lists:sublist(Population, Ind, N)
                       end, TIndexes),
     RTail.
+
+%%
+%% Replaces individuals in the population
+%% Input:
+%%     Population: [Ind] -- list with a population
+%%     NewIndividuals: [Ind] -- list with the new subpopulation
+%% Output:
+%%     [Ind] -- list with the population updated
+%%
+replaceIndividuals(Population, NewIndividuals, OldIndexes) ->
+    PreIndexes = lists:reverse(lists:sort([0, length(Population)+1 | OldIndexes])),
+    Complement = complementCalc(PreIndexes, []),
+    NPop = [ lists:nth(N, Population) || N <- Complement],
+    lists:append(NPop, NewIndividuals).
+
+complementCalc([A, B | Rest], Acc) ->
+    NRange = lists:seq(B+1, A-1),
+    NA = lists:append(NRange, Acc),
+    complementCalc([B | Rest], NA);
+complementCalc([_], R) -> R.
+

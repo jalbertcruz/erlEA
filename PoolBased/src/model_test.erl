@@ -13,7 +13,7 @@
 -include_lib("eunit/include/eunit.hrl").
 -include("../include/mtypes.hrl").
 
--import(model, [genInitPop/2, genInd/1, parentsSelector/2, recombine/1, mutateInd/1, mutate/1, selectNewPopulation/2, selReplacement/3, dividePopulation/2]).
+-import(model, [genInitPop/2, genInd/1, parentsSelector/2, recombine/1, mutateInd/1, mutate/1, selectNewPopulation/2, selReplacement/3, dividePopulation/2, replaceIndividuals/3]).
 
 -compile(export_all).
 
@@ -67,3 +67,12 @@ dp_test()->
     R1 = dividePopulation(L1, 8),
     %Fl1 = lists:flatten(R1),
     [?_assertEqual(length(R1), 8)].
+
+
+rInd_test()->
+    Pop = [a,b,c,d,e,f,d,g,h],
+    NInd = [z,z,z],
+    Indxs = [2,5,8],
+    ResExped = [a,c,d,f,d,h,z,z,z],
+    Res = replaceIndividuals(Pop, NInd, Indxs),
+    ?assertEqual(ResExped, Res).
