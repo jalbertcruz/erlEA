@@ -1,6 +1,6 @@
 ## 
 ## Author José Albert Cruz Almaguer <jalbertcruz@gmail.com>
-## Copyright 2011 by José Albert Cruz Almaguer.
+## Copyright 2013 by José Albert Cruz Almaguer.
 ## 
 ## This program is licensed to you under the terms of version 3 of the
 ## GNU Affero General Public License. This program is distributed WITHOUT

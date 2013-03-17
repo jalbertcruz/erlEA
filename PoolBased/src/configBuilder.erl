@@ -19,7 +19,8 @@ createGeneralConfiguration() ->
        clientsCount = 8,
        clientModuleName = client,
        poolModuleName = pool,
-       population = model:genInitPop(256, 16)
+       population = model:genInitPop(256, 16),
+       clientsCapacity = 20
       }.
 
 createExperimentConfig(PopulationSize, ChromosomeSize) ->
@@ -34,21 +35,19 @@ createExperimentConfig(PopulationSize, ChromosomeSize) ->
        selectNewPopulation = fun model:selectNewPopulation/2, %% function to obtain the new individuals for the next iteration
        selReplacement = fun model:selReplacement/3, %% function to select the individuals that be replaced
        terminationCondition = fun(Population) -> 
-                                      Pairs = lists:filter(fun({_, Fit})-> Fit =:= ChromosomeSize end, Population),
+                                      Pairs = lists:filter(fun({_, Fit})-> Fit =:= ChromosomeSize  end, Population),
                                       L = length(Pairs) =:= 0,
                                       if L -> 
-                                              io:format(": ~p~n", [Population]),
                                               {false, null};
 
                                          true -> [{_, F} | _] = Pairs,
-                                                 io:format("ENCONTRADOOOOOOOOO: ~p~n", [F]),
                                                  {true, F}
                                       end
 
 
                               end, %% function to determinate when to stop
        dividePopulation = fun model:dividePopulation/2,
-       replaceIndividuals = fun model:replaceIndividuals/2,
+       replaceIndividuals = fun model:replaceIndividuals/3,
        selectIndividuals = fun model:selectIndividuals/2
       }.
 

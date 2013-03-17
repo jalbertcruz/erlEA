@@ -141,7 +141,7 @@ dividePopulation(Population, Cant) ->
 %%     [Ind] -- list with the population updated
 %%
 replaceIndividuals(Population, NewIndividuals, OldIndexes) ->
-    PreIndexes = lists:reverse(lists:sort([0, length(Population)+1 | OldIndexes])),
+    PreIndexes = lists:reverse(lists:sort([0, length(Population) + 1 | OldIndexes])),
     Complement = complementCalc(PreIndexes, []),
     NPop = [ lists:nth(N, Population) || N <- Complement],
     lists:append(NPop, NewIndividuals).

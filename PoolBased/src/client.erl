@@ -15,31 +15,33 @@
 -include("../include/mtypes.hrl").
 
 
-init(Pool, IM) ->
-  loop(Pool, IM).
+init(Pool, IM, Capacity) ->
+    loop(Pool, IM, Capacity).
 
-loop(Pool, IM) ->
-  receive
+loop(Pool, IM, Capacity) ->
+    receive
 
-    register ->
-      Pool ! {register2me, self()},
-      loop(Pool, IM);
+        initEvolution ->
+            Pool ! {requestWork, self(), Capacity},
+            loop(Pool, IM, Capacity);
 
-    {evolve, P} ->
-      SelectParents = IM#imodelGA.selectParents,
-      Evaluate = IM#imodelGA.evaluate,
-      Recombination = IM#imodelGA.recombination,
-      Mutation = IM#imodelGA.mutation,
-      SelectNewPopulation = IM#imodelGA.selectNewPopulation,
+        {evolve, P, NIndexes} ->
+            SelectParents = IM#imodelGA.selectParents,
+            Evaluate = IM#imodelGA.evaluate,
+            Recombination = IM#imodelGA.recombination,
+            Mutation = IM#imodelGA.mutation,
+            SelectNewPopulation = IM#imodelGA.selectNewPopulation,
 
-      {Parents, IndNoSelected} = SelectParents(P, Evaluate),
-      Population2 = [Recombination({I1, I2}) || {{I1, _}, {I2, _}} <- Parents],
-      Population3 = Mutation(Population2),
-      PopulationMutated = [{I, Evaluate(I)} || I <- Population3],
-      NPopulationExt = SelectNewPopulation(PopulationMutated, {Parents, IndNoSelected}),
-      Pool ! {generationEnd, self(), NPopulationExt},
-      loop(Pool, IM);
+            {Parents, IndNoSelected} = SelectParents(P, Evaluate),
+            Population2 = [Recombination({I1, I2}) || {{I1, _}, {I2, _}} <- Parents],
+            Population3 = Mutation(Population2),
+            PopulationMutated = [{I, Evaluate(I)} || I <- Population3],
+            NPopulationExt = SelectNewPopulation(PopulationMutated, {Parents, IndNoSelected}),
+            Pool ! {generationEnd, NPopulationExt, NIndexes},
+            Pool ! {requestWork, self(), Capacity},
+            loop(Pool, IM, Capacity);
 
-    finalize ->
-      ok
-  end.
+        finalize ->
+            ok
+
+    end.

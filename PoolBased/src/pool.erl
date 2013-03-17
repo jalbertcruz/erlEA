@@ -15,46 +15,46 @@
 -compile(export_all).
 
 
-init(Clients, IM) ->
-    loop(Clients, IM).
+init(IM, SolutionNotReached) ->
+    loop(IM, SolutionNotReached).
 
-loop(Clients, IM) ->
+loop(IM, SolutionNotReached) ->
     receive
 
         {configPool, NIM} ->
-            loop(Clients, NIM);
+            loop(NIM, true);
 
-        {register2me, Pid} ->
-            loop([Pid | Clients], IM);
-
-        {initEvolution, NPopulation} ->
-            DividePopulation = IM#imodelGA.dividePopulation,
-            Parts = DividePopulation(NPopulation, length(Clients)),
-            Pairs = lists:zip(Clients, Parts),
-            lists:foreach(fun({C, P}) ->
-                                  C ! {evolve, P}
-                          end, Pairs),
-            loop(Clients, IM#imodelGA{population = NPopulation});
-
-        {generationEnd, Pid, NewIndividuals, OldIndexes} ->
-            TerminationCondition = IM#imodelGA.terminationCondition,
-            {NTerminateValue, Solution} = TerminationCondition(NewIndividuals),
-            TerminateValue = not NTerminateValue,
-            if TerminateValue ->
-                    ReplaceIndividuals = IM#imodelGA.replaceIndividuals,
+        {requestWork, Pid, Capacity} ->
+            if SolutionNotReached ->
                     SelectIndividuals = IM#imodelGA.selectIndividuals,
                     Population = IM#imodelGA.population,
-                    NPopulation = ReplaceIndividuals(Population, NewIndividuals, OldIndexes),
-                    {Inds2Send, NIndexes} = SelectIndividuals(Population, length(Clients)),
-                    Pid ! {evolve, Inds2Send, NIndexes},
-                    io:format("Resultado: ~p~n", [NPopulation]),
-                    loop(Clients, IM#imodelGA{population = NPopulation});
-               true -> 
-                    io:format("Solution reached: ~p~n", [Solution]),
-                    loop(Clients, IM)
+                    {Inds2Send, NIndexes} = SelectIndividuals(Population, Capacity),
+                    Pid ! {evolve, Inds2Send, NIndexes};
+               true -> ok
+            end,
+            loop(IM, SolutionNotReached);
 
-            end;
+        {resetPopulation, NPopulation} ->
+            loop(IM#imodelGA{population = NPopulation}, SolutionNotReached);
 
+        {generationEnd, NewIndividuals, OldIndexes} ->
+            if SolutionNotReached ->
+                    TerminationCondition = IM#imodelGA.terminationCondition,
+                    {NTerminateValue, Solution} = TerminationCondition(NewIndividuals),
+                    TerminateValue = not NTerminateValue,
+                    if TerminateValue ->
+                            ReplaceIndividuals = IM#imodelGA.replaceIndividuals,
+                            Population = IM#imodelGA.population,
+                            CleanedPop = [ Ind || {Ind, _} <-NewIndividuals],
+                            NPopulation = ReplaceIndividuals(Population, CleanedPop, OldIndexes),
+                            loop(IM#imodelGA{population = NPopulation}, true);
+                       true -> 
+                            io:format("Solution reached: ~p~n", [Solution]),
+                            loop(IM, false)
+                    end;
+               true -> ok
+            end,
+            loop(IM, SolutionNotReached);
 
         finalize ->
             ok
