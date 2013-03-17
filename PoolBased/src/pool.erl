@@ -37,8 +37,9 @@ loop(IM, SolutionNotReached) ->
         {resetPopulation, NPopulation} ->
             loop(IM#imodelGA{population = NPopulation}, SolutionNotReached);
 
-        {generationEnd, NewIndividuals, OldIndexes} ->
+        {generationEnd, NewIndividuals, OldIndexes, Pid} ->
             if SolutionNotReached ->
+                    manager ! {iteration, Pid},
                     TerminationCondition = IM#imodelGA.terminationCondition,
                     {NTerminateValue, Solution} = TerminationCondition(NewIndividuals),
                     TerminateValue = not NTerminateValue,

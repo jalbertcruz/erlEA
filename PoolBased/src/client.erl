@@ -37,7 +37,7 @@ loop(Pool, IM, Capacity) ->
             Population3 = Mutation(Population2),
             PopulationMutated = [{I, Evaluate(I)} || I <- Population3],
             NPopulationExt = SelectNewPopulation(PopulationMutated, {Parents, IndNoSelected}),
-            Pool ! {generationEnd, NPopulationExt, NIndexes},
+            Pool ! {generationEnd, NPopulationExt, NIndexes, self()},
             Pool ! {requestWork, self(), Capacity},
             loop(Pool, IM, Capacity);
 
