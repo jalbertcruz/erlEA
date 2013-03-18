@@ -16,49 +16,48 @@
 
 
 start() ->
-    register(manager, spawn(manager, init, [])).
+  register(manager, spawn(manager, init, [])).
 
 init() ->
-    loop(null, null, null, [], []).
+  loop(null, null, null, [], []).
 
 loop(Conf, GeneralConf, Pool, Clients, Iterations) ->
-    receive
+  receive
 
-        configurate ->
-            Conf1 = configBuilder:createExperimentConfig(512, 32),
-            NGeneralConf = configBuilder:createGeneralConfiguration(),
-            loop(Conf1, NGeneralConf, Pool, Clients, Iterations);
+    configurate ->
+      Conf1 = configBuilder:createExperimentConfig(),
+      NGeneralConf = configBuilder:createGeneralConfiguration(),
+      loop(Conf1, NGeneralConf, Pool, Clients, Iterations);
 
-        createPool ->
-            Pool1 = spawn(GeneralConf#configArchGA.poolModuleName, init, [Conf, true]),
-            loop(Conf, GeneralConf, Pool1, Clients, Iterations);
+    createPool ->
+      Pool1 = spawn(GeneralConf#configArchGA.poolModuleName, init, [Conf, true]),
+      loop(Conf, GeneralConf, Pool1, Clients, Iterations);
 
-        createClients ->
-            N = GeneralConf#configArchGA.clientsCount,
-            L1 = lists:seq(1, N),
-            NClients = lists:map(fun(_) ->
-                                         spawn(GeneralConf#configArchGA.clientModuleName, init, [Pool, Conf, GeneralConf#configArchGA.clientsCapacity])
-                                 end, L1),
-            loop(Conf, GeneralConf, Pool, NClients, Iterations);
+    createClients ->
+      N = GeneralConf#configArchGA.clientsCount,
+      L1 = lists:seq(1, N),
+      NClients = lists:map(fun(_) ->
+        spawn(GeneralConf#configArchGA.clientModuleName, init, [Pool, Conf, GeneralConf#configArchGA.clientsCapacity])
+      end, L1),
+      loop(Conf, GeneralConf, Pool, NClients, Iterations);
 
-        initEvolution ->
-            lists:foreach(fun(C) ->
-                                  C ! initEvolution
-                          end, Clients),
-            loop(Conf, GeneralConf, Pool, Clients, Iterations);
+    initEvolution ->
+      lists:foreach(fun(C) ->
+        C ! initEvolution
+      end, Clients),
+      loop(Conf, GeneralConf, Pool, Clients, Iterations);
 
-        {iteration, Pid} ->
-            
-            loop(Conf, GeneralConf, Pool, Clients, [Pid | Iterations]);
+    {iteration, Pid} ->
+      loop(Conf, GeneralConf, Pool, Clients, [Pid | Iterations]);
 
-        printResults ->
-            io:format("Iteraciones: ~p~n", [length(Iterations)]),
-            loop(Conf, GeneralConf, Pool, Clients, Iterations);
+    printResults ->
+      io:format("Iterations: ~p~n", [length(Iterations) + 1]), %% pluss 1 because the succesfully is not counted
+      loop(Conf, GeneralConf, Pool, Clients, Iterations);
 
-        finalize ->
-            Pool ! finalize,
-            lists:foreach(fun(C) ->
-                                  C ! finalize
-                          end, Clients),
-            ok
-    end.
+    finalize ->
+      Pool ! finalize,
+      lists:foreach(fun(C) ->
+        C ! finalize
+      end, Clients),
+      ok
+  end.

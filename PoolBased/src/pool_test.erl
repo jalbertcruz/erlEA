@@ -15,7 +15,7 @@
 -import(pool, []).
 -compile(export_all).
 
-r_test()->
-    e:r().
+r_test() ->
+  e:r().
 
 

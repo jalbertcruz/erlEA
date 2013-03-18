@@ -9,39 +9,39 @@
 %% AGPL (http://www.gnu.org/licenses/agpl-3.0.txt) for more details.
 %% 
 -module(client).
-
+%aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 -compile(export_all).
 
 -include("../include/mtypes.hrl").
 
 
 init(Pool, IM, Capacity) ->
-    loop(Pool, IM, Capacity).
+  loop(Pool, IM, Capacity).
 
 loop(Pool, IM, Capacity) ->
-    receive
+  receive
 
-        initEvolution ->
-            Pool ! {requestWork, self(), Capacity},
-            loop(Pool, IM, Capacity);
+    initEvolution ->
+      Pool ! {requestWork, self(), Capacity},
+      loop(Pool, IM, Capacity);
 
-        {evolve, P, NIndexes} ->
-            SelectParents = IM#imodelGA.selectParents,
-            Evaluate = IM#imodelGA.evaluate,
-            Recombination = IM#imodelGA.recombination,
-            Mutation = IM#imodelGA.mutation,
-            SelectNewPopulation = IM#imodelGA.selectNewPopulation,
+    {evolve, P, NIndexes} ->
+      SelectParents = IM#imodelGA.selectParents,
+      Evaluate = IM#imodelGA.evaluate,
+      Recombination = IM#imodelGA.recombination,
+      Mutation = IM#imodelGA.mutation,
+      SelectNewPopulation = IM#imodelGA.selectNewPopulation,
 
-            {Parents, IndNoSelected} = SelectParents(P, Evaluate),
-            Population2 = [Recombination({I1, I2}) || {{I1, _}, {I2, _}} <- Parents],
-            Population3 = Mutation(Population2),
-            PopulationMutated = [{I, Evaluate(I)} || I <- Population3],
-            NPopulationExt = SelectNewPopulation(PopulationMutated, {Parents, IndNoSelected}),
-            Pool ! {generationEnd, NPopulationExt, NIndexes, self()},
-            Pool ! {requestWork, self(), Capacity},
-            loop(Pool, IM, Capacity);
+      {Parents, IndNoSelected} = SelectParents(P, Evaluate),
+      Population2 = [Recombination({I1, I2}) || {{I1, _}, {I2, _}} <- Parents],
+      Population3 = Mutation(Population2),
+      PopulationMutated = [{I, Evaluate(I)} || I <- Population3],
+      NPopulationExt = SelectNewPopulation(PopulationMutated, {Parents, IndNoSelected}),
+      Pool ! {generationEnd, NPopulationExt, NIndexes, self()},
+      Pool ! {requestWork, self(), Capacity},
+      loop(Pool, IM, Capacity);
 
-        finalize ->
-            ok
+    finalize ->
+      ok
 
-    end.
+  end.

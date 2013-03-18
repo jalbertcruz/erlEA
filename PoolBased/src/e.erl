@@ -15,29 +15,11 @@
 -import(model, [genInitPop/2]).
 -compile(export_all).
 
-condition({I, Eval}, Percent) ->
-    L = length(I),
-    Eval >= L * Percent / 100.
+p() ->
+  manager:start(),
+  manager ! configurate,
+  manager ! createPool,
+  manager ! createClients.
 
-cond80(Ind) ->
-    condition(Ind, 80).
-
-run() ->
-    manager:start(),
-    manager ! configurate,
-    manager ! createPool,
-    manager ! createClients,
-    manager ! registerClientsOnPool,
-    manager ! initEvolution.
-
-r0() ->
-    manager:start(),
-    manager ! configurate,
-    manager ! createPool,
-    manager ! createClients.
-
-r1() ->
-    manager ! registerClientsOnPool.
-
-a() ->
-    manager ! initEvolution.
+r() ->
+  manager ! initEvolution.
