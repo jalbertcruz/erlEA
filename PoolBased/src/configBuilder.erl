@@ -30,7 +30,7 @@ createExperimentConfig() ->
   ChromosomeSize = 128, % Chromosome length
   PopSize = 256, % Number of individuals
   #imodelGA{
-      population = model:genInitPop(PopSize, ChromosomeSize), %% The population: genInitPop(PopSize, ChromosomeSize)
+      population = model:genInitPop(PopSize, ChromosomeSize), %% The population: chromosomes with ChromosomeSize components, and PopSize individuals
       evaluate = fun model:maxOnes/1, %% fitness function
       selectParents = fun model:parentsSelector/2, %% function to select the parents between the populations in each iteration
       recombination = fun model:recombine/1, %%

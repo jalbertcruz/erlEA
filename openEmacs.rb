@@ -14,4 +14,4 @@ project = "PoolBased"
 Dir.chdir("./#{project}/src")
 puts "cd #{project}"
 
-puts "Abriendo los fuentes de #{project} con Emacs", %x{ergoemacs -l *.erl ../include/*.hrl}
+puts "Abriendo los fuentes de #{project} con Emacs", %x{ergoemacs *.erl ../include/*.hrl}

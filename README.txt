@@ -1,4 +1,4 @@
-﻿*** Requeriments for project PoolBased
+﻿*** Requeriments for project: PoolBased
 
 - Erlang R16B
     . In general: http://www.erlang.org/
@@ -44,6 +44,6 @@ The solution is:  [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
                   1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
                   1,1,1,1,1,1,1,1,1,1,1,1]
 
-And 3229 times a client evolve a subpopulation.
+Times a client evolve a subpopulation: 3229.
 
 
