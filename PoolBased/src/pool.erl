@@ -50,6 +50,8 @@ loop(IM, SolutionNotReached) ->
           NPopulation = ReplaceIndividuals(Population, CleanedPop, OldIndexes),
           loop(IM#imodelGA{population = NPopulation}, true);
           true ->
+            profiler ! {finEvolucion, now()},
+            profiler ! duracionEvolucion,
             io:format("Solution reached: ~p~n", [Solution]),
             manager ! printResults,
             loop(IM, false)
@@ -61,4 +63,3 @@ loop(IM, SolutionNotReached) ->
     finalize ->
       ok
   end.
-

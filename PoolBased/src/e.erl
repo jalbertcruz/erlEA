@@ -17,6 +17,7 @@
 
 p() ->
   manager:start(),
+  profiler:start(),
   manager ! configurate,
   manager ! createPool,
   manager ! createClients.

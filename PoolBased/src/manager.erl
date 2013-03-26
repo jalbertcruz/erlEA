@@ -42,6 +42,7 @@ loop(Conf, GeneralConf, Pool, Clients, Iterations) ->
       loop(Conf, GeneralConf, Pool, NClients, Iterations);
 
     initEvolution ->
+      profiler ! {inicioEvolucion, now()},
       lists:foreach(fun(C) ->
         C ! initEvolution
       end, Clients),
