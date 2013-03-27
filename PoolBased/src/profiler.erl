@@ -38,9 +38,14 @@ loop({InicioEvolucion, FinEvolucion}, Iterations) ->
       loop({InicioEvolucion, T}, Iterations);
 
     duracionEvolucion ->
-      io:format("The evolution delay: min || max || average ~n"),
-      lists:foreach(fun({Min, Max, Ave}) -> io:format("~p || ~p || ~p ~n", [Min, Max, Ave]) end, lists:reverse(Iterations)),
-      io:format("The evolution delay: ~p seconds.~n", [getSecs(InicioEvolucion, FinEvolucion)]),
+      L = length(Iterations),
+      if
+        L =/= 0 ->
+          io:format("The evolution delay: min || max || average ~n"),
+          lists:foreach(fun({Min, Max, Ave}) -> io:format("~p || ~p || ~p ~n", [Min, Max, Ave]) end, lists:reverse(Iterations));
+        true ->
+          io:format("The evolution delay: ~p seconds.~n", [getSecs(InicioEvolucion, FinEvolucion)])
+      end,
       loop({InicioEvolucion, FinEvolucion}, Iterations);
 
     terminar ->
