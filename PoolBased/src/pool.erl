@@ -41,13 +41,17 @@ loop(IM, SolutionNotReached) ->
       if SolutionNotReached ->
         manager ! {iteration, Pid},
         TerminationCondition = IM#imodelGA.terminationCondition,
+        FitFunction = IM#imodelGA.evaluate,
         {NTerminateValue, Solution} = TerminationCondition(NewIndividuals),
         TerminateValue = not NTerminateValue,
         if TerminateValue ->
           ReplaceIndividuals = IM#imodelGA.replaceIndividuals,
-          Population = IM#imodelGA.population,
+%%Population = IM#imodelGA.population,
           CleanedPop = [Ind || {Ind, _} <- NewIndividuals],
-          NPopulation = ReplaceIndividuals(Population, CleanedPop, OldIndexes),
+          NPopulation = ReplaceIndividuals(IM, CleanedPop, OldIndexes),
+%%PROFILER:
+          %profiler ! {iteration, NPopulation, FitFunction},
+
           loop(IM#imodelGA{population = NPopulation}, true);
           true ->
             profiler ! {finEvolucion, now()},

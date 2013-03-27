@@ -46,11 +46,9 @@ createExperimentConfig() ->
           true -> [Sol | _] = Pairs,
             {true, Sol}
         end
-
-
       end, %% function to determinate when to stop
       dividePopulation = fun model:dividePopulation/2,
-      replaceIndividuals = fun model:replaceIndividuals/3,
+      replaceIndividuals = fun model:replaceIndividuals2/3,
       selectIndividuals = fun model:selectIndividuals/2
   }.
 

@@ -10,12 +10,18 @@
 %% 
 -module(model).
 
+-include("../include/mtypes.hrl").
+
 -compile(export_all).
 
 %% Input:
-%%	Count -> Number of individuals to be replaced, Population -> Idem, Fit -> Fitness function
+%%	Count -> Number of individuals to be replaced,
+%%  Population -> Idem,
+%%  Fit -> Fitness function
 %% Returns:
-%%	A tuple {Rep, NoRep} -> Rep subset of Population to be replaced, NoRep -> the rest of the Population.
+%%	A tuple {Rep, NoRep} ->
+%%      Rep subset of Population to be replaced,
+%%      NoRep -> the rest of the Population.
 selReplacement(Count, Population, Fit) ->
   Tups = [{X, Fit(X)} || X <- Population],
   TSort = lists:sort(fun({_, V1}, {_, V2}) -> V1 < V2 end, Tups),
@@ -135,12 +141,24 @@ dividePopulation(Population, Cant) ->
 %%
 %% Replaces individuals in the population
 %% Input:
-%%     Population: [Ind] -- list with a population
+%%     IM: Configuration
 %%     NewIndividuals: [Ind] -- list with the new subpopulation
 %% Output:
 %%     [Ind] -- list with the population updated
 %%
-replaceIndividuals(Population, NewIndividuals, OldIndexes) ->
+replaceIndividuals2(IM, NewIndividuals, _) ->
+  Population = IM#imodelGA.population,
+  Fit = IM#imodelGA.evaluate,
+  PopExt = lists:append(Population, NewIndividuals),
+%io:format("Pop: ~p~n", [Population]),
+%io:format("New: ~p~n", [NewIndividuals]),
+  PopExtWFit = [{Fit(I), I} || I <- PopExt],
+  PopExtWFitS = lists:keysort(1, PopExtWFit),
+  {_, PR} = lists:split(length(NewIndividuals), PopExtWFitS),
+  [A || {_, A} <- PR].
+
+replaceIndividuals(IM, NewIndividuals, OldIndexes) ->
+  Population = IM#imodelGA.population,
   PreIndexes = lists:reverse(lists:sort([0, length(Population) + 1 | OldIndexes])),
   Complement = complementCalc(PreIndexes, []),
   NPop = [lists:nth(N, Population) || N <- Complement],

@@ -18,20 +18,30 @@ start() ->
   ok.
 
 init() ->
-  loop({none, none}).
+  loop({none, none}, []).
 
-loop({InicioEvolucion, FinEvolucion}) ->
+loop({InicioEvolucion, FinEvolucion}, Iterations) ->
   receive
 
+    {iteration, Population, Fit} ->
+      PopExtWFit = [Fit(I) || I <- Population],
+      Min = lists:min(PopExtWFit),
+      Max = lists:max(PopExtWFit),
+      Total = lists:foldl(fun(X, Sum) -> X + Sum end, 0, PopExtWFit),
+      Ave = Total / length(Population),
+      loop({InicioEvolucion, FinEvolucion}, [{Min, Max, Ave} | Iterations]);
+
     {inicioEvolucion, T} ->
-      loop({T, FinEvolucion});
+      loop({T, FinEvolucion}, Iterations);
 
     {finEvolucion, T} ->
-      loop({InicioEvolucion, T});
+      loop({InicioEvolucion, T}, Iterations);
 
     duracionEvolucion ->
+      io:format("The evolution delay: min || max || average ~n"),
+      lists:foreach(fun({Min, Max, Ave}) -> io:format("~p || ~p || ~p ~n", [Min, Max, Ave]) end, lists:reverse(Iterations)),
       io:format("The evolution delay: ~p seconds.~n", [getSecs(InicioEvolucion, FinEvolucion)]),
-      loop({InicioEvolucion, FinEvolucion});
+      loop({InicioEvolucion, FinEvolucion}, Iterations);
 
     terminar ->
       ok
