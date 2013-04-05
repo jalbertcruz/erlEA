@@ -1,7 +1,5 @@
 .cache
 .classpath
-spec/.idea/
-spec/spec.iml
 .metadata/
 *.class
 *.jar
@@ -14,5 +12,3 @@ ebin/
 .settings/
 .log
 .xml
-/Monitoring tools/Manager/build/
-/Monitoring tools/Manager/dist/

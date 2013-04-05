@@ -42,6 +42,7 @@ genInd(N) ->
 %%  each pair is a selection of parents for beeing combine, PNu is the sublist of individuals
 %%  not selected.
 parentsSelector(Pop, Fit) ->
+  % TODO: parear aleatoriamente
   Tups = [{X, Fit(X)} || X <- Pop],
   TSort = lists:sort(fun({_, V1}, {_, V2}) -> V1 > V2 end, Tups),
   {P1, PNu} = lists:split(length(Pop) div 2, TSort),

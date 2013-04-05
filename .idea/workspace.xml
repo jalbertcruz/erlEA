@@ -2,25 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="edc55763-ab6a-4772-8774-004e7d34352b" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PoolBased/src/e.erl" afterPath="$PROJECT_DIR$/PoolBased/src/e.erl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PoolBased/src/manager.erl" afterPath="$PROJECT_DIR$/PoolBased/src/manager.erl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PoolBased/src/pool.erl" afterPath="$PROJECT_DIR$/PoolBased/src/pool.erl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PoolBased/src/model.erl" afterPath="$PROJECT_DIR$/PoolBased/src/model.erl" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="ErlEA.iws" />
     <ignored path=".idea/workspace.xml" />
     <file path="/experiment.erl" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1362851843752" ignored="false" />
-    <file path="/model.erl" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1362949506537" ignored="false" />
+    <file path="/model.erl" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1364403965850" ignored="false" />
     <file path="/mtypes.hrl" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1362947185350" ignored="false" />
     <file path="/manager.erl" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1364327338963" ignored="false" />
     <file path="/configBuilder.erl" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1363610286033" ignored="false" />
-    <file path="/pool.erl" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1364326987471" ignored="false" />
+    <file path="/pool.erl" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1364395559092" ignored="false" />
     <file path="/client.erl" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1363608123079" ignored="false" />
-    <file path="/Dummy.txt" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1364328831214" ignored="false" />
+    <file path="/Dummy.txt" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1365188357044" ignored="false" />
     <file path="/README.txt" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1363610733091" ignored="false" />
     <file path="/compile.rb" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1363609675458" ignored="false" />
     <file path="/e.erl" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1364327678992" ignored="false" />
-    <file path="/profiler.erl" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1364328091328" ignored="false" />
+    <file path="/profiler.erl" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1364398599509" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,6 +33,7 @@
     <disable_hints />
   </component>
   <component name="DebuggerManager">
+    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true">
       <breakpoint>
         <option name="NOTIFY_CAUGHT" value="true" />
@@ -42,6 +41,7 @@
         <option name="ENABLED" value="false" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
         <option name="SUSPEND_POLICY" value="SuspendAll" />
         <option name="SUSPEND" value="true" />
         <option name="COUNT_FILTER_ENABLED" value="false" />
@@ -58,6 +58,7 @@
         <option name="ENABLED" value="false" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
         <option name="SUSPEND_POLICY" value="SuspendAll" />
         <option name="SUSPEND" value="true" />
         <option name="COUNT_FILTER_ENABLED" value="false" />
@@ -69,7 +70,6 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </breakpoint_any>
-    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_rules />
     <ui_properties />
   </component>
@@ -79,37 +79,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
+      <file leaf-file-name="configBuilder.erl" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/PoolBased/src/configBuilder.erl">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="37" column="25" selection-start="1444" selection-end="1463" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="pool.erl" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/PoolBased/src/pool.erl">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="53" column="41" selection-start="1934" selection-end="1934" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="e.erl" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/PoolBased/src/e.erl">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="19" column="19" selection-start="632" selection-end="632" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="configBuilder.erl" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/PoolBased/src/configBuilder.erl">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="21" column="23" selection-start="714" selection-end="714" vertical-scroll-proportion="0.06128134">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="manager.erl" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/PoolBased/src/manager.erl">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="42" column="0" selection-start="1419" selection-end="1419" vertical-scroll-proportion="0.0">
+            <state line="39" column="18" selection-start="1184" selection-end="1197" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -118,7 +100,7 @@
       <file leaf-file-name="profiler.erl" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/PoolBased/src/profiler.erl">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="32" column="31" selection-start="867" selection-end="867" vertical-scroll-proportion="0.0">
+            <state line="42" column="0" selection-start="1257" selection-end="1257" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -127,7 +109,25 @@
       <file leaf-file-name="client.erl" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/PoolBased/src/client.erl">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="0" selection-start="687" selection-end="687" vertical-scroll-proportion="0.0">
+            <state line="30" column="3" selection-start="908" selection-end="908" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="model.erl" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/PoolBased/src/model.erl">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="149" column="0" selection-start="4954" selection-end="4996" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="e.erl" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/PoolBased/src/e.erl">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="20" column="16" selection-start="649" selection-end="649" vertical-scroll-proportion="0.7719298">
               <folding />
             </state>
           </provider>
@@ -158,16 +158,16 @@
         <option value="$PROJECT_DIR$/PoolBased/include/configType.erl" />
         <option value="$PROJECT_DIR$/PoolBased/src/experiment.erl" />
         <option value="$PROJECT_DIR$/IslandModel/src/model.erl" />
-        <option value="$PROJECT_DIR$/PoolBased/src/model.erl" />
         <option value="$PROJECT_DIR$/PoolBased/include/mtypes.hrl" />
         <option value="$PROJECT_DIR$/PoolBased/src/client.erl" />
         <option value="$PROJECT_DIR$/compile.rb" />
         <option value="$PROJECT_DIR$/README.txt" />
         <option value="$PROJECT_DIR$/PoolBased/src/manager.erl" />
-        <option value="$PROJECT_DIR$/PoolBased/src/pool.erl" />
         <option value="$PROJECT_DIR$/PoolBased/src/e.erl" />
+        <option value="$PROJECT_DIR$/PoolBased/src/pool.erl" />
         <option value="$PROJECT_DIR$/PoolBased/src/profiler.erl" />
         <option value="$PROJECT_DIR$/PoolBased/src/configBuilder.erl" />
+        <option value="$PROJECT_DIR$/PoolBased/src/model.erl" />
       </list>
     </option>
   </component>
@@ -222,7 +222,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -258,10 +257,11 @@
         </subPane>
       </pane>
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="options.splitter.main.proportions" value="0.3" />
@@ -273,6 +273,7 @@
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
+    <property name="FullScreen" value="false" />
     <property name="GoToClass.includeLibraries" value="false" />
     <property name="options.searchVisible" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
@@ -284,32 +285,12 @@
       <option name="PROGRAM_PARAMETERS" />
       <method />
     </configuration>
-    <configuration default="true" type="ErlangApplicationRunConfiguration" factoryName="Erlang Application">
-      <module name="" />
-      <option name="moduleAndFunction" value="" />
-      <option name="name" value="Erlang Application" />
-      <option name="params" value="" />
-      <option name="saveOutputToFile" value="false" />
-      <option name="showConsoleOnStdErr" value="false" />
-      <option name="showConsoleOnStdOut" value="false" />
-      <method />
-    </configuration>
     <configuration default="true" type="Remote" factoryName="Remote">
       <option name="USE_SOCKET_TRANSPORT" value="true" />
       <option name="SERVER_MODE" value="false" />
       <option name="SHMEM_ADDRESS" value="javadebug" />
       <option name="HOST" value="localhost" />
       <option name="PORT" value="5005" />
-      <method />
-    </configuration>
-    <configuration default="true" type="ErlangUnitRunConfigurationType" factoryName="Erlang Eunit">
-      <module name="" />
-      <option name="moduleAndFunction" value="" />
-      <option name="name" value="Erlang" />
-      <option name="params" value="" />
-      <option name="saveOutputToFile" value="false" />
-      <option name="showConsoleOnStdErr" value="false" />
-      <option name="showConsoleOnStdOut" value="false" />
       <method />
     </configuration>
     <configuration default="true" type="Applet" factoryName="Applet">
@@ -409,7 +390,7 @@
     <option name="localTasksCounter" value="2" />
     <servers />
   </component>
-  <component name="TodoView" selected-index="0">
+  <component name="TodoView" selected-index="2">
     <todo-panel id="selected-file">
       <are-packages-shown value="false" />
       <are-modules-shown value="false" />
@@ -431,27 +412,28 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.14318182" sideWeight="0.8703704" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32996634" sideWeight="0.5159091" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3842282" sideWeight="0.49772727" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32885906" sideWeight="0.47878787" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.04194631" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18106061" sideWeight="0.4023569" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3842282" sideWeight="0.4969697" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18106061" sideWeight="0.5503356" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18106061" sideWeight="0.25589225" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18106061" sideWeight="0.44798657" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.30639732" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Problems" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.12919463" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18791947" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32996634" sideWeight="0.4227273" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -482,7 +464,7 @@
     <option name="SHOW_ONLY_CHANGED_IN_SELECTION_DIFF" value="true" />
     <option name="CHECK_COMMIT_MESSAGE_SPELLING" value="true" />
     <option name="DEFAULT_PATCH_EXTENSION" value="patch" />
-    <option name="SHORT_DIFF_HORISONTALLY" value="true" />
+    <option name="SHORT_DIFF_HORIZONTALLY" value="true" />
     <option name="SHORT_DIFF_EXTRA_LINES" value="2" />
     <option name="SOFT_WRAPS_IN_SHORT_DIFF" value="true" />
     <option name="INCLUDE_TEXT_INTO_PATCH" value="false" />
@@ -492,6 +474,10 @@
     <option name="SHOW_DIRTY_RECURSIVELY" value="false" />
     <option name="LIMIT_HISTORY" value="true" />
     <option name="MAXIMUM_HISTORY_ROWS" value="1000" />
+    <option name="UPDATE_FILTER_SCOPE_NAME" />
+    <option name="USE_COMMIT_MESSAGE_MARGIN" value="false" />
+    <option name="COMMIT_MESSAGE_MARGIN_SIZE" value="72" />
+    <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="false" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
     <option name="LAST_COMMIT_MESSAGE" value="Configurated an experiment." />
@@ -505,6 +491,7 @@
     <option name="ACTIVE_VCS_NAME" />
     <option name="UPDATE_GROUP_BY_PACKAGES" value="false" />
     <option name="UPDATE_GROUP_BY_CHANGELIST" value="false" />
+    <option name="UPDATE_FILTER_BY_SCOPE" value="false" />
     <option name="SHOW_FILE_HISTORY_AS_TREE" value="false" />
     <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
     <MESSAGE value="Configurated an experiment." />
@@ -552,11 +539,6 @@
         <state line="23" column="38" selection-start="921" selection-end="921" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/PoolBased/src/model.erl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="124" column="2" selection-start="4354" selection-end="4354" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/compile.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="12" column="6" selection-start="512" selection-end="512" vertical-scroll-proportion="0.35120642" />
@@ -567,44 +549,49 @@
         <state line="46" column="47" selection-start="1575" selection-end="1575" vertical-scroll-proportion="2.8111112" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/PoolBased/src/client.erl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="0" selection-start="687" selection-end="687" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/PoolBased/src/pool.erl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="53" column="41" selection-start="1934" selection-end="1934" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/PoolBased/src/manager.erl">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="42" column="0" selection-start="1419" selection-end="1419" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="42" column="0" selection-start="1419" selection-end="1419" vertical-scroll-proportion="0.20229885" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/PoolBased/src/profiler.erl">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="31" selection-start="867" selection-end="867" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/PoolBased/src/e.erl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="19" selection-start="632" selection-end="632" vertical-scroll-proportion="0.0">
+        <state line="42" column="0" selection-start="1257" selection-end="1257" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/PoolBased/src/configBuilder.erl">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="23" selection-start="714" selection-end="714" vertical-scroll-proportion="0.06128134">
+        <state line="37" column="25" selection-start="1444" selection-end="1463" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PoolBased/src/model.erl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="149" column="0" selection-start="4954" selection-end="4996" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PoolBased/src/pool.erl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="39" column="18" selection-start="1184" selection-end="1197" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PoolBased/src/client.erl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="30" column="3" selection-start="908" selection-end="908" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PoolBased/src/e.erl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="16" selection-start="649" selection-end="649" vertical-scroll-proportion="0.7719298">
           <folding />
         </state>
       </provider>
