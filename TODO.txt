@@ -1,0 +1,6 @@
+Comparar un modelo pool con un solo actor como pool, modelo pool con ETS (memoria compartida) y modelo "isla" con un pool por isla e intercambio entre islas.
+
+
+1. Hacer modelo pool con un solo actor: hecho
+2. Hacer modelo pool en el que el pool sea un ets: todo
+3. Hacer modelo híbrido con varias islas en el que cada una de ella tiene un pool
