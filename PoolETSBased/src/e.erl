@@ -9,21 +9,14 @@
 %% AGPL (http://www.gnu.org/licenses/agpl-3.0.txt) for more details.
 %% 
 -module(e).
+-author("jalbertcruz@gmail.com").
 
 -include("../include/mtypes.hrl").
 
 -import(model, [genInitPop/2]).
 -compile(export_all).
 
-p() ->
-  manager:start(),
-  profiler:start(),
-  manager ! configurate,
-  manager ! createPool,
-  manager ! createClients.
-
 r() ->
-  manager ! initEvolution.
-
-f() ->
-  manager ! finalize.
+  profiler:start(),
+  {Pop, Conf} = configBuilder:createExperimentConfig(),
+  poolManager:start(tb, Pop, Conf).

@@ -26,13 +26,13 @@ loop(Pool, IM, Capacity) ->
       loop(Pool, IM, Capacity);
 
     {evolve, P, NIndexes} ->
-      SelectParents = IM#imodelGA.selectParents,
+      ParentsSelector = IM#imodelGA.parentsSelector,
       Evaluate = IM#imodelGA.evaluate,
       Recombination = IM#imodelGA.recombination,
       Mutation = IM#imodelGA.mutation,
       SelectNewPopulation = IM#imodelGA.selectNewPopulation,
 
-      {Parents, IndNoSelected} = SelectParents(P, Evaluate),
+      {Parents, IndNoSelected} = ParentsSelector(P, Evaluate),
       Population2 = [Recombination({I1, I2}) || {{I1, _}, {I2, _}} <- Parents],
       Population3 = Mutation(Population2),
       PopulationMutated = [{I, Evaluate(I)} || I <- Population3],

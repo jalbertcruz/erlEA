@@ -1,4 +1,5 @@
-Comparar un modelo pool con un solo actor como pool, modelo pool con ETS (memoria compartida) y modelo "isla" con un pool por isla e intercambio entre islas.
+Comparar un modelo pool con un solo actor como pool, modelo pool con ETS (memoria compartida) y
+modelo "isla" con un pool por isla e intercambio entre islas.
 
 
 1. Hacer modelo pool con un solo actor: hecho

@@ -125,6 +125,14 @@ selectIndividuals(Population, N) ->
   {Res, ResIndxs}.
 
 
+selectIndividualsETS(N) ->
+  L = lists:seq(1, N),
+  ResIndxs = [X || {_, X} <- lists:sort([{random:uniform(), N1} || N1 <- L])],
+  % TODO Lectura al ets
+  Res = [lists:nth(I, Population) || I <- ResIndxs],
+  {Res, ResIndxs}.
+
+
 %% Input:
 %%   Population: [Ind] -- list with a population.
 %%   Cant: int -- Amount.
@@ -164,6 +172,18 @@ replaceIndividuals(IM, NewIndividuals, OldIndexes) ->
   Complement = complementCalc(PreIndexes, []),
   NPop = [lists:nth(N, Population) || N <- Complement],
   lists:append(NPop, NewIndividuals).
+
+replaceIndividualsEts(IM, NewIndividuals, _) ->
+  % TODO Lectura al ets
+  Population = IM#imodelGA.population,
+  Fit = IM#imodelGA.evaluate,
+  PopExt = lists:append(Population, NewIndividuals),
+%io:format("Pop: ~p~n", [Population]),
+%io:format("New: ~p~n", [NewIndividuals]),
+  PopExtWFit = [{Fit(I), I} || I <- PopExt],
+  PopExtWFitS = lists:keysort(1, PopExtWFit),
+  {_, PR} = lists:split(length(NewIndividuals), PopExtWFitS),
+  [A || {_, A} <- PR].
 
 complementCalc([A, B | Rest], Acc) ->
   NRange = lists:seq(B + 1, A - 1),
