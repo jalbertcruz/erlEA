@@ -21,9 +21,9 @@ createExperimentConfig() ->
   PopSize = 256, % Number of individuals
   Population = genInitPop(PopSize, ChromosomeSize), %% The population: chromosomes with ChromosomeSize components, and PopSize individuals
   C = #configGA{
-    evaluatorsCount = 5, %% Amount of evaluators
+    evaluatorsCount = 50, %% Amount of evaluators
     evaluatorsCapacity = 50, %% Work capacity of evaluators
-    reproducersCount = 5,
+    reproducersCount = 10,
     reproducersCapacity = 50
   },
   {Population, C}.

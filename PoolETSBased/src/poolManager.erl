@@ -26,30 +26,35 @@ init(TName, Pop, IM) ->
   CReps = IM#configGA.reproducersCount,
   Evals = [evaluator:start(TName, self()) || _ <- lists:seq(1, CEvals)],
   Reps = [reproducer:start(TName, self()) || _ <- lists:seq(1, CReps)],
-  loop(TName, Evals, Reps, IM).
+  loop(TName, Evals, Reps, IM, false).
 
-loop(TName, Evals, Reps, IM) ->
+loop(TName, Evals, Reps, IM, SolutionReached) ->
   receive
     {evolveDone, Pid} ->
-      ReproducersCapacity = IM#configGA.reproducersCapacity,
-      Pid ! {evolve, ReproducersCapacity},
-      loop(TName, Evals, Reps, IM);
+      if SolutionReached -> Pid ! finalize;
+        true ->
+          ReproducersCapacity = IM#configGA.reproducersCapacity,
+          Pid ! {evolve, ReproducersCapacity}
+      end,
+      loop(TName, Evals, Reps, IM, SolutionReached);
 
     {evalDone, Pid} ->
-      EvaluatorsCapacity = IM#configGA.evaluatorsCapacity,
-      Pid ! {eval, EvaluatorsCapacity},
-      loop(TName, Evals, Reps, IM);
+      if SolutionReached -> Pid ! finalize;
+        true ->
+          EvaluatorsCapacity = IM#configGA.evaluatorsCapacity,
+          Pid ! {eval, EvaluatorsCapacity}
+      end,
+      loop(TName, Evals, Reps, IM, SolutionReached);
 
     sReps ->
       ReproducersCapacity = IM#configGA.reproducersCapacity,
       lists:foreach(fun(E) -> E ! {evolve, ReproducersCapacity} end, Reps),
-      loop(TName, Evals, Reps, IM);
+      loop(TName, Evals, Reps, IM, SolutionReached);
 
     sEvals ->
       EvaluatorsCapacity = IM#configGA.evaluatorsCapacity,
       lists:foreach(fun(E) -> E ! {eval, EvaluatorsCapacity} end, Evals),
-
-      loop(TName, Evals, Reps, IM);
+      loop(TName, Evals, Reps, IM, SolutionReached);
 
 %%     {sendBest, Pid}->
 %%         Pid ! {emigrateBest, poolBest(TName)},
@@ -57,23 +62,23 @@ loop(TName, Evals, Reps, IM) ->
 
     solutionReached ->
       io:format("solutionReached!!!: ~p~n", [yes]),
-      self() ! finalize,
-      loop(TName, Evals, Reps, IM);
+%self() ! finalize,
+      loop(TName, Evals, Reps, IM, true);
 
     {evalEmpthyPool, Pid} ->
 %      io:format("evalEmpthyPool: ~p~n", [Pid]),
       EvaluatorsCapacity = IM#configGA.evaluatorsCapacity,
       timer:send_after(1000, Pid, {eval, EvaluatorsCapacity}),
-      loop(TName, Evals, Reps, IM);
+      loop(TName, Evals, Reps, IM, SolutionReached);
 
     {repEmpthyPool, Pid} ->
       ReproducersCapacity = IM#configGA.reproducersCapacity,
       timer:send_after(1000, Pid, {evolve, ReproducersCapacity}),
-      loop(TName, Evals, Reps, IM);
+      loop(TName, Evals, Reps, IM, SolutionReached);
 
     finalize ->
-      lists:foreach(fun(E) -> E ! finalize end, Evals),
-      lists:foreach(fun(E) -> E ! finalize end, Reps),
+%%       lists:foreach(fun(E) -> E ! finalize end, Evals),
+%%       lists:foreach(fun(E) -> E ! finalize end, Reps),
       ets:delete(TName),
       ok
 
