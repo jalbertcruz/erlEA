@@ -27,6 +27,7 @@ loop(Table, PManager) ->
     {eval, N} ->
       MS = ets:fun2ms(fun({Ind, _, State}) when State == 1 -> Ind end),
       Res = ets:select(Table, MS, N), % N individuals in state 1
+
       case Res of
         {Sels, _} ->
           lists:foreach(fun(Ind) ->
@@ -40,7 +41,8 @@ loop(Table, PManager) ->
           end, Sels),
 
           PManager ! {evalDone, self()};
-        '$end_of_table' -> ok
+
+        '$end_of_table' -> PManager ! {evalEmpthyPool, self()}
       end,
 
       loop(Table, PManager);
@@ -52,4 +54,5 @@ loop(Table, PManager) ->
 
 
 maxOnes(L) ->
+%io:format("maxOnes: ~p~n", [L]),
   length(lists:filter(fun(X) -> X =:= 1 end, L)).

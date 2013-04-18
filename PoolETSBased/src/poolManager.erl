@@ -56,8 +56,19 @@ loop(TName, Evals, Reps, IM) ->
 %%       loop(TName, Evals, Reps, IM);
 
     solutionReached ->
-      io:format("solutionReached: ~p~n", [aa]),
+      io:format("solutionReached!!!: ~p~n", [yes]),
       self() ! finalize,
+      loop(TName, Evals, Reps, IM);
+
+    {evalEmpthyPool, Pid} ->
+%      io:format("evalEmpthyPool: ~p~n", [Pid]),
+      EvaluatorsCapacity = IM#configGA.evaluatorsCapacity,
+      timer:send_after(1000, Pid, {eval, EvaluatorsCapacity}),
+      loop(TName, Evals, Reps, IM);
+
+    {repEmpthyPool, Pid} ->
+      ReproducersCapacity = IM#configGA.reproducersCapacity,
+      timer:send_after(1000, Pid, {evolve, ReproducersCapacity}),
       loop(TName, Evals, Reps, IM);
 
     finalize ->

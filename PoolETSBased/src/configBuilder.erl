@@ -11,7 +11,6 @@
 -module(configBuilder).
 -include("../include/mtypes.hrl").
 
-%% API
 -compile(export_all).
 
 createExperimentConfig() ->

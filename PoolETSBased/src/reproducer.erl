@@ -30,16 +30,15 @@ loop(Table, PManager) ->
       Pop = extractSubpopulation(Table, N),
       L = length(Pop),
       if
-        L < 3 -> ok;
+        L < 3 -> PManager ! {repEmpthyPool, self()};
         true ->
           ParentsCount = N div 2, % TODO: confirmar este numero
           Pop2r = selectPop2Reproduce(Pop, ParentsCount),
           Parents = parentsSelector(Pop2r, ParentsCount),
           NInds = lists:map(fun crossover/1, Parents),
-          NoParents = lists:subtract(Pop, Parents), % OJO, performance
+          NoParents = lists:subtract(Pop, flatt(Parents)), % OJO, performance
           BestParents = [bestParent(Pop2r)],
           updatePool(Table, NoParents, NInds, BestParents),
-
           PManager ! {evolveDone, self()}
       end,
       loop(Table, PManager);
@@ -48,6 +47,9 @@ loop(Table, PManager) ->
       ok
 
   end.
+
+flatt(Parents) ->
+  [A || {A, _} <- Parents] ++ [A || {_, A} <- Parents].
 
 %% 1. De los que tengan el fitness calculado tomará una subpoblación para reproducir
 %      ( por decidir como lo hará )
@@ -76,9 +78,11 @@ bestParent(Pop2r) ->
   lists:last(T).
 
 updatePool(Table, NoParents, NInds, BestParents) ->
+
   ets:insert(Table, [{I, F, 2} || {I, F} <- NoParents]),
   ets:insert(Table, [{I, F, 2} || {I, F} <- BestParents]),
-  ets:insert(Table, [{I, none, 1} || I <- NInds]).
+  ets:insert(Table, [{I, none, 1} || {I, _} <- NInds]),
+  ets:insert(Table, [{I, none, 1} || {_, I} <- NInds]).
 
 % 2. Se seleccionarán 2n padres
 %     - tomar aleatoriamente 3 inds, seleccinar el mejor

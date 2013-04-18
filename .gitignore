@@ -6,6 +6,7 @@
 *.beam
 mochijson2.erl
 bin/
+out/
 ebin/
 .project
 .prefs
