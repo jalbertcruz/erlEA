@@ -36,10 +36,13 @@ loop(Table, PManager) ->
           Pop2r = selectPop2Reproduce(Pop, ParentsCount),
           Parents = parentsSelector(Pop2r, ParentsCount),
           NInds = lists:map(fun crossover/1, Parents),
+          NIndsFlatt = [I || {I, _} <- NInds] ++ [I || {_, I} <- NInds],
           NoParents = lists:subtract(Pop, flatt(Parents)), % OJO, performance
           BestParents = [bestParent(Pop2r)],
-          updatePool(Table, NoParents, NInds, BestParents),
-          PManager ! {evolveDone, self()}
+          updatePool(Table, NoParents, NIndsFlatt, BestParents),
+          PManager ! {evolveDone, self()},
+%%PROFILER:
+          profiler ! {iteration, NIndsFlatt}
       end,
       loop(Table, PManager);
 
@@ -78,11 +81,9 @@ bestParent(Pop2r) ->
   lists:last(T).
 
 updatePool(Table, NoParents, NInds, BestParents) ->
-
   ets:insert(Table, [{I, F, 2} || {I, F} <- NoParents]),
   ets:insert(Table, [{I, F, 2} || {I, F} <- BestParents]),
-  ets:insert(Table, [{I, none, 1} || {I, _} <- NInds]),
-  ets:insert(Table, [{I, none, 1} || {_, I} <- NInds]).
+  ets:insert(Table, [{I, none, 1} || I <- NInds]).
 
 % 2. Se seleccionarán 2n padres
 %     - tomar aleatoriamente 3 inds, seleccinar el mejor

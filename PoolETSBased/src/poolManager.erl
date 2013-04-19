@@ -47,6 +47,7 @@ loop(TName, Evals, Reps, IM, SolutionReached) ->
       loop(TName, Evals, Reps, IM, SolutionReached);
 
     sReps ->
+      profiler ! {initEvol, now()},
       ReproducersCapacity = IM#configGA.reproducersCapacity,
       lists:foreach(fun(E) -> E ! {evolve, ReproducersCapacity} end, Reps),
       loop(TName, Evals, Reps, IM, SolutionReached);
@@ -61,24 +62,27 @@ loop(TName, Evals, Reps, IM, SolutionReached) ->
 %%       loop(TName, Evals, Reps, IM);
 
     solutionReached ->
-      io:format("solutionReached!!!: ~p~n", [yes]),
-%self() ! finalize,
-      loop(TName, Evals, Reps, IM, true);
+      if SolutionReached -> loop(TName, Evals, Reps, IM, SolutionReached);
+        true ->
+%%           io:format("Solution reached!: ~p~n", [yes]),
+%%PROFILER:
+          profiler ! {endEvol, now()},
+          profiler ! evolDelay,
+          loop(TName, Evals, Reps, IM, true)
+      end;
 
     {evalEmpthyPool, Pid} ->
 %      io:format("evalEmpthyPool: ~p~n", [Pid]),
       EvaluatorsCapacity = IM#configGA.evaluatorsCapacity,
-      timer:send_after(1000, Pid, {eval, EvaluatorsCapacity}),
+      timer:send_after(50, Pid, {eval, EvaluatorsCapacity}),
       loop(TName, Evals, Reps, IM, SolutionReached);
 
     {repEmpthyPool, Pid} ->
       ReproducersCapacity = IM#configGA.reproducersCapacity,
-      timer:send_after(1000, Pid, {evolve, ReproducersCapacity}),
+      timer:send_after(50, Pid, {evolve, ReproducersCapacity}),
       loop(TName, Evals, Reps, IM, SolutionReached);
 
     finalize ->
-%%       lists:foreach(fun(E) -> E ! finalize end, Evals),
-%%       lists:foreach(fun(E) -> E ! finalize end, Reps),
       ets:delete(TName),
       ok
 
