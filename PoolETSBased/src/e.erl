@@ -19,4 +19,4 @@
 r() ->
   profiler:start(),
   {Pop, Conf} = configBuilder:createExperimentConfig(),
-  poolManager:start(tb, Pop, Conf).
+  M = poolManager:start(tb, Pop, Conf), M ! sReps, M ! sEvals.
