@@ -1,0 +1,31 @@
+
+Reproducer's iterations: 432
+The evolution delay: "4.828008" seconds.
+Chromosome length: 128, number of individuals: 256
+Number of migrations: 216
+Evaluators used: 50, with capacity: 50
+Reproducers used: 10, with capacity: 50
+
+
+Reproducer's iterations: 519
+The evolution delay: "6.359000" seconds.
+Chromosome length: 128, number of individuals: 256
+Number of migrations: 274
+Evaluators used: 25, with capacity: 50
+Reproducers used: 10, with capacity: 50
+
+
+Reproducer's iterations: 417
+The evolution delay: "3.922001" seconds.
+Chromosome length: 128, number of individuals: 256
+Number of migrations: 228
+Evaluators used: 10, with capacity: 50
+Reproducers used: 5, with capacity: 50
+
+
+Reproducer's iterations: 296
+The evolution delay: "1.985005" seconds.
+Chromosome length: 128, number of individuals: 256
+Number of migrations: 154
+Evaluators used: 5, with capacity: 50
+Reproducers used: 2, with capacity: 50

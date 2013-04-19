@@ -11,5 +11,5 @@ ebin/
 .project
 .prefs
 .settings/
-.log
-.xml
+*.log
+*.xml
