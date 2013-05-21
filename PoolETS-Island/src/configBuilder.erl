@@ -17,9 +17,9 @@
 chromosomeSize() -> 128. % Chromosome length
 popSize() -> 256. % Number of individuals
 configGA() -> #configGA{
-  evaluatorsCount = 50, %% Amount of evaluators
+  evaluatorsCount = 10, %% Amount of evaluators
   evaluatorsCapacity = 50, %% Work capacity of evaluators
-  reproducersCount = 10,
+  reproducersCount = 20,
   reproducersCapacity = 50
 }.
 

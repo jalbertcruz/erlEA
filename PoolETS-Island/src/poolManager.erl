@@ -68,10 +68,8 @@ loop(TName, Evals, Reps, IM, SolutionReached, MigrantsDestiny, PoolsManager) ->
     solutionReached ->
       if SolutionReached -> loop(TName, Evals, Reps, IM, SolutionReached, MigrantsDestiny, PoolsManager);
         true ->
-%%           io:format("Solution reached!: ~p~n", [yes]),
 %%PROFILER:
           profiler ! {endEvol, now()},
-          profiler ! evolDelay,
           PoolsManager ! solutionReached,
           loop(TName, Evals, Reps, IM, true, MigrantsDestiny, PoolsManager)
       end;

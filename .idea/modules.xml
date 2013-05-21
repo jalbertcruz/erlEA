@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/PoolETSBased/PoolETSBased.iml" filepath="$PROJECT_DIR$/PoolETSBased/PoolETSBased.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PoolETS-Island/PoolETS-Island.iml" filepath="$PROJECT_DIR$/PoolETS-Island/PoolETS-Island.iml" />
     </modules>
   </component>
 </project>

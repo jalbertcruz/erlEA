@@ -20,7 +20,7 @@ start(Pools) ->
 
 init(Pools) ->
   profiler ! {initEvol, now()},
-  lists:foreach(fun(P)-> P ! {setPoolsManager, self()}, P ! sReps, P ! sEvals end, Pools),
+  lists:foreach(fun(P) -> P ! {setPoolsManager, self()}, P ! sReps, P ! sEvals end, Pools),
   loop(Pools).
 
 loop(Pools) ->
@@ -28,7 +28,7 @@ loop(Pools) ->
   receive
 
     solutionReached ->
-      lists:foreach(fun(P)-> P ! solutionReached end, Pools),
+      lists:foreach(fun(P) -> P ! solutionReached end, Pools),
       loop(Pools);
 
     finalize ->
