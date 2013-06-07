@@ -1,7 +1,7 @@
-Comparar un modelo pool con un solo actor como pool, modelo pool con ETS (memoria compartida) y
-modelo "isla" con un pool por isla e intercambio entre islas.
 
+1. Aplicar tests estadísticos:
+    - Wilkinson (similitud de medias y de algoritmos en general)
 
-1. Hacer modelo pool con un solo actor: hecho
-2. Hacer modelo pool en el que el pool sea un ets: todo
-3. Hacer modelo híbrido con varias islas en el que cada una de ella tiene un pool
+2. Probar calidad de la solución con cantidad de evaliuaciones constantes.
+
+3. Probar con pequeños valores de evaluaciones y reproductores.

@@ -21,17 +21,37 @@ start(Pools, Profiler) ->
 init(Pools, Profiler) ->
   Profiler ! {initEvol, now()},
   lists:foreach(fun(P) -> P ! {setPoolsManager, self()}, P ! sReps, P ! sEvals end, Pools),
-  loop(Pools).
+  loop(Pools, false, Profiler, 0).
 
-loop(Pools) ->
+loop(Pools, EndEvol, Profiler, NumberOfEvals) ->
 
   receive
 
-    solutionReached ->
-      lists:foreach(fun(P) -> P ! solutionReached end, Pools),
-      loop(Pools);
+    {solutionReachedByPoolManager, _} ->
+      lists:foreach(fun(P) -> P ! solutionReachedbyAny end, Pools),
+      loop(Pools, EndEvol, Profiler, NumberOfEvals);
+
+    {endEvol, T} ->
+      if EndEvol -> ok;
+        true ->
+          Profiler ! {endEvol, T, NumberOfEvals}
+      end,
+      loop(Pools, true, Profiler, NumberOfEvals);
+
+      {evalDone, _}->
+      loop(Pools, EndEvol, Profiler, NumberOfEvals + 1);
+
+    {poolManagerEnd, Pid} ->
+      NewPools = lists:delete(Pid, Pools),
+      LPools = length(NewPools),
+      if
+        (LPools =:= 0) -> self() ! finalize;
+        true -> ok
+      end,
+      loop(NewPools, EndEvol, Profiler, NumberOfEvals);
 
     finalize ->
+      report ! mkExperiment,
 %%       io:format("Manager ended: ~p, ", [self()]),
       ok
 

@@ -17,47 +17,52 @@
 
 -compile(export_all).
 
-start() ->
-  Pid = spawn(report, init, []),
+start(Profiler) ->
+  Pid = spawn(report, init, [Profiler]),
   register(report, Pid),
   Pid.
 
-init() ->
-  loop([], []).
+init(Profiler) ->
+  loop([], [], none, Profiler).
 
-loop(Results, Instances) ->
+loop(Results, Instances, NumberOfExperiments, Profiler) ->
 
   receive
 
-    {experimentEnd, EvolutionDelay, NEmig, Conf, NIslands} ->
-      self() ! mkExperiment,
-      loop([{EvolutionDelay, NEmig, Conf, NIslands} | Results], Instances) ;
+    {experimentEnd, EvolutionDelay, NEmig, Conf, NIslands, NumberOfEvals} ->
+      TResults = [{EvolutionDelay, NEmig, Conf, NIslands, NumberOfEvals} | Results],
+      if
+        NumberOfExperiments =:= 1 ->
+        {ok, IODevice} = file:open("results.csv", [write]),
+          file:write(IODevice, "EvolutionDelay,NumberOfEvals,Emigrations,EvaluatorsCount,ReproducersCount,IslandsCount"),
+          lists:foreach(
+            fun({EvolutionDelay1, NEmig1, Conf1, NIslands1, NumberOfEvals1}) ->
+              Ec = Conf#configGA.evaluatorsCount,
+              Rc = Conf#configGA.reproducersCount,
+              io:format(IODevice,"~p,~p,~p,~p,~p,~p ~n", [EvolutionDelay1, NumberOfEvals1, NEmig1, Ec, Rc, NIslands1]) end,
+            lists:reverse(TResults)
+          ),
+          file:close(IODevice),
+          Profiler ! finalize;
+        true ->
+          loop(TResults, Instances, NumberOfExperiments - 1, Profiler)
+      end;
 
     {session, Funs} ->
-      timer:send_after(50, self(), mkExperiment),
-      loop(Results, Funs);
+      self() ! mkExperiment,
+      loop(Results, Funs, length(Funs), Profiler);
 
     mkExperiment ->
       L = length(Instances),
       if
         L =/= 0 ->
           [{Module, Function, Pmtos} | Rest] = Instances,
-          timer:apply_after(20, Module, Function, Pmtos),
+          apply(Module, Function, Pmtos),
           io:format("Doing experiment: ~p, in: ~p~n", [Function, Module]),
-          loop(Results, Rest);
+          loop(Results, Rest, NumberOfExperiments, Profiler);
 
         true ->
-          io:format("Evolution Delay | Emigrants | Evaluators Count | Reproducers Count | Islands Count | Config~n"),
-          lists:foreach(
-            fun({EvolutionDelay, NEmig, Conf, NIslands}) ->
-              Ec = Conf#configGA.evaluatorsCount,
-              Rc = Conf#configGA.reproducersCount,
-              io:format(" ~p | ~p | ~p | ~p | ~p | ~p ~n", [EvolutionDelay, NEmig, Ec, Rc, NIslands, Conf]) end,
-            lists:reverse(Results)
-          )
-      end;
-
-    finalize ->
-      ok
+          loop(Results, Instances, NumberOfExperiments, Profiler)
+      end
 
   end.

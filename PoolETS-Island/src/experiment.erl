@@ -17,18 +17,33 @@
 
 init() ->
   Profiler = profiler:start(),
-  report:start(),
+  report:start(Profiler),
+
   report ! {session,
-    [ {experiment, r1, [Profiler]}, {experiment, r2, [Profiler]},
+    [
+      {experiment, r1, [Profiler]}, {experiment, r2, [Profiler]},
       {experiment, r3, [Profiler]}, {experiment, r4, [Profiler]},
       {experiment, r5, [Profiler]}, {experiment, r6, [Profiler]}
-    ]}
-.
+    ]}.
+
+init(N) ->
+  Profiler = profiler:start(),
+  report:start(Profiler),
+  LN = lists:seq(1, N),
+  Exps = [
+    {experiment, r1, [Profiler]}, {experiment, r2, [Profiler]},
+    {experiment, r3, [Profiler]}, {experiment, r4, [Profiler]},
+    {experiment, r5, [Profiler]}, {experiment, r6, [Profiler]}
+  ],
+
+  All = lists:flatten(lists:map(fun(P) -> [P || _ <- LN] end, Exps)),
+  report ! {session, All}.
+
 %report ! {session, [ {experiment, r3}, {experiment, r4}, {experiment, r5}, {experiment, r6}]}.
 
 r1(Profiler) ->
   {Pop, Conf} = configBuilder:createExperimentConfig(10, 50, 5, 50, 256, 128),
-  %io:format("Sending to profiler: ~p, the configuration: ~p~n", [Profiler, Conf]),
+%io:format("Sending to profiler: ~p, the configuration: ~p~n", [Profiler, Conf]),
   Profiler ! {configuration, Conf, 2},
   P1 = poolManager:start(tb1, Pop, Conf, Profiler),
   P2 = poolManager:start(tb2, Pop, Conf, Profiler),

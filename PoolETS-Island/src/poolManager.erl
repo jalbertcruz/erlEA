@@ -72,6 +72,7 @@ loop(TName, Evals, Reps, IM, SolutionReached, MigrantsDestiny, PoolsManager, Pro
       if SolutionReached -> Pid ! finalize;
         true ->
           EvaluatorsCapacity = IM#configGA.evaluatorsCapacity,
+          PoolsManager ! {evalDone, self()},
           Pid ! {eval, EvaluatorsCapacity}
       end,
       loop(TName, Evals, Reps, IM, SolutionReached, MigrantsDestiny, PoolsManager, Profiler);
@@ -86,15 +87,20 @@ loop(TName, Evals, Reps, IM, SolutionReached, MigrantsDestiny, PoolsManager, Pro
       lists:foreach(fun(E) -> E ! {eval, EvaluatorsCapacity} end, Evals),
       loop(TName, Evals, Reps, IM, SolutionReached, MigrantsDestiny, PoolsManager, Profiler);
 
-    solutionReached ->
+    solutionReachedbyAny ->
+      lists:foreach(fun(E) -> E ! finalize end, Evals),
+      lists:foreach(fun(E) -> E ! finalize end, Reps),
+      loop(TName, Evals, Reps, IM, true, MigrantsDestiny, PoolsManager, Profiler);
+
+    {solutionReachedbyEvaluator, _} ->
 %%       io:format("SolutionReached value: ~p, in ~p~n", [SolutionReached, TName]),
       if SolutionReached -> loop(TName, Evals, Reps, IM, SolutionReached, MigrantsDestiny, PoolsManager, Profiler);
         true ->
 %%            io:format("Solution reached in!: ~p~n", [TName]),
 %%PROFILER:
-          Profiler ! {endEvol, now()},
+          PoolsManager ! {endEvol, now()},
 %%           profiler ! evolDelay,
-          PoolsManager ! solutionReached,
+          PoolsManager ! {solutionReachedByPoolManager, self()},
           loop(TName, Evals, Reps, IM, true, MigrantsDestiny, PoolsManager, Profiler)
       end;
 
@@ -121,6 +127,7 @@ loop(TName, Evals, Reps, IM, SolutionReached, MigrantsDestiny, PoolsManager, Pro
 
     finalize ->
       ets:delete(TName),
+      PoolsManager ! {poolManagerEnd, self()},
 %      io:format("Table deleted: ~p~n", [TName]),
       ok
 

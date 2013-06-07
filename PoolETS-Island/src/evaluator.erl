@@ -34,7 +34,7 @@ loop(Table, PManager) ->
             F = maxOnes(Ind),
             L = length(Ind),
             if L == F ->
-              PManager ! solutionReached;
+              PManager ! {solutionReachedbyEvaluator, self()};
               true -> ok
             end,
             ets:update_element(Table, Ind, [{2, F}, {3, 2}])

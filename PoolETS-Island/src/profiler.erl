@@ -18,23 +18,23 @@
 
 start() ->
   Pid = spawn(profiler, init, []),
-  %register(profiler, Pid),
+%register(profiler, Pid),
   Pid.
 
 init() ->
   io:format("profiler started: ~p~n", [self()]),
-  loop(none, [], [], false, none, 0).
+  loop(none, [], [], none, 0).
 
-loop(InitEvol, Iterations, Emigrations, OneRun, Conf, NIslands) ->
+loop(InitEvol, Iterations, Emigrations, Conf, NIslands) ->
 
   receive
 
     {configuration, NConf, NNIslands} ->
-      %io:format("Configuration arrived: ~p~n", [NConf]),
-      loop(none, [], [], false, NConf, NNIslands);
+%io:format("Configuration arrived: ~p~n", [NConf]),
+      loop(none, [], [], NConf, NNIslands);
 
     {migration, {Ind, Fit}, T} ->
-      loop(InitEvol, Iterations, [{Ind, Fit, T} | Emigrations], OneRun, Conf, NIslands);
+      loop(InitEvol, Iterations, [{Ind, Fit, T} | Emigrations], Conf, NIslands);
 
     {iteration, Population} ->
       PopExtWFit = [evaluator:maxOnes(I) || I <- Population],
@@ -42,22 +42,18 @@ loop(InitEvol, Iterations, Emigrations, OneRun, Conf, NIslands) ->
       Max = lists:max(PopExtWFit),
       Total = lists:foldl(fun(X, Sum) -> X + Sum end, 0, PopExtWFit),
       Ave = Total / length(Population),
-      loop(InitEvol, [{Min, Max, Ave} | Iterations], Emigrations, OneRun, Conf, NIslands);
+      loop(InitEvol, [{Min, Max, Ave} | Iterations], Emigrations, Conf, NIslands);
 
     {initEvol, T} ->
-      loop(T, Iterations, Emigrations, OneRun, Conf, NIslands);
+      loop(T, Iterations, Emigrations, Conf, NIslands);
 
-    {endEvol, T} ->
-      if OneRun -> ok;
-        true ->
-          EvolutionDelay = getSecs(InitEvol, T),
-          NEmig = length(Emigrations),
+    {endEvol, T, NumberOfEvals} ->
+      EvolutionDelay = getSecs(InitEvol, T),
+      NEmig = length(Emigrations),
 %%           io:format("The evolution delay: ~p seconds.~n", [EvolutionDelay]),
 %%           io:format("Number of migrations: ~p~n", [NEmig]),
-          report ! {experimentEnd, EvolutionDelay, NEmig, Conf, NIslands}
-
-      end,
-      loop(InitEvol, Iterations, Emigrations, true, Conf, NIslands);
+      report ! {experimentEnd, EvolutionDelay, NEmig, Conf, NIslands, NumberOfEvals},
+      loop(InitEvol, Iterations, Emigrations, Conf, NIslands);
 
     finalize ->
       ok
