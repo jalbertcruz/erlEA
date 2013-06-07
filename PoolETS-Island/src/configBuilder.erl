@@ -14,20 +14,19 @@
 -compile(export_all).
 
 %% CONFIG
-chromosomeSize() -> 128. % Chromosome length
-popSize() -> 256. % Number of individuals
-configGA() -> #configGA{
-  evaluatorsCount = 10, %% Amount of evaluators
-  evaluatorsCapacity = 50, %% Work capacity of evaluators
-  reproducersCount = 20,
-  reproducersCapacity = 50
-}.
+mkconfigGA(EvaluatorsCount, EvaluatorsCapacity, ReproducersCount, ReproducersCapacity) ->
+  #configGA{
+    evaluatorsCount = EvaluatorsCount, %% Amount of evaluators
+    evaluatorsCapacity = EvaluatorsCapacity, %% Work capacity of evaluators
+    reproducersCount = ReproducersCount,
+    reproducersCapacity = ReproducersCapacity
+  }.
 
-createExperimentConfig() ->
+createExperimentConfig(EvaluatorsCount, EvaluatorsCapacity, ReproducersCount, ReproducersCapacity, PopSize, ChromosomeSize) ->
   {A1, A2, A3} = now(),
   random:seed(A1, A2, A3),
-  Population = genInitPop(popSize(), chromosomeSize()), %% The population: chromosomes with ChromosomeSize components, and PopSize individuals
-  {Population, configGA()}.
+  Population = genInitPop(PopSize, ChromosomeSize), %% The population: chromosomes with ChromosomeSize components, and PopSize individuals
+  {Population, mkconfigGA(EvaluatorsCount, EvaluatorsCapacity, ReproducersCount, ReproducersCapacity)}.
 
 %% Size most be even
 genInitPop(PopSize, ChromosomeSize) ->

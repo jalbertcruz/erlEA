@@ -18,50 +18,46 @@
 
 start() ->
   Pid = spawn(profiler, init, []),
-  register(profiler, Pid),
+  %register(profiler, Pid),
   Pid.
 
 init() ->
-  loop({none, none}, [], [], false).
+  io:format("profiler started: ~p~n", [self()]),
+  loop(none, [], [], false, none, 0).
 
-loop({InitEvol, EndEvol}, Iterations, Emigrations, SolutionReached) ->
+loop(InitEvol, Iterations, Emigrations, OneRun, Conf, NIslands) ->
 
   receive
 
+    {configuration, NConf, NNIslands} ->
+      %io:format("Configuration arrived: ~p~n", [NConf]),
+      loop(none, [], [], false, NConf, NNIslands);
+
     {migration, {Ind, Fit}, T} ->
-      if SolutionReached ->
-        loop({InitEvol, EndEvol}, Iterations, Emigrations, SolutionReached);
-        true ->
-          loop({InitEvol, EndEvol}, Iterations, [{Ind, Fit, T} | Emigrations], SolutionReached)
-      end;
+      loop(InitEvol, Iterations, [{Ind, Fit, T} | Emigrations], OneRun, Conf, NIslands);
 
     {iteration, Population} ->
-
-      if SolutionReached ->
-        loop({InitEvol, EndEvol}, Iterations, Emigrations, SolutionReached) ;
-
-        true ->
-          PopExtWFit = [evaluator:maxOnes(I) || I <- Population],
-          Min = lists:min(PopExtWFit),
-          Max = lists:max(PopExtWFit),
-          Total = lists:foldl(fun(X, Sum) -> X + Sum end, 0, PopExtWFit),
-          Ave = Total / length(Population),
-          loop({InitEvol, EndEvol}, [{Min, Max, Ave} | Iterations], Emigrations, SolutionReached)
-      end;
+      PopExtWFit = [evaluator:maxOnes(I) || I <- Population],
+      Min = lists:min(PopExtWFit),
+      Max = lists:max(PopExtWFit),
+      Total = lists:foldl(fun(X, Sum) -> X + Sum end, 0, PopExtWFit),
+      Ave = Total / length(Population),
+      loop(InitEvol, [{Min, Max, Ave} | Iterations], Emigrations, OneRun, Conf, NIslands);
 
     {initEvol, T} ->
-      loop({T, EndEvol}, Iterations, Emigrations, SolutionReached);
+      loop(T, Iterations, Emigrations, OneRun, Conf, NIslands);
 
     {endEvol, T} ->
-      if SolutionReached ->
-        loop({InitEvol, EndEvol}, Iterations, Emigrations, true);
+      if OneRun -> ok;
         true ->
-          L = length(Iterations),
-          io:format("Evolution delay: ~p seconds.~n", [getSecs(InitEvol, T)]),
-          io:format("Number of migrations: ~p~n", [length(Emigrations)]),
-          io:format("Number of iterations: ~p~n", [L]),
-          loop({InitEvol, EndEvol}, Iterations, Emigrations, true)
-      end;
+          EvolutionDelay = getSecs(InitEvol, T),
+          NEmig = length(Emigrations),
+%%           io:format("The evolution delay: ~p seconds.~n", [EvolutionDelay]),
+%%           io:format("Number of migrations: ~p~n", [NEmig]),
+          report ! {experimentEnd, EvolutionDelay, NEmig, Conf, NIslands}
+
+      end,
+      loop(InitEvol, Iterations, Emigrations, true, Conf, NIslands);
 
     finalize ->
       ok
@@ -78,5 +74,5 @@ getSecs({_, S1, MicroS1}, {_, S2, MicroS2}) ->
   PRL = integer_to_list(PR),
   L1 = length(PRL),
   FCad = if L1 == 6 -> ""; true -> string:substr("000000", L1 + 1) end,
-  Res = integer_to_list(PE) ++ "." ++ FCad ++ PRL,
-  list_to_float(Res).
+  ResStr = integer_to_list(PE) ++ "." ++ FCad ++ PRL,
+  list_to_float(ResStr).

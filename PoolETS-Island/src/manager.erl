@@ -15,11 +15,11 @@
 
 -compile(export_all).
 
-start(Pools) ->
-  spawn(manager, init, [Pools]).
+start(Pools, Profiler) ->
+  spawn(manager, init, [Pools, Profiler]).
 
-init(Pools) ->
-  profiler ! {initEvol, now()},
+init(Pools, Profiler) ->
+  Profiler ! {initEvol, now()},
   lists:foreach(fun(P) -> P ! {setPoolsManager, self()}, P ! sReps, P ! sEvals end, Pools),
   loop(Pools).
 
@@ -32,6 +32,7 @@ loop(Pools) ->
       loop(Pools);
 
     finalize ->
+%%       io:format("Manager ended: ~p, ", [self()]),
       ok
 
   end.

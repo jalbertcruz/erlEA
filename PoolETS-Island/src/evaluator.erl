@@ -48,6 +48,8 @@ loop(Table, PManager) ->
       loop(Table, PManager);
 
     finalize ->
+      PManager ! {evaluatorFinalized, self()},
+%%       io:format("Evaluator ended: ~p, ", [self()]),
       ok
 
   end.

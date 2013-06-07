@@ -17,13 +17,13 @@
 -include("../include/mtypes.hrl").
 -include_lib("stdlib/include/ms_transform.hrl").
 
-start(Table, PManager) ->
-  spawn(reproducer, init, [Table, PManager]).
+start(Table, PManager, Profiler) ->
+  spawn(reproducer, init, [Table, PManager, Profiler]).
 
-init(Table, PManager) ->
-  loop(Table, PManager).
+init(Table, PManager, Profiler) ->
+  loop(Table, PManager, Profiler).
 
-loop(Table, PManager) ->
+loop(Table, PManager, Profiler) ->
   receive
 
     {evolve, N} ->
@@ -42,9 +42,9 @@ loop(Table, PManager) ->
           updatePool(Table, NoParents, NIndsFlatt, BestParents),
           PManager ! {evolveDone, self()},
 %%PROFILER:
-          profiler ! {iteration, NIndsFlatt}
+          Profiler ! {iteration, NIndsFlatt}
       end,
-      loop(Table, PManager);
+      loop(Table, PManager, Profiler);
 
     {emigrateBest, Destiny} ->
       MS = ets:fun2ms(fun({Ind, F, State}) when State == 2 -> {Ind, F} end),
@@ -55,14 +55,16 @@ loop(Table, PManager) ->
           Population = lists:keysort(2, Sels),
           P = lists:last(Population), % el ordenamiento es de menor a mayor, tomo entonces el ultimo
 %%PROFILER:
-          profiler ! {migration, P, now()},
+          Profiler ! {migration, P, now()},
 
           Destiny ! {migration, P};
         true -> ok
       end,
-      loop(Table, PManager);
+      loop(Table, PManager, Profiler);
 
     finalize ->
+      PManager ! {reproducerFinalized, self()},
+%%       io:format("Reproducer ended: ~p, ", [self()]),
       ok
 
   end.

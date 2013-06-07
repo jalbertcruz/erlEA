@@ -16,23 +16,44 @@
 -compile(export_all).
 
 
-start(TName, Pop, IM) ->
-  spawn(poolManager, init, [TName, Pop, IM]).
+start(TName, Pop, IM, Profiler) ->
+  spawn(poolManager, init, [TName, Pop, IM, Profiler]).
 
-init(TName, Pop, IM) ->
+init(TName, Pop, IM, Profiler) ->
   ets:new(TName, [named_table, set, public]),
   ets:insert(TName, [{I, none, 1} || I <- Pop]),
   CEvals = IM#configGA.evaluatorsCount,
   CReps = IM#configGA.reproducersCount,
   Evals = [evaluator:start(TName, self()) || _ <- lists:seq(1, CEvals)],
-  Reps = [reproducer:start(TName, self()) || _ <- lists:seq(1, CReps)],
-  loop(TName, Evals, Reps, IM, false, [], none).
+  Reps = [reproducer:start(TName, self(), Profiler) || _ <- lists:seq(1, CReps)],
+  loop(TName, Evals, Reps, IM, false, [], none, Profiler).
 
-loop(TName, Evals, Reps, IM, SolutionReached, MigrantsDestiny, PoolsManager) ->
+loop(TName, Evals, Reps, IM, SolutionReached, MigrantsDestiny, PoolsManager, Profiler) ->
   receive
 
+    {reproducerFinalized, Pid} ->
+      NewReps = lists:delete(Pid, Reps),
+      NEvals = length(Evals),
+      NReps = length(NewReps),
+      if
+        (NEvals =:= 0) and (NReps =:= 0) -> self() ! finalize;
+        true -> ok
+      end,
+      loop(TName, Evals, NewReps, IM, SolutionReached, MigrantsDestiny, PoolsManager, Profiler);
+
+    {evaluatorFinalized, Pid} ->
+      NewEvals = lists:delete(Pid, Evals),
+      NEvals = length(NewEvals),
+      NReps = length(Reps),
+      if
+        (NEvals =:= 0) and (NReps =:= 0) -> self() ! finalize;
+        true -> ok
+      end,
+      loop(TName, NewEvals, Reps, IM, SolutionReached, MigrantsDestiny, PoolsManager, Profiler);
+
     {evolveDone, Pid} ->
-      if SolutionReached -> Pid ! finalize;
+      if SolutionReached ->
+        Pid ! finalize ;
         true ->
 %% Migration
           Dds = random:uniform(),
@@ -45,7 +66,7 @@ loop(TName, Evals, Reps, IM, SolutionReached, MigrantsDestiny, PoolsManager) ->
           ReproducersCapacity = IM#configGA.reproducersCapacity,
           Pid ! {evolve, ReproducersCapacity}
       end,
-      loop(TName, Evals, Reps, IM, SolutionReached, MigrantsDestiny, PoolsManager);
+      loop(TName, Evals, Reps, IM, SolutionReached, MigrantsDestiny, PoolsManager, Profiler);
 
     {evalDone, Pid} ->
       if SolutionReached -> Pid ! finalize;
@@ -53,50 +74,54 @@ loop(TName, Evals, Reps, IM, SolutionReached, MigrantsDestiny, PoolsManager) ->
           EvaluatorsCapacity = IM#configGA.evaluatorsCapacity,
           Pid ! {eval, EvaluatorsCapacity}
       end,
-      loop(TName, Evals, Reps, IM, SolutionReached, MigrantsDestiny, PoolsManager);
+      loop(TName, Evals, Reps, IM, SolutionReached, MigrantsDestiny, PoolsManager, Profiler);
 
     sReps ->
       ReproducersCapacity = IM#configGA.reproducersCapacity,
       lists:foreach(fun(E) -> E ! {evolve, ReproducersCapacity} end, Reps),
-      loop(TName, Evals, Reps, IM, SolutionReached, MigrantsDestiny, PoolsManager);
+      loop(TName, Evals, Reps, IM, SolutionReached, MigrantsDestiny, PoolsManager, Profiler);
 
     sEvals ->
       EvaluatorsCapacity = IM#configGA.evaluatorsCapacity,
       lists:foreach(fun(E) -> E ! {eval, EvaluatorsCapacity} end, Evals),
-      loop(TName, Evals, Reps, IM, SolutionReached, MigrantsDestiny, PoolsManager);
+      loop(TName, Evals, Reps, IM, SolutionReached, MigrantsDestiny, PoolsManager, Profiler);
 
     solutionReached ->
-      if SolutionReached -> loop(TName, Evals, Reps, IM, SolutionReached, MigrantsDestiny, PoolsManager);
+%%       io:format("SolutionReached value: ~p, in ~p~n", [SolutionReached, TName]),
+      if SolutionReached -> loop(TName, Evals, Reps, IM, SolutionReached, MigrantsDestiny, PoolsManager, Profiler);
         true ->
+%%            io:format("Solution reached in!: ~p~n", [TName]),
 %%PROFILER:
-          profiler ! {endEvol, now()},
+          Profiler ! {endEvol, now()},
+%%           profiler ! evolDelay,
           PoolsManager ! solutionReached,
-          loop(TName, Evals, Reps, IM, true, MigrantsDestiny, PoolsManager)
+          loop(TName, Evals, Reps, IM, true, MigrantsDestiny, PoolsManager, Profiler)
       end;
 
     {evalEmpthyPool, Pid} ->
 %      io:format("evalEmpthyPool: ~p~n", [Pid]),
       EvaluatorsCapacity = IM#configGA.evaluatorsCapacity,
       timer:send_after(50, Pid, {eval, EvaluatorsCapacity}),
-      loop(TName, Evals, Reps, IM, SolutionReached, MigrantsDestiny, PoolsManager);
+      loop(TName, Evals, Reps, IM, SolutionReached, MigrantsDestiny, PoolsManager, Profiler);
 
     {repEmpthyPool, Pid} ->
       ReproducersCapacity = IM#configGA.reproducersCapacity,
       timer:send_after(50, Pid, {evolve, ReproducersCapacity}),
-      loop(TName, Evals, Reps, IM, SolutionReached, MigrantsDestiny, PoolsManager);
+      loop(TName, Evals, Reps, IM, SolutionReached, MigrantsDestiny, PoolsManager, Profiler);
 
     {migrantsDestiny, Dests} ->
-      loop(TName, Evals, Reps, IM, SolutionReached, Dests, PoolsManager);
+      loop(TName, Evals, Reps, IM, SolutionReached, Dests, PoolsManager, Profiler);
 
     {migration, {I, F}} ->
       ets:insert(TName, {I, F, 2}),
-      loop(TName, Evals, Reps, IM, SolutionReached, MigrantsDestiny, PoolsManager);
+      loop(TName, Evals, Reps, IM, SolutionReached, MigrantsDestiny, PoolsManager, Profiler);
 
     {setPoolsManager, PManager} ->
-      loop(TName, Evals, Reps, IM, SolutionReached, MigrantsDestiny, PManager);
+      loop(TName, Evals, Reps, IM, SolutionReached, MigrantsDestiny, PManager, Profiler);
 
     finalize ->
       ets:delete(TName),
+%      io:format("Table deleted: ~p~n", [TName]),
       ok
 
   end.
