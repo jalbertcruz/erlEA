@@ -2,6 +2,6 @@
 1. Aplicar tests estadísticos:
     - Wilkinson (similitud de medias y de algoritmos en general)
 
-2. Probar calidad de la solución con cantidad de evaliuaciones constantes.
+2. Probar calidad de la solución con cantidad de evaluaciones constantes.
 
 3. Probar con pequeños valores de evaluaciones y reproductores.

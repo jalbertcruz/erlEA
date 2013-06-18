@@ -10,7 +10,6 @@
 %%
 
 -module(report).
--author("j").
 -author("jalbertcruz@gmail.com").
 
 -include("../include/mtypes.hrl").
