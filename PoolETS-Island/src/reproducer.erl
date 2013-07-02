@@ -46,7 +46,7 @@ loop(Table, PManager, Profiler) ->
       end,
       loop(Table, PManager, Profiler);
 
-    {emigrateBest, Destiny} ->
+    {emigrateBest, Destination} ->
       MS = ets:fun2ms(fun({Ind, F, State}) when State == 2 -> {Ind, F} end),
       Sels = ets:select(Table, MS),
       L = length(Sels),
@@ -57,7 +57,7 @@ loop(Table, PManager, Profiler) ->
 %%PROFILER:
           Profiler ! {migration, P, now()},
 
-          Destiny ! {migration, P};
+          Destination ! {migration, P};
         true -> ok
       end,
       loop(Table, PManager, Profiler);
@@ -90,7 +90,8 @@ extractSubpopulation(Table, N) ->
       L < N -> 1;
       true -> L - N + 1
     end,
-  Population = lists:sublist(lists:keysort(2, Sels), StartIndex, N), % el ordenamiento es de menor a mayor, tomo entonces los ultimos
+% el ordenamiento es de menor a mayor, tomo entonces los ultimos
+  Population = lists:sublist(lists:keysort(2, Sels), StartIndex, N),
   lists:foreach(fun(I) -> ets:delete(Table, I) end, Population),
   Population.
 

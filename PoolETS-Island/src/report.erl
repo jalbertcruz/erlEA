@@ -32,13 +32,13 @@ loop(Results, Instances, NumberOfExperiments, Profiler) ->
       TResults = [{EvolutionDelay, NEmig, Conf, NIslands, NumberOfEvals} | Results],
       if
         NumberOfExperiments =:= 1 ->
-        {ok, IODevice} = file:open("results.csv", [write]),
+          {ok, IODevice} = file:open("results.csv", [write]),
           file:write(IODevice, "EvolutionDelay,NumberOfEvals,Emigrations,EvaluatorsCount,ReproducersCount,IslandsCount"),
           lists:foreach(
             fun({EvolutionDelay1, NEmig1, Conf1, NIslands1, NumberOfEvals1}) ->
-              Ec = Conf#configGA.evaluatorsCount,
-              Rc = Conf#configGA.reproducersCount,
-              io:format(IODevice,"~p,~p,~p,~p,~p,~p ~n", [EvolutionDelay1, NumberOfEvals1, NEmig1, Ec, Rc, NIslands1]) end,
+              Ec = Conf1#configGA.evaluatorsCount,
+              Rc = Conf1#configGA.reproducersCount,
+              io:format(IODevice, "~p,~p,~p,~p,~p,~p ~n", [EvolutionDelay1, NumberOfEvals1, NEmig1, Ec, Rc, NIslands1]) end,
             lists:reverse(TResults)
           ),
           file:close(IODevice),
@@ -53,7 +53,9 @@ loop(Results, Instances, NumberOfExperiments, Profiler) ->
 
     mkExperiment ->
       L = length(Instances),
+
       if
+
         L =/= 0 ->
           [{Module, Function, Pmtos} | Rest] = Instances,
           apply(Module, Function, Pmtos),

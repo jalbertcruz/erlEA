@@ -36,8 +36,7 @@ init(N) ->
     {experiment, r5, [Profiler]}, {experiment, r6, [Profiler]}
   ],
 
-  All = lists:flatten(lists:map(fun(P) -> [P || _ <- LN] end, Exps)),
-  report ! {session, All}.
+  report ! {session, lists:flatten(lists:map(fun(P) -> [P || _ <- LN] end, Exps))}.
 
 %report ! {session, [ {experiment, r3}, {experiment, r4}, {experiment, r5}, {experiment, r6}]}.
 
@@ -46,10 +45,11 @@ r1(Profiler) ->
 %io:format("Sending to profiler: ~p, the configuration: ~p~n", [Profiler, Conf]),
   Profiler ! {configuration, Conf, 2},
   P1 = poolManager:start(tb1, Pop, Conf, Profiler),
-  P2 = poolManager:start(tb2, Pop, Conf, Profiler),
+  {Pop1, Conf1} = configBuilder:createExperimentConfig(10, 50, 5, 50, 256, 128),
+  P2 = poolManager:start(tb2, Pop1, Conf1, Profiler),
 
-  P1 ! {migrantsDestiny, [P2]},
-  P2 ! {migrantsDestiny, [P1]},
+  P1 ! {migrantsDestination, [P2]},
+  P2 ! {migrantsDestination, [P1]},
 
   manager:start([P1, P2], Profiler).
 
@@ -57,10 +57,11 @@ r2(Profiler) ->
   {Pop, Conf} = configBuilder:createExperimentConfig(20, 50, 10, 50, 256, 128),
   Profiler ! {configuration, Conf, 2},
   P1 = poolManager:start(tb1, Pop, Conf, Profiler),
-  P2 = poolManager:start(tb2, Pop, Conf, Profiler),
+  {Pop1, Conf1} = configBuilder:createExperimentConfig(20, 50, 10, 50, 256, 128),
+  P2 = poolManager:start(tb2, Pop1, Conf1, Profiler),
 
-  P1 ! {migrantsDestiny, [P2]},
-  P2 ! {migrantsDestiny, [P1]},
+  P1 ! {migrantsDestination, [P2]},
+  P2 ! {migrantsDestination, [P1]},
 
   manager:start([P1, P2], Profiler).
 
@@ -69,14 +70,17 @@ r3(Profiler) ->
   {Pop, Conf} = configBuilder:createExperimentConfig(10, 50, 5, 50, 256, 128),
   Profiler ! {configuration, Conf, 4},
   P1 = poolManager:start(tb1, Pop, Conf, Profiler),
-  P2 = poolManager:start(tb2, Pop, Conf, Profiler),
-  P3 = poolManager:start(tb3, Pop, Conf, Profiler),
-  P4 = poolManager:start(tb4, Pop, Conf, Profiler),
+  {Pop1, Conf1} = configBuilder:createExperimentConfig(10, 50, 5, 50, 256, 128),
+  P2 = poolManager:start(tb2, Pop1, Conf1, Profiler),
+  {Pop2, Conf2} = configBuilder:createExperimentConfig(10, 50, 5, 50, 256, 128),
+  P3 = poolManager:start(tb3, Pop2, Conf2, Profiler),
+  {Pop3, Conf3} = configBuilder:createExperimentConfig(10, 50, 5, 50, 256, 128),
+  P4 = poolManager:start(tb4, Pop3, Conf3, Profiler),
 
-  P1 ! {migrantsDestiny, [P2, P3]},
-  P2 ! {migrantsDestiny, [P3, P4]},
-  P3 ! {migrantsDestiny, [P4, P1]},
-  P4 ! {migrantsDestiny, [P1, P2]},
+  P1 ! {migrantsDestination, [P2, P3]},
+  P2 ! {migrantsDestination, [P3, P4]},
+  P3 ! {migrantsDestination, [P4, P1]},
+  P4 ! {migrantsDestination, [P1, P2]},
 
   manager:start([P1, P2, P3, P4], Profiler).
 
@@ -84,14 +88,17 @@ r4(Profiler) ->
   {Pop, Conf} = configBuilder:createExperimentConfig(20, 50, 10, 50, 256, 128),
   Profiler ! {configuration, Conf, 4},
   P1 = poolManager:start(tb1, Pop, Conf, Profiler),
-  P2 = poolManager:start(tb2, Pop, Conf, Profiler),
-  P3 = poolManager:start(tb3, Pop, Conf, Profiler),
-  P4 = poolManager:start(tb4, Pop, Conf, Profiler),
+  {Pop1, Conf1} = configBuilder:createExperimentConfig(20, 50, 10, 50, 256, 128),
+  P2 = poolManager:start(tb2, Pop1, Conf1, Profiler),
+  {Pop2, Conf2} = configBuilder:createExperimentConfig(20, 50, 10, 50, 256, 128),
+  P3 = poolManager:start(tb3, Pop2, Conf2, Profiler),
+  {Pop3, Conf3} = configBuilder:createExperimentConfig(20, 50, 10, 50, 256, 128),
+  P4 = poolManager:start(tb4, Pop3, Conf3, Profiler),
 
-  P1 ! {migrantsDestiny, [P2, P3]},
-  P2 ! {migrantsDestiny, [P3, P4]},
-  P3 ! {migrantsDestiny, [P4, P1]},
-  P4 ! {migrantsDestiny, [P1, P2]},
+  P1 ! {migrantsDestination, [P2, P3]},
+  P2 ! {migrantsDestination, [P3, P4]},
+  P3 ! {migrantsDestination, [P4, P1]},
+  P4 ! {migrantsDestination, [P1, P2]},
 
   manager:start([P1, P2, P3, P4], Profiler).
 
@@ -99,22 +106,29 @@ r5(Profiler) ->
   {Pop, Conf} = configBuilder:createExperimentConfig(10, 50, 5, 50, 256, 128),
   Profiler ! {configuration, Conf, 8},
   P1 = poolManager:start(tb1, Pop, Conf, Profiler),
-  P2 = poolManager:start(tb2, Pop, Conf, Profiler),
-  P3 = poolManager:start(tb3, Pop, Conf, Profiler),
-  P4 = poolManager:start(tb4, Pop, Conf, Profiler),
-  P5 = poolManager:start(tb5, Pop, Conf, Profiler),
-  P6 = poolManager:start(tb6, Pop, Conf, Profiler),
-  P7 = poolManager:start(tb7, Pop, Conf, Profiler),
-  P8 = poolManager:start(tb8, Pop, Conf, Profiler),
+  {Pop1, Conf1} = configBuilder:createExperimentConfig(10, 50, 5, 50, 256, 128),
+  P2 = poolManager:start(tb2, Pop1, Conf1, Profiler),
+  {Pop2, Conf2} = configBuilder:createExperimentConfig(10, 50, 5, 50, 256, 128),
+  P3 = poolManager:start(tb3, Pop2, Conf2, Profiler),
+  {Pop3, Conf3} = configBuilder:createExperimentConfig(10, 50, 5, 50, 256, 128),
+  P4 = poolManager:start(tb4, Pop3, Conf3, Profiler),
+  {Pop4, Conf4} = configBuilder:createExperimentConfig(10, 50, 5, 50, 256, 128),
+  P5 = poolManager:start(tb5, Pop4, Conf4, Profiler),
+  {Pop5, Conf5} = configBuilder:createExperimentConfig(10, 50, 5, 50, 256, 128),
+  P6 = poolManager:start(tb6, Pop5, Conf5, Profiler),
+  {Pop6, Conf6} = configBuilder:createExperimentConfig(10, 50, 5, 50, 256, 128),
+  P7 = poolManager:start(tb7, Pop6, Conf6, Profiler),
+  {Pop7, Conf7} = configBuilder:createExperimentConfig(10, 50, 5, 50, 256, 128),
+  P8 = poolManager:start(tb8, Pop7, Conf7, Profiler),
 
-  P1 ! {migrantsDestiny, [P2, P3]},
-  P2 ! {migrantsDestiny, [P3, P4]},
-  P3 ! {migrantsDestiny, [P4, P5]},
-  P4 ! {migrantsDestiny, [P5, P6]},
-  P5 ! {migrantsDestiny, [P6, P7]},
-  P6 ! {migrantsDestiny, [P7, P8]},
-  P7 ! {migrantsDestiny, [P8, P1]},
-  P8 ! {migrantsDestiny, [P1, P2]},
+  P1 ! {migrantsDestination, [P2, P3]},
+  P2 ! {migrantsDestination, [P3, P4]},
+  P3 ! {migrantsDestination, [P4, P5]},
+  P4 ! {migrantsDestination, [P5, P6]},
+  P5 ! {migrantsDestination, [P6, P7]},
+  P6 ! {migrantsDestination, [P7, P8]},
+  P7 ! {migrantsDestination, [P8, P1]},
+  P8 ! {migrantsDestination, [P1, P2]},
 
   manager:start([P1, P2, P3, P4, P5, P6, P7, P8], Profiler).
 
@@ -122,21 +136,28 @@ r6(Profiler) ->
   {Pop, Conf} = configBuilder:createExperimentConfig(20, 50, 10, 50, 256, 128),
   Profiler ! {configuration, Conf, 8},
   P1 = poolManager:start(tb1, Pop, Conf, Profiler),
-  P2 = poolManager:start(tb2, Pop, Conf, Profiler),
-  P3 = poolManager:start(tb3, Pop, Conf, Profiler),
-  P4 = poolManager:start(tb4, Pop, Conf, Profiler),
-  P5 = poolManager:start(tb5, Pop, Conf, Profiler),
-  P6 = poolManager:start(tb6, Pop, Conf, Profiler),
-  P7 = poolManager:start(tb7, Pop, Conf, Profiler),
-  P8 = poolManager:start(tb8, Pop, Conf, Profiler),
+  {Pop1, Conf1} = configBuilder:createExperimentConfig(20, 50, 10, 50, 256, 128),
+  P2 = poolManager:start(tb2, Pop1, Conf1, Profiler),
+  {Pop2, Conf2} = configBuilder:createExperimentConfig(20, 50, 10, 50, 256, 128),
+  P3 = poolManager:start(tb3, Pop2, Conf2, Profiler),
+  {Pop3, Conf3} = configBuilder:createExperimentConfig(20, 50, 10, 50, 256, 128),
+  P4 = poolManager:start(tb4, Pop3, Conf3, Profiler),
+  {Pop4, Conf4} = configBuilder:createExperimentConfig(20, 50, 10, 50, 256, 128),
+  P5 = poolManager:start(tb5, Pop4, Conf4, Profiler),
+  {Pop5, Conf5} = configBuilder:createExperimentConfig(20, 50, 10, 50, 256, 128),
+  P6 = poolManager:start(tb6, Pop5, Conf5, Profiler),
+  {Pop6, Conf6} = configBuilder:createExperimentConfig(20, 50, 10, 50, 256, 128),
+  P7 = poolManager:start(tb7, Pop6, Conf6, Profiler),
+  {Pop7, Conf7} = configBuilder:createExperimentConfig(20, 50, 10, 50, 256, 128),
+  P8 = poolManager:start(tb8, Pop7, Conf7, Profiler),
 
-  P1 ! {migrantsDestiny, [P2, P3]},
-  P2 ! {migrantsDestiny, [P3, P4]},
-  P3 ! {migrantsDestiny, [P4, P5]},
-  P4 ! {migrantsDestiny, [P5, P6]},
-  P5 ! {migrantsDestiny, [P6, P7]},
-  P6 ! {migrantsDestiny, [P7, P8]},
-  P7 ! {migrantsDestiny, [P8, P1]},
-  P8 ! {migrantsDestiny, [P1, P2]},
+  P1 ! {migrantsDestination, [P2, P3]},
+  P2 ! {migrantsDestination, [P3, P4]},
+  P3 ! {migrantsDestination, [P4, P5]},
+  P4 ! {migrantsDestination, [P5, P6]},
+  P5 ! {migrantsDestination, [P6, P7]},
+  P6 ! {migrantsDestination, [P7, P8]},
+  P7 ! {migrantsDestination, [P8, P1]},
+  P8 ! {migrantsDestination, [P1, P2]},
 
   manager:start([P1, P2, P3, P4, P5, P6, P7, P8], Profiler).

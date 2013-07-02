@@ -38,7 +38,7 @@ loop(Pools, EndEvol, Profiler, NumberOfEvals) ->
       end,
       loop(Pools, true, Profiler, NumberOfEvals);
 
-      {evalDone, _}->
+    {evalDone, _} ->
       loop(Pools, EndEvol, Profiler, NumberOfEvals + 1);
 
     {poolManagerEnd, Pid} ->

@@ -37,10 +37,10 @@ loop(InitEvol, Iterations, Emigrations, Conf, NIslands) ->
       loop(InitEvol, Iterations, [{Ind, Fit, T} | Emigrations], Conf, NIslands);
 
     {iteration, Population} ->
-      PopExtWFit = [evaluator:maxOnes(I) || I <- Population],
-      Min = lists:min(PopExtWFit),
-      Max = lists:max(PopExtWFit),
-      Total = lists:foldl(fun(X, Sum) -> X + Sum end, 0, PopExtWFit),
+      FitnessEachInd = [evaluator:maxOnes(I) || I <- Population],
+      Min = lists:min(FitnessEachInd),
+      Max = lists:max(FitnessEachInd),
+      Total = lists:foldl(fun(X, Sum) -> X + Sum end, 0, FitnessEachInd),
       Ave = Total / length(Population),
       loop(InitEvol, [{Min, Max, Ave} | Iterations], Emigrations, Conf, NIslands);
 
