@@ -33,8 +33,8 @@ loop(InitEvol, Iterations, Emigrations, Conf, NIslands) ->
 %io:format("Configuration arrived: ~p~n", [NConf]),
       loop(none, [], [], NConf, NNIslands);
 
-    {migration, {Ind, Fit}, T} ->
-      loop(InitEvol, Iterations, [{Ind, Fit, T} | Emigrations], Conf, NIslands);
+    {migration, {_, _}, T} -> % {migration, {Ind, Fit}, T} -> For future use.
+      loop(InitEvol, Iterations, [T | Emigrations], Conf, NIslands);
 
     {iteration, Population} ->
       FitnessEachInd = [evaluator:maxOnes(I) || I <- Population],

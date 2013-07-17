@@ -100,8 +100,8 @@ bestParent(Pop2r) ->
   lists:last(T).
 
 updatePool(Table, NoParents, NInds, BestParents) ->
-  ets:insert(Table, [{I, F, 2} || {I, F} <- NoParents]),
-  ets:insert(Table, [{I, F, 2} || {I, F} <- BestParents]),
+  ets:insert(Table, [{I, F, 2} || {I, F} <-
+    lists:append(NoParents, BestParents)]),
   ets:insert(Table, [{I, none, 1} || I <- NInds]).
 
 % 2. Se seleccionarán 2n padres
@@ -109,29 +109,20 @@ updatePool(Table, NoParents, NInds, BestParents) ->
 % Pop: [{Ind, IndFitness}]
 % N = integer(),  cantidad de inds a seleccionar
 selectPop2Reproduce(Pop, N) ->
+  L = length(Pop),
+  Select1from3 = fun() ->
+    R3 = [lists:nth(random:uniform(L), Pop) || _ <- lists:seq(1, 3)],
+    [First | Rest] = R3,
+    lists:foldl(fun({I1, F1}, {I2, F2}) ->
+      if
+        F1 > F2 -> {I1, F1};
+        true -> {I2, F2}
+      end
+    end, First, Rest)
+  end,
   {A1, A2, A3} = now(),
   random:seed(A1, A2, A3),
-  [select1from3(Pop) || _ <- lists:seq(1, 2 * N)].
-
-% Pop: [{Ind, IndFitness}]
-select1from3(Pop) ->
-  L = length(Pop),
-  N1 = random:uniform(L),
-  N2 = random:uniform(L),
-  N3 = random:uniform(L),
-  {I1, F1} = lists:nth(N1, Pop),
-  {I2, F2} = lists:nth(N2, Pop),
-  {I3, F3} = lists:nth(N3, Pop),
-  if F1 > F2 ->
-    if F1 > F3 -> R = {I1, F1}; % F1
-      true -> R = {I3, F3}      % F3
-    end;
-    true -> if
-      F2 > F3 -> R = {I2, F2}; % F2
-      true -> R = {I3, F3}     % F3
-    end
-  end,
-  R.
+  [Select1from3() || _ <- lists:seq(1, 2 * N)].
 
 % 3. De esos padres se seleccionarán n parejas
 %     Aleatoriamente: first + random del resto, eliminadolo para la proxima iteracion
@@ -156,8 +147,8 @@ crossover({{Ind1, _}, {Ind2, _}}) ->
   {A1, A2} = lists:split(CrossPoint, Ind1),
   {B1, B2} = lists:split(CrossPoint, Ind2),
   Child1 = lists:append(A1, B2),
-  MuttationP = random:uniform(L),
-  {M1, [Bit1 | M2]} = lists:split(MuttationP - 1, Child1),
+  MuttationPoint = random:uniform(L),
+  {M1, [Bit1 | M2]} = lists:split(MuttationPoint - 1, Child1),
   B3 = lists:append(M1, [changeB(Bit1) | M2]), % mutacion
   {B3, lists:append(B1, A2)}.
 
@@ -165,8 +156,3 @@ changeB(B) ->
   if B == 1 -> 0;
     true -> 1
   end.
-
-% 5. Envio al pool
-%
-
-

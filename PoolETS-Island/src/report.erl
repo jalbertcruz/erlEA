@@ -33,7 +33,7 @@ loop(Results, Instances, NumberOfExperiments, Profiler) ->
       if
         NumberOfExperiments =:= 1 ->
           {ok, IODevice} = file:open("results.csv", [write]),
-          file:write(IODevice, "EvolutionDelay,NumberOfEvals,Emigrations,EvaluatorsCount,ReproducersCount,IslandsCount"),
+          file:write(IODevice, "EvolutionDelay,NumberOfEvals,Emigrations,EvaluatorsCount,ReproducersCount,IslandsCount\n"),
           lists:foreach(
             fun({EvolutionDelay1, NEmig1, Conf1, NIslands1, NumberOfEvals1}) ->
               Ec = Conf1#configGA.evaluatorsCount,
@@ -42,7 +42,10 @@ loop(Results, Instances, NumberOfExperiments, Profiler) ->
             lists:reverse(TResults)
           ),
           file:close(IODevice),
-          Profiler ! finalize;
+          io:format("Session end.", []),
+          Profiler ! finalize,
+          loop(TResults, Instances, NumberOfExperiments, Profiler);% OJO: A eliminar cuando se resuelva el problema del cierre del manager
+
         true ->
           loop(TResults, Instances, NumberOfExperiments - 1, Profiler)
       end;
@@ -58,8 +61,8 @@ loop(Results, Instances, NumberOfExperiments, Profiler) ->
 
         L =/= 0 ->
           [{Module, Function, Pmtos} | Rest] = Instances,
+%%           io:format("Doing experiment: ~p, in: ~p~n", [Function, Module]),
           apply(Module, Function, Pmtos),
-          io:format("Doing experiment: ~p, in: ~p~n", [Function, Module]),
           loop(Results, Rest, NumberOfExperiments, Profiler);
 
         true ->

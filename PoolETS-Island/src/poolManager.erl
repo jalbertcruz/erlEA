@@ -88,8 +88,7 @@ loop(TName, Evals, Reps, IM, SolutionReached, MigrantsDestination, PoolsManager,
       loop(TName, Evals, Reps, IM, SolutionReached, MigrantsDestination, PoolsManager, Profiler);
 
     solutionReachedbyAny ->
-      lists:foreach(fun(E) -> E ! finalize end, Evals),
-      lists:foreach(fun(E) -> E ! finalize end, Reps),
+      lists:foreach(fun(E) -> E ! finalize end, lists:append(Evals, Reps)),
       loop(TName, Evals, Reps, IM, true, MigrantsDestination, PoolsManager, Profiler);
 
     {solutionReachedbyEvaluator, _} ->

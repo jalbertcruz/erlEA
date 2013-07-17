@@ -5,3 +5,5 @@
 2. Probar calidad de la solución con cantidad de evaluaciones constantes.
 
 3. Probar con pequeños valores de evaluaciones y reproductores.
+
+-- Revisar ciclo de vida del actor manager

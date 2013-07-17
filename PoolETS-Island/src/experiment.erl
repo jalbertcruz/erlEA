@@ -21,9 +21,10 @@ init() ->
 
   report ! {session,
     [
-      {experiment, r1, [Profiler]}, {experiment, r2, [Profiler]},
-      {experiment, r3, [Profiler]}, {experiment, r4, [Profiler]},
-      {experiment, r5, [Profiler]}, {experiment, r6, [Profiler]}
+      {experiment, r1, [Profiler]}, {experiment, r2, [Profiler]}
+%%       ,
+%%       {experiment, r3, [Profiler]}, {experiment, r4, [Profiler]},
+%%       {experiment, r5, [Profiler]}, {experiment, r6, [Profiler]}
     ]}.
 
 init(N) ->
