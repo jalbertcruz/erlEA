@@ -1,8 +1,0 @@
-
-- Formato de los terminos de la tabla:
-{Ind, F, State, Sel?}
-
-Ind, -- cromosoma
-F, -- valor del fitness
-State, -- estado actual de procesamiento
-    valores: 1 incial, 2 con fitness calculado, 3 eliminado
