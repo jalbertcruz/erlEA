@@ -8,51 +8,67 @@
 %% MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE. Please refer to the
 %% AGPL (http://www.gnu.org/licenses/agpl-3.0.txt) for more details.
 %%
+
 -module(manager).
 -author("jalbertcruz@gmail.com").
 
 -include("../include/mtypes.hrl").
-
 -compile(export_all).
 
-start(Pools, Profiler) ->
-  spawn(manager, init, [Pools, Profiler]).
+start() ->
+  Pid = spawn(manager, init, []),
+  Pid.
 
-init(Pools, Profiler) ->
-  Profiler ! {initEvol, now()},
-  lists:foreach(fun(P) -> P ! {setPoolsManager, self()}, P ! sReps, P ! sEvals end, Pools),
-  loop(Pools, false, Profiler, 0).
+init() ->
+  loop(none).
 
-loop(Pools, EndEvol, Profiler, NumberOfEvals) ->
+loop(D) ->
 
   receive
 
-    {solutionReachedByPoolManager, _} ->
-      lists:foreach(fun(P) -> P ! solutionReachedbyAny end, Pools),
-      loop(Pools, EndEvol, Profiler, NumberOfEvals);
+    {init, MConf} ->
+      loop(MConf#manager{instances = [], results = []});
 
-    {endEvol, T} ->
-      if EndEvol -> ok;
-        true ->
-          Profiler ! {endEvol, T, NumberOfEvals}
-      end,
-      loop(Pools, true, Profiler, NumberOfEvals);
+    {experimentEnd, ReportData} ->
+      TResults = [ReportData | D#manager.results],
+      io:format("Best fitness: ~p at ~p~n", [lists:nth(6, ReportData), now()]),
+      LInstances = length(D#manager.instances),
 
-    {evalDone, _} ->
-      loop(Pools, EndEvol, Profiler, NumberOfEvals + 1);
-
-    {poolManagerEnd, Pid} ->
-      NewPools = lists:delete(Pid, Pools),
-      LPools = length(NewPools),
       if
-        (LPools =:= 0) -> self() ! finalize;
-        true -> ok
+        LInstances == 0 ->
+          io:format("All ends!~n", []),
+%%           {ok, IODevice} = file:open("../../results/book2013/erlEA/parResults.csv", [write]),
+%%           file:write(IODevice, "EvolutionDelay,NumberOfEvals,Emigrations,EvaluatorsCount,ReproducersCount,IslandsCount,BestSol\n"),
+%%           lists:foreach(% TODO: revisar orden de los parametros!!!
+%%             fun([EvolutionDelay, NEmig, Conf, NIslands, NumberOfEvals, BestSol]) ->
+%%               Ec = Conf#confIsland.evaluatorsCount,
+%%               Rc = Conf#confIsland.reproducersCount,
+%%               io:format(IODevice, "~p,~p,~p,~p,~p,~p,~p ~n", [EvolutionDelay, NumberOfEvals, NEmig, Ec, Rc, NIslands, BestSol])
+%%             end,
+%%             lists:reverse(TResults)
+%%           ),
+%%           file:close(IODevice),
+          ok;
+        true ->
+          self() ! mkExperiment
       end,
-      loop(NewPools, EndEvol, Profiler, NumberOfEvals);
+      loop(D#manager{results = TResults});
 
-    finalize ->
-      report ! mkExperiment,
-%%       io:format("Manager ended: ~p, ", [self()]),
-      ok
+    {session, Funs} ->
+      self() ! mkExperiment,
+      loop(D#manager{instances = Funs});
+
+    mkExperiment ->
+      L = length(D#manager.instances),
+      if
+        L =/= 0 ->
+          [{Module, Function, Pmtos} | Rest] = D#manager.instances,
+%%           io:format("Doing experiment: ~p, in: ~p~n", [Function, Module]),
+          apply(Module, Function, Pmtos),
+          loop(D#manager{instances = Rest});
+
+        true ->
+          loop(D)
+      end
 
   end.

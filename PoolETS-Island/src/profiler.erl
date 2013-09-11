@@ -17,43 +17,52 @@
 -compile(export_all).
 
 start() ->
-  Pid = spawn(profiler, init, []),
-%register(profiler, Pid),
-  Pid.
+  spawn(profiler, init, []).
 
 init() ->
-  io:format("profiler started: ~p~n", [self()]),
-  loop(none, [], [], none, 0).
+%%   io:format("profiler started: ~p~n", [self()]),
+  loop(none).
 
-loop(InitEvol, Iterations, Emigrations, Conf, NIslands) ->
+loop(D) ->
 
   receive
 
+    {init, Manager} ->
+      loop(#profiler{manager = Manager, emigrations = [], iterations = []});
+
     {configuration, NConf, NNIslands} ->
 %io:format("Configuration arrived: ~p~n", [NConf]),
-      loop(none, [], [], NConf, NNIslands);
+      loop(D#profiler{conf = NConf, nIslands = NNIslands, emigrations = [], iterations = []});
 
     {migration, {_, _}, T} -> % {migration, {Ind, Fit}, T} -> For future use.
-      loop(InitEvol, Iterations, [T | Emigrations], Conf, NIslands);
+      loop(D#profiler{emigrations = [T | D#profiler.emigrations]});
 
     {iteration, Population} ->
-      FitnessEachInd = [evaluator:maxOnes(I) || I <- Population],
-      Min = lists:min(FitnessEachInd),
-      Max = lists:max(FitnessEachInd),
-      Total = lists:foldl(fun(X, Sum) -> X + Sum end, 0, FitnessEachInd),
-      Ave = Total / length(Population),
-      loop(InitEvol, [{Min, Max, Ave} | Iterations], Emigrations, Conf, NIslands);
+%%       FitnessEachInd = [problem:function/1(I) || I <- Population],
+%%       Min = lists:min(FitnessEachInd),
+%%       Max = lists:max(FitnessEachInd),
+%%       Total = lists:foldl(fun(X, Sum) -> X + Sum end, 0, FitnessEachInd),
+%%       Ave = Total / length(Population),
+%%       loop(D#profiler{iterations = [{Min, Max, Ave} | D#profiler.iterations]})
+      loop(D);
 
     {initEvol, T} ->
-      loop(T, Iterations, Emigrations, Conf, NIslands);
+      loop(D#profiler{initEvol = T});
 
-    {endEvol, T, NumberOfEvals} ->
-      EvolutionDelay = getSecs(InitEvol, T),
-      NEmig = length(Emigrations),
-%%           io:format("The evolution delay: ~p seconds.~n", [EvolutionDelay]),
-%%           io:format("Number of migrations: ~p~n", [NEmig]),
-      report ! {experimentEnd, EvolutionDelay, NEmig, Conf, NIslands, NumberOfEvals},
-      loop(InitEvol, Iterations, Emigrations, Conf, NIslands);
+    experimentEnd ->
+
+      EvolutionDelay = D#profiler.evolutionDelay,
+      NEmig = length(D#profiler.emigrations),
+
+      D#profiler.manager !
+        {experimentEnd,
+          [EvolutionDelay, NEmig, D#profiler.conf, D#profiler.nIslands, D#profiler.numberOfEvals, D#profiler.bestSolution]},
+
+      loop(D);
+
+    {endEvol, T, NumberOfEvals, BestSolution} ->
+      EvolutionDelay = getMiliSecs(D#profiler.initEvol, T),
+      loop(D#profiler{evolutionDelay = EvolutionDelay, numberOfEvals = NumberOfEvals, bestSolution = BestSolution});
 
     finalize ->
       ok
@@ -72,3 +81,9 @@ getSecs({_, S1, MicroS1}, {_, S2, MicroS2}) ->
   FCad = if L1 == 6 -> ""; true -> string:substr("000000", L1 + 1) end,
   ResStr = integer_to_list(PE) ++ "." ++ FCad ++ PRL,
   list_to_float(ResStr).
+
+getMiliSecs({_, S1, MicroS1}, {_, S2, MicroS2}) ->
+  M = 1000000,
+  N1 = S1 * M + MicroS1,
+  N2 = S2 * M + MicroS2,
+  (N2 - N1) div 1000.

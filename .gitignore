@@ -13,3 +13,7 @@ ebin/
 .settings/
 *.log
 *.xml
+TODO.txt
+openEmacs.rb
+tests/
+problems/

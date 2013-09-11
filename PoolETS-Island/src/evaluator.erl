@@ -8,53 +8,93 @@
 %% MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE. Please refer to the
 %% AGPL (http://www.gnu.org/licenses/agpl-3.0.txt) for more details.
 %%
-%% Este actor tomará individuos y les calculará el fitness, solamente
+
 -module(evaluator).
 -author("jalbertcruz@gmail.com").
+
 -include_lib("stdlib/include/ms_transform.hrl").
+
+-include("../include/mtypes.hrl").
 
 -compile(export_all).
 
-start(Table, PManager) ->
-  spawn(evaluator, init, [Table, PManager]).
+start() ->
+  spawn(evaluator, init, []).
 
-init(Table, PManager) ->
-  loop(Table, PManager).
+init() ->
+  loop(none).
 
-loop(Table, PManager) ->
+evaluate(Sels, DoIfFitnessTerminationCondition) ->
+  L = length(Sels),
+  if
+    L < 1 ->
+      {false, null};
+    true ->
+      NSels = lists:map(
+        fun(Ind) ->
+          Fit = problem:function(Ind),
+
+          TerminationCondition = problem:terminationCondition(),
+          if
+            TerminationCondition == fitnessTerminationCondition ->
+              RfitnessTerminationCondition = problem:fitnessTerminationCondition(Ind, Fit),
+              if RfitnessTerminationCondition ->
+                DoIfFitnessTerminationCondition(Ind, Fit);
+                true -> ok
+              end;
+            true -> ok
+          end,
+
+          {Ind, Fit}
+
+        end, Sels
+      ),
+      {true, NSels}
+  end.
+
+loop(D) ->
   receive
 
-    {eval, N} ->
+    {init, PManager, PProfiler} ->
+      loop(#evaluator{manager = PManager, profiler = PProfiler});
+
+    {evaluate, Table, N} ->
       MS = ets:fun2ms(fun({Ind, _, State}) when State == 1 -> Ind end),
       Res = ets:select(Table, MS, N), % N individuals in state 1
-
       case Res of
         {Sels, _} ->
-          lists:foreach(fun(Ind) ->
-            F = maxOnes(Ind),
-            L = length(Ind),
-            if L == F ->
-              PManager ! {solutionReachedbyEvaluator, self()};
-              true -> ok
-            end,
-            ets:update_element(Table, Ind, [{2, F}, {3, 2}])
-          end, Sels),
+          {R, NSels} = evaluate(Sels,
+            fun(Ind, Fit) ->
+              D#evaluator.manager ! {solutionReachedbyEvaluator, {Ind, Fit}, self()}
+            end
+          ),
 
-          PManager ! {evalDone, self()};
+          if
+            R ->
+%%               lists:foreach(fun({Ind, Fit}) ->
+%%                 ets:update_element(Table, Ind, [{2, Fit}, {3, 2}])
+%%               end, NSels),
+              PNSels = [{Ind, Fit, 2} || {Ind, Fit} <- NSels],
 
-        '$end_of_table' -> PManager ! {evalEmpthyPool, self()}
+              D#evaluator.manager ! {add2Pool, PNSels},
+              D#evaluator.manager ! {evalDone, self(), length(NSels)};
+
+            true -> ok
+          end;
+
+        '$end_of_table' ->
+          D#evaluator.manager ! {evalEmpthyPool, self()};
+
+        _ ->
+          io:format("Info evaluator: ~p~n", [ets:info(Table)])
+
       end,
 
-      loop(Table, PManager);
+      loop(D);
 
     finalize ->
-      PManager ! {evaluatorFinalized, self()},
+      D#evaluator.manager ! {evaluatorFinalized, self()},
 %%       io:format("Evaluator ended: ~p, ", [self()]),
       ok
 
   end.
-
-
-maxOnes(L) ->
-%io:format("maxOnes: ~p~n", [L]),
-  length(lists:filter(fun(X) -> X =:= 1 end, L)).

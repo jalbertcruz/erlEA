@@ -17,57 +17,24 @@
 -include("../include/mtypes.hrl").
 -include_lib("stdlib/include/ms_transform.hrl").
 
-start(Table, PManager, Profiler) ->
-  spawn(reproducer, init, [Table, PManager, Profiler]).
 
-init(Table, PManager, Profiler) ->
-  loop(Table, PManager, Profiler).
+evolve(Subpop, ParentsCount, DoWhenLittle) ->
+  L = length(Subpop),
+  if
+    L < 3 ->
+      DoWhenLittle(),
+      {false, none};
 
-loop(Table, PManager, Profiler) ->
-  receive
-
-    {evolve, N} ->
-      Pop = extractSubpopulation(Table, N),
-      L = length(Pop),
-      if
-        L < 3 -> PManager ! {repEmpthyPool, self()};
-        true ->
-          ParentsCount = N div 2, % TODO: confirmar este numero
-          Pop2r = selectPop2Reproduce(Pop, ParentsCount),
-          Parents = parentsSelector(Pop2r, ParentsCount),
-          NInds = lists:map(fun crossover/1, Parents),
-          NIndsFlatt = [I || {I, _} <- NInds] ++ [I || {_, I} <- NInds],
-          NoParents = lists:subtract(Pop, flatt(Parents)), % OJO, performance
-          BestParents = [bestParent(Pop2r)],
-          updatePool(Table, NoParents, NIndsFlatt, BestParents),
-          PManager ! {evolveDone, self()},
-%%PROFILER:
-          Profiler ! {iteration, NIndsFlatt}
-      end,
-      loop(Table, PManager, Profiler);
-
-    {emigrateBest, Destination} ->
-      MS = ets:fun2ms(fun({Ind, F, State}) when State == 2 -> {Ind, F} end),
-      Sels = ets:select(Table, MS),
-      L = length(Sels),
-      if
-        L > 0 ->
-          Population = lists:keysort(2, Sels),
-          P = lists:last(Population), % el ordenamiento es de menor a mayor, tomo entonces el ultimo
-%%PROFILER:
-          Profiler ! {migration, P, now()},
-
-          Destination ! {migration, P};
-        true -> ok
-      end,
-      loop(Table, PManager, Profiler);
-
-    finalize ->
-      PManager ! {reproducerFinalized, self()},
-%%       io:format("Reproducer ended: ~p, ", [self()]),
-      ok
-
+    true ->
+      Pop2r = selectPop2Reproduce(Subpop, ParentsCount),
+      Parents = parentsSelector(Pop2r, ParentsCount),
+      NInds = lists:map(fun crossover/1, Parents),
+      NIndsFlatt = [I || {I, _} <- NInds] ++ [I || {_, I} <- NInds],
+      NoParents = lists:subtract(Subpop, flatt(Parents)), % OJO, performance
+      BestParents = [bestParent(Pop2r)],
+      {true, {NoParents, NIndsFlatt, BestParents}}
   end.
+
 
 flatt(Parents) ->
   [A || {A, _} <- Parents] ++ [A || {_, A} <- Parents].
@@ -81,9 +48,7 @@ flatt(Parents) ->
 % Table = atom, atomo identificador de la ets
 % N = integer(),  cantidad de inds a seleccionar
 % returns: [{Ind, IndFitness}]
-extractSubpopulation(Table, N) ->
-  MS = ets:fun2ms(fun({Ind, F, State}) when State == 2 -> {Ind, F} end),
-  Sels = ets:select(Table, MS),
+extractSubpopulation(Sels, N) ->
   L = length(Sels),
   StartIndex =
     if
@@ -92,17 +57,76 @@ extractSubpopulation(Table, N) ->
     end,
 % el ordenamiento es de menor a mayor, tomo entonces los ultimos
   Population = lists:sublist(lists:keysort(2, Sels), StartIndex, N),
-  lists:foreach(fun(I) -> ets:delete(Table, I) end, Population),
+%%   lists:foreach(fun(I) -> ets:delete(Table, I) end, Population),
   Population.
 
 bestParent(Pop2r) ->
   T = lists:keysort(2, Pop2r),
   lists:last(T).
 
-updatePool(Table, NoParents, NInds, BestParents) ->
-  ets:insert(Table, [{I, F, 2} || {I, F} <-
-    lists:append(NoParents, BestParents)]),
-  ets:insert(Table, [{I, none, 1} || I <- NInds]).
+mergeFunction(Table, Subpop, NoParents, NInds, BestParents, PoolSize) ->
+%%   ets:insert(Table, [{I, F, 2} || {I, F} <-
+%%     lists:append(NoParents, BestParents)]),
+%%   ets:insert(Table, [{I, none, 1} || I <- NInds]).
+
+  L1 = [{Ind, {Fit, 2}} || {Ind, Fit} <-
+    lists:append([Subpop, NoParents, BestParents])],
+  L2 = [{Ind, {none, 1}} || Ind <- NInds],
+  Sub1 = dict:from_list(lists:append(L1, L2)),
+  Table1 = dict:filter(
+    fun(Key, Value) ->
+      not dict:is_key(Key, Sub1)
+    end, Table),
+  LCant2drop = dict:size(Table1) - (PoolSize - dict:size(Sub1)),
+  Cant2drop = if
+    LCant2drop >= 0 ->
+      LCant2drop;
+    true ->
+      0
+  end,
+
+  KeysToEraseFromTable1 = lists:sublist(
+    dict:fetch_keys(
+      dict:filter(
+        fun(Key, {Fit, State}) ->
+          State == 2
+        end, Table)
+    ), Cant2drop),
+
+  RestOlds = dict:filter(
+    fun(Key, Value) ->
+      not lists:member(Key, KeysToEraseFromTable1)
+    end, Table1),
+
+  LMore2drop = (dict:size(Sub1) + dict:size(RestOlds)) - PoolSize,
+
+  More2drop = if
+    LMore2drop >= 0 ->
+      LMore2drop;
+    true ->
+      0
+  end,
+
+  Res = if
+    More2drop > 0 ->
+      KeysToEraseFromRestOlds = lists:sublist(
+        dict:fetch_keys(
+          dict:filter(
+            fun(Key, {Fit, State}) ->
+              State == 1
+            end, Table)
+        ), More2drop),
+      dict:filter(
+        fun(Key, Value) ->
+          not lists:member(Key, KeysToEraseFromRestOlds)
+        end, RestOlds);
+
+    true ->
+      RestOlds
+  end,
+  Result = dict:merge(fun(K, V1, V2) -> V2 end, Res, Sub1),
+  [{Ind, Fit, State} || {Ind, {Fit, State}} <- dict:to_list(Result)].
+
 
 % 2. Se seleccionarán 2n padres
 %     - tomar aleatoriamente 3 inds, seleccinar el mejor
@@ -130,6 +154,7 @@ parentsSelector(Pop, 1) ->
   [I1 | Rest] = Pop,
   N1 = random:uniform(length(Rest)),
   [{I1, lists:nth(N1, Rest)}];
+
 parentsSelector(Pop, N) ->
   [I1 | Rest] = Pop,
   N1 = random:uniform(length(Rest)),
@@ -149,10 +174,83 @@ crossover({{Ind1, _}, {Ind2, _}}) ->
   Child1 = lists:append(A1, B2),
   MuttationPoint = random:uniform(L),
   {M1, [Bit1 | M2]} = lists:split(MuttationPoint - 1, Child1),
-  B3 = lists:append(M1, [changeB(Bit1) | M2]), % mutacion
+  B3 = lists:append(M1, [problem:changeGen(Bit1) | M2]), % mutacion
   {B3, lists:append(B1, A2)}.
 
-changeB(B) ->
-  if B == 1 -> 0;
-    true -> 1
+start() ->
+  spawn(reproducer, init, []).
+
+init() ->
+  loop(none).
+
+loop(D) ->
+  receive
+
+    {init, PManager, PProfiler} ->
+      loop(#reproducer{manager = PManager, profiler = PProfiler});
+
+    {evolve, Table, N} ->
+      MS = ets:fun2ms(fun({Ind, F, State}) when State == 2 -> {Ind, F} end),
+      Sels = ets:select(Table, MS),
+      Subpop = extractSubpopulation(Sels, N),
+
+%%       LSels = length(Sels),
+%%
+%%       if
+%%         LSels > 0 ->
+%%           io:format("evolve:~n", []);
+%%         true -> ok
+%%       end,
+
+      {Res, ResultData} = evolve(
+        Subpop,
+        N div 2,
+        fun() ->
+          D#reproducer.manager ! {repEmpthyPool, self()}
+        end
+      ),
+      if
+        Res ->
+          {NoParents, NInds, BestParents} = ResultData,
+          {_, LDict} = process_info(D#reproducer.manager, dictionary),
+          {_, PoolSize} = lists:keyfind(poolSize, 1, LDict),
+
+          MS1 = ets:fun2ms(fun({X1, Y1, Z1}) -> {X1, {Y1, Z1}} end),
+          EtsAll = dict:from_list(ets:select(Table, MS1)),
+
+          D#reproducer.manager ! {updatePool,
+            mergeFunction(EtsAll, Subpop, NoParents, NInds, BestParents, PoolSize)},
+
+          D#reproducer.manager ! {evolveDone, self()},
+%%PROFILER:
+          D#reproducer.profiler ! {iteration, NInds};
+
+        true ->
+          ok
+      end,
+      loop(D);
+
+    {emigrateBest, Table, Destination} ->
+      MS = ets:fun2ms(fun({Ind, F, State}) when State == 2 -> {Ind, F} end),
+      Sels = ets:select(Table, MS),
+      L = length(Sels),
+      if
+        L > 0 ->
+          Population = lists:keysort(2, Sels),
+          P = lists:last(Population), % el ordenamiento es de menor a mayor, tomo entonces el ultimo
+          Destination ! {migration, P},
+%%PROFILER:
+          D#reproducer.profiler ! {migration, P, now()};
+
+        true ->
+          ok
+      end,
+      loop(D);
+
+    finalize ->
+      D#reproducer.manager ! {reproducerFinalized, self()},
+%%       io:format("Reproducer ended: ~p, ", [self()]),
+      ok
+
   end.
+
