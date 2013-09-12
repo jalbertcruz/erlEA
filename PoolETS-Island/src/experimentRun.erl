@@ -19,6 +19,7 @@
 init() ->
   {A1, A2, A3} = now(),
   random:seed(A1, A2, A3),
+  problem:init(),
 
   Profiler = profiler:start(),
   Manager = manager:start(),
@@ -28,7 +29,7 @@ init() ->
 
   Manager ! {session,
     [{experiment, r2, [Profiler, Manager]} ||
-      _ <- lists:seq(1, 1)]
+      _ <- lists:seq(1, 20)]
   }.
 
 %% init(N) ->

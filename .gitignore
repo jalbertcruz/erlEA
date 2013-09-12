@@ -12,6 +12,7 @@ ebin/
 .prefs
 .settings/
 *.log
+*.7z
 *.xml
 TODO.txt
 openEmacs.rb

@@ -50,7 +50,6 @@ loop(D) ->
       loop(D#profiler{initEvol = T});
 
     experimentEnd ->
-
       EvolutionDelay = D#profiler.evolutionDelay,
       NEmig = length(D#profiler.emigrations),
 

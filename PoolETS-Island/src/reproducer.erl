@@ -190,17 +190,9 @@ loop(D) ->
       loop(#reproducer{manager = PManager, profiler = PProfiler});
 
     {evolve, Table, N} ->
-      MS = ets:fun2ms(fun({Ind, F, State}) when State == 2 -> {Ind, F} end),
-      Sels = ets:select(Table, MS),
+      Sels = ets:select(Table,
+        ets:fun2ms(fun({Ind, F, State}) when State == 2 -> {Ind, F} end)),
       Subpop = extractSubpopulation(Sels, N),
-
-%%       LSels = length(Sels),
-%%
-%%       if
-%%         LSels > 0 ->
-%%           io:format("evolve:~n", []);
-%%         true -> ok
-%%       end,
 
       {Res, ResultData} = evolve(
         Subpop,
@@ -212,14 +204,14 @@ loop(D) ->
       if
         Res ->
           {NoParents, NInds, BestParents} = ResultData,
-          {_, LDict} = process_info(D#reproducer.manager, dictionary),
-          {_, PoolSize} = lists:keyfind(poolSize, 1, LDict),
+%%           {_, LDict} = process_info(D#reproducer.manager, dictionary),
+%%           {_, PoolSize} = lists:keyfind(poolSize, 1, LDict),
 
-          MS1 = ets:fun2ms(fun({X1, Y1, Z1}) -> {X1, {Y1, Z1}} end),
-          EtsAll = dict:from_list(ets:select(Table, MS1)),
+          EtsAll = dict:from_list(ets:select(Table,
+            ets:fun2ms(fun({X1, Y1, Z1}) -> {X1, {Y1, Z1}} end))),
 
           D#reproducer.manager ! {updatePool,
-            mergeFunction(EtsAll, Subpop, NoParents, NInds, BestParents, PoolSize)},
+            mergeFunction(EtsAll, Subpop, NoParents, NInds, BestParents, problem:popSize())},
 
           D#reproducer.manager ! {evolveDone, self()},
 %%PROFILER:
@@ -231,8 +223,8 @@ loop(D) ->
       loop(D);
 
     {emigrateBest, Table, Destination} ->
-      MS = ets:fun2ms(fun({Ind, F, State}) when State == 2 -> {Ind, F} end),
-      Sels = ets:select(Table, MS),
+      Sels = ets:select(Table,
+        ets:fun2ms(fun({Ind, F, State}) when State == 2 -> {Ind, F} end)),
       L = length(Sels),
       if
         L > 0 ->

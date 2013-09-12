@@ -31,23 +31,23 @@ loop(D) ->
 
     {experimentEnd, ReportData} ->
       TResults = [ReportData | D#manager.results],
-      io:format("Best fitness: ~p at ~p~n", [lists:nth(6, ReportData), now()]),
+%%       io:format("Best fitness: ~p at ~p~n", [lists:nth(6, ReportData), now()]),
       LInstances = length(D#manager.instances),
 
       if
         LInstances == 0 ->
           io:format("All ends!~n", []),
-%%           {ok, IODevice} = file:open("../../results/book2013/erlEA/parResults.csv", [write]),
-%%           file:write(IODevice, "EvolutionDelay,NumberOfEvals,Emigrations,EvaluatorsCount,ReproducersCount,IslandsCount,BestSol\n"),
-%%           lists:foreach(% TODO: revisar orden de los parametros!!!
-%%             fun([EvolutionDelay, NEmig, Conf, NIslands, NumberOfEvals, BestSol]) ->
-%%               Ec = Conf#confIsland.evaluatorsCount,
-%%               Rc = Conf#confIsland.reproducersCount,
-%%               io:format(IODevice, "~p,~p,~p,~p,~p,~p,~p ~n", [EvolutionDelay, NumberOfEvals, NEmig, Ec, Rc, NIslands, BestSol])
-%%             end,
-%%             lists:reverse(TResults)
-%%           ),
-%%           file:close(IODevice),
+          {ok, IODevice} = file:open("../../results/book2013/erlEA/parResults.csv", [write]),
+          file:write(IODevice, "EvolutionDelay,NumberOfEvals,Emigrations,EvaluatorsCount,ReproducersCount,IslandsCount,BestSol\n"),
+          lists:foreach(
+            fun([EvolutionDelay, NEmig, Conf, NIslands, NumberOfEvals, BestSol]) ->
+              Ec = Conf#confIsland.evaluatorsCount,
+              Rc = Conf#confIsland.reproducersCount,
+              io:format(IODevice, "~p,~p,~p,~p,~p,~p,~p ~n", [EvolutionDelay, NumberOfEvals, NEmig, Ec, Rc, NIslands, BestSol])
+            end,
+            lists:reverse(TResults)
+          ),
+          file:close(IODevice),
           ok;
         true ->
           self() ! mkExperiment
@@ -63,7 +63,7 @@ loop(D) ->
       if
         L =/= 0 ->
           [{Module, Function, Pmtos} | Rest] = D#manager.instances,
-%%           io:format("Doing experiment: ~p, in: ~p~n", [Function, Module]),
+          io:format("Doing experiment: ~p, in: ~p at ~p~n", [Function, Module, now()]),
           apply(Module, Function, Pmtos),
           loop(D#manager{instances = Rest});
 

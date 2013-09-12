@@ -14,6 +14,12 @@
 
 -compile(export_all).
 
+init() ->
+  ok.
+
+finalize() ->
+  ok.
+
 function(Ind) ->
 %io:format("maxOnes: ~p~n", [L]),
   length(lists:filter(fun(X) -> X =:= 1 end, Ind)).
@@ -39,7 +45,7 @@ changeGen(G) ->
   end.
 
 evaluations() ->
-  506.
+  5000.
 
 popSize() ->
   256.

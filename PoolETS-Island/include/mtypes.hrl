@@ -1,12 +1,5 @@
 -compile(export_all).
 
--record(configGA, {
-  evaluatorsCount, %% Amount of evaluators
-  evaluatorsCapacity, %% Work capacity of evaluators
-  reproducersCount,
-  reproducersCapacity
-}).
-
 -record(evaluator, {
   manager,
   profiler
@@ -51,9 +44,7 @@
   evaluatorsCount,
   evaluatorsCapacity,
   reproducersCount,
-  reproducersCapacity,
-
-  corridas
+  reproducersCapacity
 }).
 
 -record(profiler, {
@@ -71,4 +62,11 @@
 -record(reproducer, {
   manager,
   profiler
+}).
+
+-record(seqEA, {
+  evaluations,
+  solutionFound,
+  poolName,
+  evalDone
 }).

@@ -80,8 +80,6 @@ loop(D) ->
 
     {solutionReached, Pid, {Ind, Fit}} ->
 %%       io:format("solutionReached ~n", []),
-%%       self() ! finalize,
-
       self() ! deactivate,
       EndEvol = D#islandManager.endEvol,
       if
@@ -93,29 +91,24 @@ loop(D) ->
       loop(D);
 
     {numberOfEvaluationsReached, Pid, BestSol} ->
-%%       io:format("numberOfEvaluationsReached ~n", []),
       NewPools = lists:delete(Pid, D#islandManager.pools),
       LPools = length(NewPools),
       CurrentSolutions = [BestSol | D#islandManager.solutions],
       if
 
         (LPools == 0) ->
-%%           Pid ! finalize,
-          self() ! finalize,
           {_, Fit} = bestSolution(CurrentSolutions),
-
           D#islandManager.profiler ! {endEvol, now(), D#islandManager.numberOfEvals, Fit},
+          Pid ! finalizeAllWorkers,
           loop(D#islandManager{endEvol = true, pools = [], solutions = CurrentSolutions});
 
         true ->
+          Pid ! finalizeAllWorkers,
           loop(D#islandManager{pools = NewPools, solutions = CurrentSolutions})
       end;
 
     finalize ->
       D#islandManager.profiler ! experimentEnd,
-
-%%       io:format("island finalized!!!: ~p~n", [self()]),
-
       ok
 
   end.

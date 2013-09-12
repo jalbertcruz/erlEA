@@ -25,6 +25,12 @@ problemName() ->
   maxOnes.
 %%     maxSAT.
 
+init()->
+  apply(dispatcher(), init, []).
+
+finalize()->
+  apply(dispatcher(), finalize, []).
+
 function(Ind) ->
   apply(dispatcher(), function, [Ind]).
 

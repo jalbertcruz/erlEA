@@ -24,32 +24,44 @@ start() ->
 init() ->
   loop(none).
 
-evaluate(Sels, DoIfFitnessTerminationCondition) ->
+takeAndMapWhile(_, [], Accu) ->
+  {false, Accu};
+
+takeAndMapWhile(PredMap, [Head | Rest], Accu) ->
+  {Follow, ResPred} = PredMap(Head),
+  Result = [ResPred | Accu],
+  if Follow ->
+    takeAndMapWhile(PredMap, Rest, Result);
+    true ->
+      {true, Result}
+  end.
+
+evaluate(Sels) ->
   L = length(Sels),
   if
     L < 1 ->
-      {false, null};
+      {false, {false, null}};
+
     true ->
-      NSels = lists:map(
-        fun(Ind) ->
-          Fit = problem:function(Ind),
-
-          TerminationCondition = problem:terminationCondition(),
-          if
-            TerminationCondition == fitnessTerminationCondition ->
-              RfitnessTerminationCondition = problem:fitnessTerminationCondition(Ind, Fit),
-              if RfitnessTerminationCondition ->
-                DoIfFitnessTerminationCondition(Ind, Fit);
-                true -> ok
-              end;
-            true -> ok
-          end,
-
-          {Ind, Fit}
-
-        end, Sels
-      ),
-      {true, NSels}
+      Result =
+        takeAndMapWhile(
+          fun(Ind) ->
+            Fit = problem:function(Ind),
+            Result = {Ind, Fit},
+            TerminationCondition = problem:terminationCondition(),
+            if
+              TerminationCondition == fitnessTerminationCondition ->
+                RfitnessTerminationCondition = problem:fitnessTerminationCondition(Ind, Fit),
+                if RfitnessTerminationCondition ->
+                  {false, Result};
+                  true ->
+                    {true, Result}
+                end;
+              true ->
+                {true, Result}
+            end
+          end, Sels, []),
+      {true, Result}
   end.
 
 loop(D) ->
@@ -59,21 +71,21 @@ loop(D) ->
       loop(#evaluator{manager = PManager, profiler = PProfiler});
 
     {evaluate, Table, N} ->
-      MS = ets:fun2ms(fun({Ind, _, State}) when State == 1 -> Ind end),
-      Res = ets:select(Table, MS, N), % N individuals in state 1
+      Res = ets:select(Table,
+        ets:fun2ms(fun({Ind, _, State}) when State == 1 -> Ind end),
+        N), % N individuals in state 1
       case Res of
         {Sels, _} ->
-          {R, NSels} = evaluate(Sels,
-            fun(Ind, Fit) ->
-              D#evaluator.manager ! {solutionReachedbyEvaluator, {Ind, Fit}, self()}
-            end
-          ),
-
+          {R, {Founded, NSels}} = evaluate(Sels),
+          if
+            Founded ->
+              [{Ind, Fit} | _] = NSels,
+              D#evaluator.manager ! {solutionReachedbyEvaluator, {Ind, Fit}, self()}    ;
+            true ->
+              ok
+          end,
           if
             R ->
-%%               lists:foreach(fun({Ind, Fit}) ->
-%%                 ets:update_element(Table, Ind, [{2, Fit}, {3, 2}])
-%%               end, NSels),
               PNSels = [{Ind, Fit, 2} || {Ind, Fit} <- NSels],
 
               D#evaluator.manager ! {add2Pool, PNSels},
@@ -83,10 +95,7 @@ loop(D) ->
           end;
 
         '$end_of_table' ->
-          D#evaluator.manager ! {evalEmpthyPool, self()};
-
-        _ ->
-          io:format("Info evaluator: ~p~n", [ets:info(Table)])
+          D#evaluator.manager ! {evalEmpthyPool, self()}
 
       end,
 
@@ -94,7 +103,6 @@ loop(D) ->
 
     finalize ->
       D#evaluator.manager ! {evaluatorFinalized, self()},
-%%       io:format("Evaluator ended: ~p, ", [self()]),
       ok
 
   end.

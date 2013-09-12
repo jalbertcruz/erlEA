@@ -20,29 +20,21 @@
 
 
 evaluationsDone(D, Self) ->
-
-  lists:foreach(
-    fun(E) ->
-      E ! finalize
-    end, D#poolManager.evals ++ D#poolManager.reps
-  ),
   if
+
     D#poolManager.active ->
-
-      BestSolution = bestSolution(D),
-
+      BestSolution = bestSolution(D#poolManager.tableName),
       D#poolManager.manager ! {numberOfEvaluationsReached, Self, BestSolution},
-      D#poolManager.manager ! deactivate,
+%%       D#poolManager.manager ! deactivate,
       D#poolManager{active = false};
 
     true ->
       D
   end.
 
-bestSolution(D) ->
-
-  MS = ets:fun2ms(fun({Ind, Fit, State}) when State == 2 -> {Ind, Fit} end),
-  Sels = ets:select(D#poolManager.tableName, MS),
+bestSolution(TableName) ->
+  Sels = ets:select(TableName,
+    ets:fun2ms(fun({Ind, Fit, State}) when State == 2 -> {Ind, Fit} end)),
 
   LSels = length(Sels),
   if
@@ -99,19 +91,25 @@ init() ->
 loop(D) ->
   receive
 
+    finalizeAllWorkers ->
+      lists:foreach(
+        fun(E) ->
+          E ! finalize
+        end, D#poolManager.evals ++ D#poolManager.reps
+      ),
+      loop(D);
+
     {initEvaluations, Cant} ->
-      loop(D#poolManager{evaluations = Cant, corridas = 0});
+      loop(D#poolManager{evaluations = Cant});
 
     {init, Conf, Population} ->
-
-%%       io:format("Creating: ~p~n", [Conf#poolManager.tableName]),
 
       ets:new(Conf#poolManager.tableName, [named_table, set, public]),
       ets:insert(Conf#poolManager.tableName, [{I, none, 1} || I <- Population]),
       Evals = [evaluator:start() || _ <- lists:seq(1, Conf#poolManager.evaluatorsCount)],
       Reps = [reproducer:start() || _ <- lists:seq(1, Conf#poolManager.reproducersCount)],
 
-      put(poolSize, length(Population)),
+%%       put(poolSize, length(Population)),
 
       lists:foreach(
         fun(A) ->
@@ -121,48 +119,13 @@ loop(D) ->
       loop(Conf#poolManager{reps = Reps, evals = Evals, active = true});
 
     {updatePool, NewPool} -> % reemplaza una por otra (NewPool: list())
-%%       io:format("ok 1 !!! ~n", []),
       ets:delete_all_objects(D#poolManager.tableName),
       ets:insert(D#poolManager.tableName, NewPool),
-
-      Corridas = if
-        D#poolManager.corridas > 2 ->
-%%           io:format(": ~p~n", [ets:info(D#poolManager.tableName)]),
-          MS = ets:fun2ms(fun({Ind, F, State}) when State == 2 -> {Ind, F} end),
-          Sels = ets:select(D#poolManager.tableName, MS),
-
-%%           io:format("update: ~p~n", [poolInfo(Sels)]),
-
-          0;
-        true ->
-          D#poolManager.corridas + 1
-      end,
-
-
-      loop(D#poolManager{corridas = Corridas});
+      loop(D);
 
     {add2Pool, NewPool} -> % Adiciona (NewPool: list())
-%%
-%%       LNew = length(NewPool),
-%%       io:format("cantidad: ~p ~n", [LNew]),
-
       ets:insert(D#poolManager.tableName, NewPool),
-
-      Corridas = D#poolManager.corridas,
-%%         if
-%%         D#poolManager.corridas > 2 ->
-%% %%           io:format(": ~p~n", [ets:info(D#poolManager.tableName)]),
-%%           MS = ets:fun2ms(fun({Ind, F, State}) when State == 2 -> {Ind, F} end),
-%%           Sels = ets:select(D#poolManager.tableName, MS),
-%%
-%%           io:format("add: ~p~n", [poolInfo(Sels)]),
-%%
-%%           0;
-%%         true ->
-%%           D#poolManager.corridas + 1
-%%       end,
-
-      loop(D#poolManager{corridas = Corridas});
+      loop(D);
 
     {migrantsDestination, Dests} ->
       loop(D#poolManager{migrantsDestination = Dests});
@@ -213,7 +176,7 @@ loop(D) ->
         Dds = random:uniform(),
         if Dds > 0.5 ->
           DestIdx = random:uniform(length(D#poolManager.migrantsDestination)),
-          Pid ! {emigrateBest, lists:nth(DestIdx, D#poolManager.migrantsDestination)};
+          Pid ! {emigrateBest, D#poolManager.tableName, lists:nth(DestIdx, D#poolManager.migrantsDestination)};
           true -> ok
         end,
 
@@ -233,7 +196,7 @@ loop(D) ->
 
           {EvaluatorsCapacity, NewEvaluations} = case problem:terminationCondition() of
             fitnessTerminationCondition ->
-              {D#poolManager.evaluatorsCapacity, D#poolManager.evaluations};
+              {problem:evaluatorsCapacity(), D#poolManager.evaluations};
 
             _ ->
               RNewEvaluationsTemp = D#poolManager.evaluations - N,
@@ -245,10 +208,8 @@ loop(D) ->
                   RNewEvaluationsTemp
               end,
 
-              {min(RNewEvaluations, D#poolManager.evaluatorsCapacity), RNewEvaluations}
+              {min(RNewEvaluations, problem:evaluatorsCapacity()), RNewEvaluations}
           end,
-
-%%           io:format("EvaluatorsCapacity ~p~n", [EvaluatorsCapacity]),
 
           RD = if
             EvaluatorsCapacity > 0 ->
@@ -256,9 +217,6 @@ loop(D) ->
               D;
 
             true ->
-
-%%               io:format("EvaluatorsCapacity ~p~n", [EvaluatorsCapacity]),
-
               evaluationsDone(D, self())
           end,
 
@@ -287,7 +245,6 @@ loop(D) ->
         D#poolManager.active ->
 
 %%           io:format("solutionReachedbyEvaluator: ~p~n", [D#poolManager.tableName]),
-
           D#poolManager.manager ! {solutionReached, self(), {Ind, Fit}},
 %%           self() ! finalize,
           loop(D#poolManager{active = false});
@@ -319,9 +276,7 @@ loop(D) ->
       loop(D);
 
     finalize ->
-
-%%       io:format("Deleting: ~p~n", [D#poolManager.tableName]),
-
+%%       io:format("D: ~p~n", [D#poolManager.tableName]),
       ets:delete(D#poolManager.tableName),
       D#poolManager.manager ! {poolManagerEnd, self()},
       ok
