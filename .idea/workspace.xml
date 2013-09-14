@@ -1,98 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/PoolETS-Island/src/poolManager.erl" line="31" />
-    <bookmark url="file://$PROJECT_DIR$/PoolETS-Island/src/poolManager.erl" line="261" />
+    <bookmark url="file://$PROJECT_DIR$/PoolETS-Island/src/poolManager.erl" line="229" />
+    <bookmark url="file://$PROJECT_DIR$/PoolETS-Island/src/poolManager.erl" line="278" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="edc55763-ab6a-4772-8774-004e7d34352b" name="Default" comment="Configurated an experiment.">
-      <change type="DELETED" beforePath="F:\Mis Documentos\PhD\src\erlEA\Monitoring tools\Manager\.gitignore" afterPath="" />
-      <change type="DELETED" beforePath="F:\Mis Documentos\PhD\src\erlEA\Monitoring tools\Manager\build.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\Mis Documentos\PhD\src\erlEA\Monitoring tools\Manager\config.json" afterPath="" />
-      <change type="DELETED" beforePath="F:\Mis Documentos\PhD\src\erlEA\Monitoring tools\Manager\manifest.mf" afterPath="" />
-      <change type="DELETED" beforePath="F:\Mis Documentos\PhD\src\erlEA\Monitoring tools\Manager\nbproject\build-impl.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\Mis Documentos\PhD\src\erlEA\Monitoring tools\Manager\nbproject\genfiles.properties" afterPath="" />
-      <change type="DELETED" beforePath="F:\Mis Documentos\PhD\src\erlEA\Monitoring tools\Manager\nbproject\private\config.properties" afterPath="" />
-      <change type="DELETED" beforePath="F:\Mis Documentos\PhD\src\erlEA\Monitoring tools\Manager\nbproject\private\private.properties" afterPath="" />
-      <change type="DELETED" beforePath="F:\Mis Documentos\PhD\src\erlEA\Monitoring tools\Manager\nbproject\private\private.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\Mis Documentos\PhD\src\erlEA\Monitoring tools\Manager\nbproject\project.properties" afterPath="" />
-      <change type="DELETED" beforePath="F:\Mis Documentos\PhD\src\erlEA\Monitoring tools\Manager\nbproject\project.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\Mis Documentos\PhD\src\erlEA\Monitoring tools\Manager\src\config\Data.java" afterPath="" />
-      <change type="DELETED" beforePath="F:\Mis Documentos\PhD\src\erlEA\Monitoring tools\Manager\src\manager\ErlComInterface.java" afterPath="" />
-      <change type="DELETED" beforePath="F:\Mis Documentos\PhD\src\erlEA\Monitoring tools\Manager\src\manager\MainFrame.form" afterPath="" />
-      <change type="DELETED" beforePath="F:\Mis Documentos\PhD\src\erlEA\Monitoring tools\Manager\src\manager\MainFrame.java" afterPath="" />
-      <change type="DELETED" beforePath="F:\Mis Documentos\PhD\src\erlEA\Monitoring tools\Manager\src\manager\PlotDemo.java" afterPath="" />
-      <change type="DELETED" beforePath="F:\Mis Documentos\PhD\src\erlEA\PoolETS-Island\results.csv" afterPath="" />
-      <change type="DELETED" beforePath="F:\Mis Documentos\PhD\src\erlEA\PoolETS-Island\src\configBuilder.erl" afterPath="" />
-      <change type="DELETED" beforePath="F:\Mis Documentos\PhD\src\erlEA\Utilities\Cleaner\.classpath" afterPath="" />
-      <change type="DELETED" beforePath="F:\Mis Documentos\PhD\src\erlEA\Utilities\Cleaner\.project" afterPath="" />
-      <change type="DELETED" beforePath="F:\Mis Documentos\PhD\src\erlEA\Utilities\Cleaner\build.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\Mis Documentos\PhD\src\erlEA\Utilities\Cleaner\src\cleaner\Clean_src.scala" afterPath="" />
-      <change type="DELETED" beforePath="F:\Mis Documentos\PhD\src\erlEA\Utilities\Cleaner\src\cleaner\Cleaner.scala" afterPath="" />
-      <change type="DELETED" beforePath="F:\Mis Documentos\PhD\src\erlEA\Utilities\CljJavaCommon\.classpath" afterPath="" />
-      <change type="DELETED" beforePath="F:\Mis Documentos\PhD\src\erlEA\Utilities\CljJavaCommon\.project" afterPath="" />
-      <change type="DELETED" beforePath="F:\Mis Documentos\PhD\src\erlEA\Utilities\CljJavaCommon\bin\license\ConfigurationCljJava.scala" afterPath="" />
-      <change type="DELETED" beforePath="F:\Mis Documentos\PhD\src\erlEA\Utilities\CljJavaCommon\bin\license\FileUtility.scala" afterPath="" />
-      <change type="DELETED" beforePath="F:\Mis Documentos\PhD\src\erlEA\Utilities\CljJavaCommon\src\license\ConfigurationCljJava.scala" afterPath="" />
-      <change type="DELETED" beforePath="F:\Mis Documentos\PhD\src\erlEA\Utilities\CljJavaCommon\src\license\FileUtility.scala" afterPath="" />
-      <change type="DELETED" beforePath="F:\Mis Documentos\PhD\src\erlEA\Utilities\License_aplicator\.classpath" afterPath="" />
-      <change type="DELETED" beforePath="F:\Mis Documentos\PhD\src\erlEA\Utilities\License_aplicator\.project" afterPath="" />
-      <change type="DELETED" beforePath="F:\Mis Documentos\PhD\src\erlEA\Utilities\License_aplicator\build.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\Mis Documentos\PhD\src\erlEA\Utilities\License_aplicator\src\license_aplicator\Clj2src.scala" afterPath="" />
-      <change type="DELETED" beforePath="F:\Mis Documentos\PhD\src\erlEA\Utilities\License_aplicator\src\license_aplicator\License_aplicator.scala" afterPath="" />
-      <change type="DELETED" beforePath="F:\Mis Documentos\PhD\src\erlEA\Utilities\Update_erl_from_clj\.classpath" afterPath="" />
-      <change type="DELETED" beforePath="F:\Mis Documentos\PhD\src\erlEA\Utilities\Update_erl_from_clj\.project" afterPath="" />
-      <change type="DELETED" beforePath="F:\Mis Documentos\PhD\src\erlEA\Utilities\Update_erl_from_clj\build.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\Mis Documentos\PhD\src\erlEA\Utilities\Update_erl_from_clj\src\update_erl_from_clj\Clj2erlConversor.scala" afterPath="" />
-      <change type="DELETED" beforePath="F:\Mis Documentos\PhD\src\erlEA\Utilities\Update_erl_from_clj\src\update_erl_from_clj\Update_erl_from_clj.scala" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PoolETS-Island/PoolETS-Island.iml" afterPath="$PROJECT_DIR$/PoolETS-Island/PoolETS-Island.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.txt" afterPath="$PROJECT_DIR$/README.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PoolETS-Island/src/evaluator.erl" afterPath="$PROJECT_DIR$/PoolETS-Island/src/evaluator.erl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PoolETS-Island/src/experiment.erl" afterPath="$PROJECT_DIR$/PoolETS-Island/src/experiment.erl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PoolETS-Island/include/mtypes.hrl" afterPath="$PROJECT_DIR$/PoolETS-Island/include/mtypes.hrl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PoolETS-Island/src/poolManager.erl" afterPath="$PROJECT_DIR$/PoolETS-Island/src/poolManager.erl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PoolETS-Island/src/profiler.erl" afterPath="$PROJECT_DIR$/PoolETS-Island/src/profiler.erl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PoolETS-Island/src/reproducer.erl" afterPath="$PROJECT_DIR$/PoolETS-Island/src/reproducer.erl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PoolETS-Island/src/experimentRun.erl" afterPath="$PROJECT_DIR$/PoolETS-Island/src/experimentRun.erl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PoolETS-Island/src/experimentRunSeq.erl" afterPath="$PROJECT_DIR$/PoolETS-Island/src/experimentRunSeq.erl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PoolETS-Island/src/manager.erl" afterPath="$PROJECT_DIR$/PoolETS-Island/src/manager.erl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PoolETS-Island/src/maxOnes.erl" afterPath="$PROJECT_DIR$/PoolETS-Island/src/maxOnes.erl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PoolETS-Island/src/maxSAT.erl" afterPath="$PROJECT_DIR$/PoolETS-Island/src/maxSAT.erl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PoolETS-Island/src/problem.erl" afterPath="$PROJECT_DIR$/PoolETS-Island/src/problem.erl" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MOVED" beforePath="F:\Mis Documentos\PhD\src\erlEA\PoolETS-Island\src\manager.erl" afterPath="$PROJECT_DIR$/PoolETS-Island/src/islandManager.erl" />
-      <change type="MOVED" beforePath="F:\Mis Documentos\PhD\src\erlEA\PoolETS-Island\src\report.erl" afterPath="$PROJECT_DIR$/PoolETS-Island/src/manager.erl" />
     </list>
     <ignored path="ErlEA.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/experiment.erl" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1378745780507" ignored="false" />
+    <file path="/experiment.erl" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1379094661193" ignored="false" />
     <file path="/model.erl" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1366191970982" ignored="false" />
-    <file path="/mtypes.hrl" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1378834378345" ignored="false" />
-    <file path="/manager.erl" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1378837830053" ignored="false" />
+    <file path="/mtypes.hrl" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1378953303240" ignored="false" />
+    <file path="/manager.erl" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1379180916303" ignored="false" />
     <file path="/configBuilder.erl" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1369135921798" ignored="false" />
     <file path="/pool.erl" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1364395559092" ignored="false" />
     <file path="/client.erl" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1365549680093" ignored="false" />
-    <file path="/Dummy.txt" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1378855474831" ignored="false" />
+    <file path="/Dummy.txt" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1379182369424" ignored="false" />
     <file path="/README.txt" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1363610733091" ignored="false" />
     <file path="/compile.rb" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1363609675458" ignored="false" />
     <file path="/e.erl" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1366375736351" ignored="false" />
-    <file path="/profiler.erl" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1378853309739" ignored="false" />
+    <file path="/profiler.erl" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1378906069382" ignored="false" />
     <file path="/clientETS.erl" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1365363780843" ignored="false" />
-    <file path="/evaluator.erl" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1378847520092" ignored="false" />
+    <file path="/evaluator.erl" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1378993831116" ignored="false" />
     <file path="/reaper.erl" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1366206463636" ignored="false" />
-    <file path="/reproducer.erl" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1378786236801" ignored="false" />
+    <file path="/reproducer.erl" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1378989118768" ignored="false" />
     <file path="/notes.txt" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1365609707465" ignored="false" />
-    <file path="/poolManager.erl" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1378859167522" ignored="false" />
+    <file path="/poolManager.erl" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1379018927919" ignored="false" />
     <file path="/rep_test.erl" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1366237346952" ignored="false" />
     <file path="/report.erl" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1373209389820" ignored="false" />
     <file path="$PROJECT_DIR$/PoolETSBased/src/configBuilder.erl" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1369141615863" ignored="false" />
     <file path="/TODO.txt" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1373209334871" ignored="false" />
     <file path="$PROJECT_DIR$/../cljEA/Pool-Island/src/pea/test.clj" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1372972535673" ignored="false" />
     <file path="/test.clj" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1372531905513" ignored="false" />
-    <file path="/Clojure REPL" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1378224304626" ignored="false" />
+    <file path="/Clojure REPL" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1379019294108" ignored="false" />
     <file path="$PROJECT_DIR$/../cljEA/Pool-Island/src/pea/reproducer.clj" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1373064942042" ignored="false" />
     <file path="$PROJECT_DIR$/../cljEA/Pool-Island/src/pea/poolManager.clj" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1372820048145" ignored="false" />
-    <file path="/poolManager.clj" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1373589341166" ignored="false" />
+    <file path="/poolManager.clj" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1378959135174" ignored="false" />
     <file path="/reproducer.clj" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1373583932566" ignored="false" />
     <file path="$PROJECT_DIR$/../cljEA/Pool-Island/src/pea/evaluator.clj" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1372611409311" ignored="false" />
     <file path="/evaluator.clj" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1373584340940" ignored="false" />
     <file path="$PROJECT_DIR$/../cljEA/Pool-Island/src/pea/manager.clj" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1372531451277" ignored="false" />
-    <file path="/manager.clj" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1373583031228" ignored="false" />
+    <file path="/manager.clj" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1379181385336" ignored="false" />
     <file path="$PROJECT_DIR$/../cljEA/sheduling/src/sheduling/ShedulingUtility.java" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1373580903174" ignored="false" />
     <file path="$PROJECT_DIR$/../cljEA/sheduling/src/sheduling/SimpleTriggerExample.java" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1372280468096" ignored="false" />
     <file path="$PROJECT_DIR$/../cljEA/sheduling/src/sheduling/UtilJob.java" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1372262271914" ignored="false" />
@@ -101,24 +57,24 @@
     <file path="$PROJECT_DIR$/../cljEA/Pool-Island/src/pea/experiment.clj" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1372623150860" ignored="false" />
     <file path="/experiment.clj" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1373588541369" ignored="false" />
     <file path="$PROJECT_DIR$/../cljEA/Pool-Island/src/pea/profiler.clj" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1372610427197" ignored="false" />
-    <file path="/profiler.clj" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1373240374525" ignored="false" />
+    <file path="/profiler.clj" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1378921565494" ignored="false" />
     <file path="$PROJECT_DIR$/../cljEA/Pool-Island/src/pea/report.clj" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1372610427196" ignored="false" />
     <file path="/report.clj" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1373240084573" ignored="false" />
     <file path="$PROJECT_DIR$/../cljEA/Pool-Island/src/pea/reproducer1.clj" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1373064947199" ignored="false" />
-    <file path="$PROJECT_DIR$/../cljEA/Pool-Island/src/profiler.clj" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1373240398681" ignored="false" />
-    <file path="/protocols.clj" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1373598340749" ignored="false" />
-    <file path="$PROJECT_DIR$/../cljEA/Pool-Island/src/protocols.clj" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1373598380310" ignored="false" />
-    <file path="$PROJECT_DIR$/../cljEA/Pool-Island/src/manager.clj" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1373583032067" ignored="false" />
+    <file path="$PROJECT_DIR$/../cljEA/Pool-Island/src/profiler.clj" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1378951842608" ignored="false" />
+    <file path="/protocols.clj" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1378918587335" ignored="false" />
+    <file path="$PROJECT_DIR$/../cljEA/Pool-Island/src/protocols.clj" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1378919238781" ignored="false" />
+    <file path="$PROJECT_DIR$/../cljEA/Pool-Island/src/manager.clj" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1379181538763" ignored="false" />
     <file path="$PROJECT_DIR$/../cljEA/Pool-Island/src/runExperiment.clj" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1373209906567" ignored="false" />
-    <file path="$PROJECT_DIR$/../cljEA/Pool-Island/src/poolManager.clj" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1373589395693" ignored="false" />
+    <file path="$PROJECT_DIR$/../cljEA/Pool-Island/src/poolManager.clj" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1378959147181" ignored="false" />
     <file path="$PROJECT_DIR$/../cljEA/Pool-Island/src/experiment.clj" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1373588963679" ignored="false" />
     <file path="$PROJECT_DIR$/../cljEA/Pool-Island/src/evaluator.clj" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1373584340940" ignored="false" />
     <file path="$PROJECT_DIR$/../cljEA/Pool-Island/src/report.clj" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1374462279417" ignored="false" />
-    <file path="$PROJECT_DIR$/../cljEA/Pool-Island/src/reproducer.clj" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1373584177020" ignored="false" />
-    <file path="$PROJECT_DIR$/../cljEA/Pool-Island/src/experiment-run.clj" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1374462288221" ignored="false" />
-    <file path="$PROJECT_DIR$/../cljEA/Pool-Island/src/factories.clj" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1373579176861" ignored="false" />
-    <file path="/experiment-run.clj" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1373298708534" ignored="false" />
-    <file path="/factories.clj" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1373578995391" ignored="false" />
+    <file path="$PROJECT_DIR$/../cljEA/Pool-Island/src/reproducer.clj" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1378951462504" ignored="false" />
+    <file path="$PROJECT_DIR$/../cljEA/Pool-Island/src/experiment-run.clj" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1379019192699" ignored="false" />
+    <file path="$PROJECT_DIR$/../cljEA/Pool-Island/src/factories.clj" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1378921205380" ignored="false" />
+    <file path="/experiment-run.clj" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1378921620790" ignored="false" />
+    <file path="/factories.clj" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1378921172493" ignored="false" />
     <file path="$PROJECT_DIR$/../cljEA/Pool-Island/src/tests/testProtocol.clj" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1373221628723" ignored="false" />
     <file path="$USER_HOME$/IdeaProjects/cljEA/java4Test/src/MainClass.java" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1373242196644" ignored="false" />
     <file path="/MainClass.java" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1373242193719" ignored="false" />
@@ -141,11 +97,20 @@
     <file path="/TCircle.java" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1378091793247" ignored="false" />
     <file path="$PROJECT_DIR$/../cljEA/EAArchitectualGraph/src/eaarchitectualgraph/Direction.java" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1378091768493" ignored="false" />
     <file path="/Direction.java" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1378091768493" ignored="false" />
-    <file path="/t.erl" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1378748402353" ignored="false" />
-    <file path="/problem.erl" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1378655756037" ignored="false" />
-    <file path="/maxOnes.erl" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1378655664397" ignored="false" />
-    <file path="/experimentRun.erl" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1378745987769" ignored="false" />
-    <file path="/islandManager.erl" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1378853489224" ignored="false" />
+    <file path="/t.erl" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1379004991255" ignored="false" />
+    <file path="/problem.erl" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1379094355772" ignored="false" />
+    <file path="/maxOnes.erl" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1378998417421" ignored="false" />
+    <file path="/experimentRun.erl" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1379094318546" ignored="false" />
+    <file path="/islandManager.erl" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1378907114628" ignored="false" />
+    <file path="$PROJECT_DIR$/../cljEA/Pool-Island/src/islandManager.clj" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1378952034881" ignored="false" />
+    <file path="/islandManager.clj" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1378952024359" ignored="false" />
+    <file path="$PROJECT_DIR$/../cljEA/Pool-Island/src/types.clj" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1378921141101" ignored="false" />
+    <file path="$PROJECT_DIR$/../cljEA/Pool-Island/src/problems.clj" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1379019221899" ignored="false" />
+    <file path="/types.clj" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1378921141411" ignored="false" />
+    <file path="$PROJECT_DIR$/../cljEA/Pool-Island/src/sequential/experiment-run.clj" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1379181519568" ignored="false" />
+    <file path="/seqExperimentRun.erl" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1378960190342" ignored="false" />
+    <file path="/experimentRunSeq.erl" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1379018582269" ignored="false" />
+    <file path="/maxSAT.erl" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1379178934119" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -210,61 +175,62 @@
     <favorites_list name="ErlEA" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.6044686">
-      <split-first>
-        <leaf>
-          <file leaf-file-name="poolManager.erl" pinned="false" current="true" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/PoolETS-Island/src/poolManager.erl">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="260" column="46" selection-start="6900" selection-end="6900" vertical-scroll-proportion="0.3662162">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="islandManager.erl" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/PoolETS-Island/src/islandManager.erl">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="94" column="31" selection-start="2339" selection-end="2365" vertical-scroll-proportion="-7.0">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-first>
-      <split-second>
-        <leaf>
-          <file leaf-file-name="poolManager.erl" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/PoolETS-Island/src/poolManager.erl">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="251" column="0" selection-start="6650" selection-end="6650" vertical-scroll-proportion="0.0">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="reproducer.erl" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/PoolETS-Island/src/reproducer.erl">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="217" column="0" selection-start="6173" selection-end="6173" vertical-scroll-proportion="0.0">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="maxOnes.erl" pinned="false" current="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/PoolETS-Island/src/maxOnes.erl">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="41" column="5" selection-start="1002" selection-end="1002" vertical-scroll-proportion="0.74509805">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-second>
-    </splitter>
+    <leaf>
+      <file leaf-file-name="maxSAT.erl" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/PoolETS-Island/src/maxSAT.erl">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="50" column="16" selection-start="1698" selection-end="1698" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="experimentRunSeq.erl" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/PoolETS-Island/src/experimentRunSeq.erl">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="38" column="42" selection-start="1179" selection-end="1179" vertical-scroll-proportion="0.02793296">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="manager.erl" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/PoolETS-Island/src/manager.erl">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="66" column="62" selection-start="2189" selection-end="2189" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="experimentRun.erl" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/PoolETS-Island/src/experimentRun.erl">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="16" column="0" selection-start="576" selection-end="576" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="problem.erl" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/PoolETS-Island/src/problem.erl">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="21" column="32" selection-start="682" selection-end="682" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="poolManager.erl" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/PoolETS-Island/src/poolManager.erl">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="106" column="15" selection-start="2304" selection-end="2304" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -284,22 +250,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/PoolETS-Island/src/test.erl" />
-        <option value="$PROJECT_DIR$/PoolETS-Island/src/maxOne.erl" />
         <option value="$PROJECT_DIR$/PoolETS-Island/src/islandManageraa.erl" />
-        <option value="$PROJECT_DIR$/PoolETS-Island/src/maxSAT.erl" />
-        <option value="$PROJECT_DIR$/PoolETS-Island/src/t.erl" />
-        <option value="$PROJECT_DIR$/PoolETS-Island/src/experiment.erl" />
+        <option value="$PROJECT_DIR$/PoolETS-Island/src/islandManager.erl" />
         <option value="$PROJECT_DIR$/PoolETS-Island/include/mtypes.hrl" />
+        <option value="$PROJECT_DIR$/PoolETS-Island/src/seqExperimentRun.erl" />
         <option value="$PROJECT_DIR$/PoolETS-Island/src/reproducer.erl" />
+        <option value="$PROJECT_DIR$/PoolETS-Island/src/evaluator.erl" />
+        <option value="$PROJECT_DIR$/PoolETS-Island/src/t.erl" />
+        <option value="$PROJECT_DIR$/PoolETS-Island/src/profiler.erl" />
+        <option value="$PROJECT_DIR$/PoolETS-Island/src/poolManager.erl" />
+        <option value="$PROJECT_DIR$/PoolETS-Island/src/maxOnes.erl" />
+        <option value="$PROJECT_DIR$/PoolETS-Island/src/experiment.erl" />
+        <option value="$PROJECT_DIR$/PoolETS-Island/src/experimentRun.erl" />
+        <option value="$PROJECT_DIR$/PoolETS-Island/src/maxSAT.erl" />
         <option value="$PROJECT_DIR$/PoolETS-Island/src/problem.erl" />
         <option value="$PROJECT_DIR$/PoolETS-Island/src/manager.erl" />
-        <option value="$PROJECT_DIR$/PoolETS-Island/src/evaluator.erl" />
-        <option value="$PROJECT_DIR$/PoolETS-Island/src/experimentRun.erl" />
-        <option value="$PROJECT_DIR$/PoolETS-Island/src/profiler.erl" />
-        <option value="$PROJECT_DIR$/PoolETS-Island/src/islandManager.erl" />
-        <option value="$PROJECT_DIR$/PoolETS-Island/src/maxOnes.erl" />
-        <option value="$PROJECT_DIR$/PoolETS-Island/src/poolManager.erl" />
+        <option value="$PROJECT_DIR$/PoolETS-Island/src/experimentRunSeq.erl" />
       </list>
     </option>
   </component>
@@ -354,6 +320,8 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -402,19 +370,17 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="project.structure.last.edited" value="Global Libraries" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="270" />
-    <property name="project.structure.proportion" value="0.15" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="299" />
+    <property name="project.structure.proportion" value="0.15" />
     <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="293" />
-    <property name="MemberChooser.sorted" value="false" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
+    <property name="MemberChooser.sorted" value="false" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="293" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/PoolBased/PoolBased.iml" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="300" />
@@ -430,8 +396,8 @@
     <property name="FullScreen" value="false" />
     <property name="GoToClass.includeLibraries" value="false" />
     <property name="options.splitter.details.proportions" value="0.2" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder0" value="0" />
     <property name="GoToFile.includeJavaFiles" value="false" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder0" value="0" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder3" value="3" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder1" value="1" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder2" value="2" />
@@ -482,6 +448,19 @@
       <option name="showConsoleOnStdOut" value="false" />
       <method />
     </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method />
+    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="" />
@@ -508,19 +487,6 @@
       <envs />
       <properties />
       <listeners />
-      <method />
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -619,18 +585,18 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.38356164" sideWeight="0.49772727" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.35825893" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.102678575" sideWeight="0.4227273" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23523422" sideWeight="0.4969697" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.11632871" sideWeight="0.19308035" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1546875" sideWeight="0.61346364" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.11632871" sideWeight="0.7042411" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1546875" sideWeight="0.38653636" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.30639732" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Problems" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32996634" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.10750853" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.13029316" sideWeight="0.4227273" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -703,6 +669,13 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/PoolETS-Island/src/maxOnes.erl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="47" column="6" selection-start="1041" selection-end="1041" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
@@ -713,86 +686,93 @@
         <state line="8" column="20" selection-start="258" selection-end="258" vertical-scroll-proportion="0.22988506" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/PoolETS-Island/include/mtypes.hrl">
+    <entry file="file://$PROJECT_DIR$/PoolETS-Island/src/islandManager.erl">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="67" column="2" selection-start="912" selection-end="912" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/PoolETS-Island/src/experiment.erl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="5" selection-start="482" selection-end="482" vertical-scroll-proportion="0.3633721">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/PoolETS-Island/src/maxSAT.erl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="0" selection-start="481" selection-end="481" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/PoolETS-Island/src/problem.erl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="31" selection-start="653" selection-end="682" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/PoolETS-Island/src/manager.erl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="46" column="11" selection-start="1705" selection-end="1705" vertical-scroll-proportion="0.47584188">
+        <state line="55" column="26" selection-start="1421" selection-end="1421" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/PoolETS-Island/src/evaluator.erl">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="88" column="62" selection-start="2455" selection-end="2508" vertical-scroll-proportion="0.818448">
+        <state line="77" column="13" selection-start="2066" selection-end="2070" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PoolETS-Island/include/mtypes.hrl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="75" column="15" selection-start="1000" selection-end="1013" vertical-scroll-proportion="0.6991979">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/PoolETS-Island/src/profiler.erl">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="63" column="0" selection-start="1999" selection-end="1999" vertical-scroll-proportion="0.5607903">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/PoolETS-Island/src/experimentRun.erl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="25" selection-start="897" selection-end="897" vertical-scroll-proportion="0.24568966">
+        <state line="87" column="21" selection-start="2707" selection-end="2707" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/PoolETS-Island/src/reproducer.erl">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="217" column="0" selection-start="6173" selection-end="6173" vertical-scroll-proportion="0.0">
+        <state line="237" column="24" selection-start="6947" selection-end="6947" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/PoolETS-Island/src/maxOnes.erl">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="41" column="5" selection-start="1002" selection-end="1002" vertical-scroll-proportion="0.74509805">
+        <state line="49" column="19" selection-start="1078" selection-end="1078" vertical-scroll-proportion="1.8946322">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/PoolETS-Island/src/islandManager.erl">
+    <entry file="file://$PROJECT_DIR$/PoolETS-Island/src/experiment.erl">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="94" column="31" selection-start="2339" selection-end="2365" vertical-scroll-proportion="-7.0">
+        <state line="45" column="34" selection-start="1442" selection-end="1442" vertical-scroll-proportion="1.0837989">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PoolETS-Island/src/maxSAT.erl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="50" column="16" selection-start="1698" selection-end="1698" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PoolETS-Island/src/problem.erl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="32" selection-start="682" selection-end="682" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/PoolETS-Island/src/poolManager.erl">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="260" column="46" selection-start="6900" selection-end="6900" vertical-scroll-proportion="0.3662162">
+        <state line="106" column="15" selection-start="2304" selection-end="2304" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PoolETS-Island/src/experimentRun.erl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="0" selection-start="576" selection-end="576" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PoolETS-Island/src/manager.erl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="66" column="62" selection-start="2189" selection-end="2189" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PoolETS-Island/src/experimentRunSeq.erl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="38" column="42" selection-start="1179" selection-end="1179" vertical-scroll-proportion="0.02793296">
           <folding />
         </state>
       </provider>

@@ -27,11 +27,12 @@ loop(D) ->
   receive
 
     {init, MConf} ->
+      problem:init(),
       loop(MConf#manager{instances = [], results = []});
 
     {experimentEnd, ReportData} ->
       TResults = [ReportData | D#manager.results],
-%%       io:format("Best fitness: ~p at ~p~n", [lists:nth(6, ReportData), now()]),
+%%       io:format("Best fitness: ~p (time -> ~p)~n", [lists:nth(6, ReportData), now()]),
       LInstances = length(D#manager.instances),
 
       if
@@ -63,7 +64,7 @@ loop(D) ->
       if
         L =/= 0 ->
           [{Module, Function, Pmtos} | Rest] = D#manager.instances,
-          io:format("Doing experiment: ~p, in: ~p at ~p~n", [Function, Module, now()]),
+          io:format("Doing experiment: ~p, in: ~p (time -> ~p)~n", [Function, Module, now()]),
           apply(Module, Function, Pmtos),
           loop(D#manager{instances = Rest});
 

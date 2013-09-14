@@ -36,6 +36,7 @@ testsRunSeqEA() ->
   random:seed(A1, A2, A3),
   problem:init(),
 
+  io:format("Doing experiment (time -> ~p)~n", [now()]),
   InitEvol = now(),
   Res = runSeqEA(problem:genInitPop()),
   EndEvol = now(),

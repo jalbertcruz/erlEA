@@ -24,8 +24,7 @@ function(Ind) ->
 %io:format("maxOnes: ~p~n", [L]),
   length(lists:filter(fun(X) -> X =:= 1 end, Ind)).
 
-fitnessTerminationCondition(Ind, Fit) ->
-  length(Ind) - Fit < 25.
+fitnessTerminationCondition(Ind, Fit) -> length(Ind) - Fit < 25.
 
 genInd() ->
   [random:uniform(2) - 1 || _ <- lists:seq(1, chromosomeSize())].
@@ -44,11 +43,8 @@ changeGen(G) ->
     true -> 1
   end.
 
-evaluations() ->
-  5000.
+evaluations() -> 5000.
 
-popSize() ->
-  256.
+popSize() -> 256.
 
-chromosomeSize() ->
-  128.
+chromosomeSize() -> 128.
