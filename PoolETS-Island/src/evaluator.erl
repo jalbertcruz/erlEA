@@ -47,18 +47,21 @@ evaluate(Sels) ->
         takeAndMapWhile(
           fun(Ind) ->
             Fit = problem:function(Ind),
-            Result = {Ind, Fit},
+            Res = {Ind, Fit},
             TerminationCondition = problem:terminationCondition(),
             if
               TerminationCondition == fitnessTerminationCondition ->
+
                 RfitnessTerminationCondition = problem:fitnessTerminationCondition(Ind, Fit),
                 if RfitnessTerminationCondition ->
-                  {false, Result};
+                  {false, Res};
+
                   true ->
-                    {true, Result}
+                    {true, Res}
                 end;
+
               true ->
-                {true, Result}
+                {true, Res}
             end
           end, Sels, []),
       {true, Result}

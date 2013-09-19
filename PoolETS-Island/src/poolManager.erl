@@ -108,9 +108,7 @@ loop(D) ->
       ets:insert(Conf#poolManager.tableName, [{I, none, 1} || I <- Population]),
       Evals = [evaluator:start() || _ <- lists:seq(1, Conf#poolManager.evaluatorsCount)],
       Reps = [reproducer:start() || _ <- lists:seq(1, Conf#poolManager.reproducersCount)],
-
 %%       put(poolSize, length(Population)),
-
       lists:foreach(
         fun(A) ->
           A ! {init, self(), Conf#poolManager.profiler}

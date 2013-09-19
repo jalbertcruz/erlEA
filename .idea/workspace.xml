@@ -1,17 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/PoolETS-Island/src/poolManager.erl" line="229" />
-    <bookmark url="file://$PROJECT_DIR$/PoolETS-Island/src/poolManager.erl" line="278" />
-  </component>
   <component name="ChangeListManager">
     <list default="true" id="edc55763-ab6a-4772-8774-004e7d34352b" name="Default" comment="Configurated an experiment.">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PoolETS-Island/src/experimentRun.erl" afterPath="$PROJECT_DIR$/PoolETS-Island/src/experimentRun.erl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PoolETS-Island/src/experimentRunSeq.erl" afterPath="$PROJECT_DIR$/PoolETS-Island/src/experimentRunSeq.erl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PoolETS-Island/src/manager.erl" afterPath="$PROJECT_DIR$/PoolETS-Island/src/manager.erl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PoolETS-Island/src/maxOnes.erl" afterPath="$PROJECT_DIR$/PoolETS-Island/src/maxOnes.erl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PoolETS-Island/src/maxSAT.erl" afterPath="$PROJECT_DIR$/PoolETS-Island/src/maxSAT.erl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PoolETS-Island/src/problem.erl" afterPath="$PROJECT_DIR$/PoolETS-Island/src/problem.erl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PoolETS-Island/src/evaluator.erl" afterPath="$PROJECT_DIR$/PoolETS-Island/src/evaluator.erl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PoolETS-Island/src/poolManager.erl" afterPath="$PROJECT_DIR$/PoolETS-Island/src/poolManager.erl" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="ErlEA.iws" />
@@ -23,7 +15,7 @@
     <file path="/configBuilder.erl" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1369135921798" ignored="false" />
     <file path="/pool.erl" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1364395559092" ignored="false" />
     <file path="/client.erl" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1365549680093" ignored="false" />
-    <file path="/Dummy.txt" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1379182369424" ignored="false" />
+    <file path="/Dummy.txt" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1379421720798" ignored="false" />
     <file path="/README.txt" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1363610733091" ignored="false" />
     <file path="/compile.rb" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1363609675458" ignored="false" />
     <file path="/e.erl" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1366375736351" ignored="false" />
@@ -176,55 +168,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="maxSAT.erl" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/PoolETS-Island/src/maxSAT.erl">
+      <file leaf-file-name="evaluator.erl" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/PoolETS-Island/src/evaluator.erl">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="50" column="16" selection-start="1698" selection-end="1698" vertical-scroll-proportion="0.0">
+            <state line="55" column="0" selection-start="1455" selection-end="1455" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="experimentRunSeq.erl" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/PoolETS-Island/src/experimentRunSeq.erl">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="38" column="42" selection-start="1179" selection-end="1179" vertical-scroll-proportion="0.02793296">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="manager.erl" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/PoolETS-Island/src/manager.erl">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="66" column="62" selection-start="2189" selection-end="2189" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="experimentRun.erl" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/PoolETS-Island/src/experimentRun.erl">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="0" selection-start="576" selection-end="576" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="problem.erl" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/PoolETS-Island/src/problem.erl">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="21" column="32" selection-start="682" selection-end="682" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="poolManager.erl" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="poolManager.erl" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/PoolETS-Island/src/poolManager.erl">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="106" column="15" selection-start="2304" selection-end="2304" vertical-scroll-proportion="0.0">
+            <state line="231" column="27" selection-start="6067" selection-end="6067" vertical-scroll-proportion="0.21929824">
               <folding />
             </state>
           </provider>
@@ -255,10 +211,8 @@
         <option value="$PROJECT_DIR$/PoolETS-Island/include/mtypes.hrl" />
         <option value="$PROJECT_DIR$/PoolETS-Island/src/seqExperimentRun.erl" />
         <option value="$PROJECT_DIR$/PoolETS-Island/src/reproducer.erl" />
-        <option value="$PROJECT_DIR$/PoolETS-Island/src/evaluator.erl" />
         <option value="$PROJECT_DIR$/PoolETS-Island/src/t.erl" />
         <option value="$PROJECT_DIR$/PoolETS-Island/src/profiler.erl" />
-        <option value="$PROJECT_DIR$/PoolETS-Island/src/poolManager.erl" />
         <option value="$PROJECT_DIR$/PoolETS-Island/src/maxOnes.erl" />
         <option value="$PROJECT_DIR$/PoolETS-Island/src/experiment.erl" />
         <option value="$PROJECT_DIR$/PoolETS-Island/src/experimentRun.erl" />
@@ -266,14 +220,16 @@
         <option value="$PROJECT_DIR$/PoolETS-Island/src/problem.erl" />
         <option value="$PROJECT_DIR$/PoolETS-Island/src/manager.erl" />
         <option value="$PROJECT_DIR$/PoolETS-Island/src/experimentRunSeq.erl" />
+        <option value="$PROJECT_DIR$/PoolETS-Island/src/evaluator.erl" />
+        <option value="$PROJECT_DIR$/PoolETS-Island/src/poolManager.erl" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1936" />
-    <option name="height" value="1056" />
+    <option name="width" value="1382" />
+    <option name="height" value="744" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -320,8 +276,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -354,22 +308,10 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ErlEA" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="PoolETS-Island" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="include" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -574,8 +516,8 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.48634812" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.14318182" sideWeight="0.8703704" order="3" side_tool="false" content_ui="tabs" />
@@ -586,10 +528,10 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.35825893" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23523422" sideWeight="0.4969697" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1546875" sideWeight="0.61346364" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15446559" sideWeight="0.6141215" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1546875" sideWeight="0.38653636" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15446559" sideWeight="0.3858785" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.30639732" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -693,25 +635,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/PoolETS-Island/src/evaluator.erl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="77" column="13" selection-start="2066" selection-end="2070" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/PoolETS-Island/include/mtypes.hrl">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="75" column="15" selection-start="1000" selection-end="1013" vertical-scroll-proportion="0.6991979">
-          <folding />
-        </state>
+        <state line="75" column="15" selection-start="1000" selection-end="1013" vertical-scroll-proportion="0.6991979" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/PoolETS-Island/src/profiler.erl">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="87" column="21" selection-start="2707" selection-end="2707" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="87" column="21" selection-start="2707" selection-end="2707" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/PoolETS-Island/src/reproducer.erl">
@@ -737,42 +668,47 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/PoolETS-Island/src/maxSAT.erl">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="50" column="16" selection-start="1698" selection-end="1698" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="50" column="16" selection-start="1698" selection-end="1698" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/PoolETS-Island/src/problem.erl">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="32" selection-start="682" selection-end="682" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/PoolETS-Island/src/poolManager.erl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="106" column="15" selection-start="2304" selection-end="2304" vertical-scroll-proportion="0.0">
+        <state line="21" column="32" selection-start="682" selection-end="682" vertical-scroll-proportion="0.02793296">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/PoolETS-Island/src/experimentRun.erl">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="0" selection-start="576" selection-end="576" vertical-scroll-proportion="0.0">
+        <state line="16" column="0" selection-start="576" selection-end="576" vertical-scroll-proportion="0.44134077">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/PoolETS-Island/src/manager.erl">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="66" column="62" selection-start="2189" selection-end="2189" vertical-scroll-proportion="0.0">
+        <state line="66" column="62" selection-start="2189" selection-end="2189" vertical-scroll-proportion="0.6089386">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/PoolETS-Island/src/experimentRunSeq.erl">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="38" column="42" selection-start="1179" selection-end="1179" vertical-scroll-proportion="0.02793296">
+        <state line="49" column="16" selection-start="1516" selection-end="1516" vertical-scroll-proportion="0.83798885">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PoolETS-Island/src/evaluator.erl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="55" column="0" selection-start="1455" selection-end="1455" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PoolETS-Island/src/poolManager.erl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="231" column="27" selection-start="6067" selection-end="6067" vertical-scroll-proportion="0.21929824">
           <folding />
         </state>
       </provider>
