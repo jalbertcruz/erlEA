@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="edc55763-ab6a-4772-8774-004e7d34352b" name="Default" comment="Configurated an experiment.">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PoolETS-Island/src/evaluator.erl" afterPath="$PROJECT_DIR$/PoolETS-Island/src/evaluator.erl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PoolETS-Island/src/poolManager.erl" afterPath="$PROJECT_DIR$/PoolETS-Island/src/poolManager.erl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="ErlEA.iws" />
@@ -15,7 +14,7 @@
     <file path="/configBuilder.erl" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1369135921798" ignored="false" />
     <file path="/pool.erl" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1364395559092" ignored="false" />
     <file path="/client.erl" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1365549680093" ignored="false" />
-    <file path="/Dummy.txt" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1379421720798" ignored="false" />
+    <file path="/Dummy.txt" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1381864815511" ignored="false" />
     <file path="/README.txt" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1363610733091" ignored="false" />
     <file path="/compile.rb" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1363609675458" ignored="false" />
     <file path="/e.erl" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1366375736351" ignored="false" />
@@ -25,7 +24,7 @@
     <file path="/reaper.erl" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1366206463636" ignored="false" />
     <file path="/reproducer.erl" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1378989118768" ignored="false" />
     <file path="/notes.txt" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1365609707465" ignored="false" />
-    <file path="/poolManager.erl" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1379018927919" ignored="false" />
+    <file path="/poolManager.erl" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1381184992764" ignored="false" />
     <file path="/rep_test.erl" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1366237346952" ignored="false" />
     <file path="/report.erl" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1373209389820" ignored="false" />
     <file path="$PROJECT_DIR$/PoolETSBased/src/configBuilder.erl" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1369141615863" ignored="false" />
@@ -97,7 +96,7 @@
     <file path="$PROJECT_DIR$/../cljEA/Pool-Island/src/islandManager.clj" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1378952034881" ignored="false" />
     <file path="/islandManager.clj" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1378952024359" ignored="false" />
     <file path="$PROJECT_DIR$/../cljEA/Pool-Island/src/types.clj" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1378921141101" ignored="false" />
-    <file path="$PROJECT_DIR$/../cljEA/Pool-Island/src/problems.clj" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1379019221899" ignored="false" />
+    <file path="$PROJECT_DIR$/../cljEA/Pool-Island/src/problems.clj" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1381864815969" ignored="false" />
     <file path="/types.clj" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1378921141411" ignored="false" />
     <file path="$PROJECT_DIR$/../cljEA/Pool-Island/src/sequential/experiment-run.clj" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1379181519568" ignored="false" />
     <file path="/seqExperimentRun.erl" changelist="edc55763-ab6a-4772-8774-004e7d34352b" time="1378960190342" ignored="false" />
@@ -180,7 +179,7 @@
       <file leaf-file-name="poolManager.erl" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/PoolETS-Island/src/poolManager.erl">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="231" column="27" selection-start="6067" selection-end="6067" vertical-scroll-proportion="0.21929824">
+            <state line="24" column="12" selection-start="696" selection-end="696" vertical-scroll-proportion="0.04385965">
               <folding />
             </state>
           </provider>
@@ -276,6 +275,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -310,19 +310,18 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="project.structure.last.edited" value="Global Libraries" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="270" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="299" />
     <property name="project.structure.proportion" value="0.15" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="299" />
     <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
-    <property name="MemberChooser.sorted" value="false" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="293" />
+    <property name="MemberChooser.sorted" value="false" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/PoolBased/PoolBased.iml" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="300" />
@@ -338,8 +337,8 @@
     <property name="FullScreen" value="false" />
     <property name="GoToClass.includeLibraries" value="false" />
     <property name="options.splitter.details.proportions" value="0.2" />
-    <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder0" value="0" />
+    <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder3" value="3" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder1" value="1" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder2" value="2" />
@@ -390,19 +389,6 @@
       <option name="showConsoleOnStdOut" value="false" />
       <method />
     </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <method />
-    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="" />
@@ -429,6 +415,19 @@
       <envs />
       <properties />
       <listeners />
+      <method />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -517,7 +516,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.48634812" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.14318182" sideWeight="0.8703704" order="3" side_tool="false" content_ui="tabs" />
@@ -528,17 +527,17 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.35825893" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23523422" sideWeight="0.4969697" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15446559" sideWeight="0.6141215" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15300146" sideWeight="0.61576355" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15446559" sideWeight="0.3858785" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15300146" sideWeight="0.38423645" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.30639732" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Problems" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32996634" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.10750853" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.13029316" sideWeight="0.4227273" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.39244664" sideWeight="0.4227273" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -708,7 +707,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/PoolETS-Island/src/poolManager.erl">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="231" column="27" selection-start="6067" selection-end="6067" vertical-scroll-proportion="0.21929824">
+        <state line="24" column="12" selection-start="696" selection-end="696" vertical-scroll-proportion="0.04385965">
           <folding />
         </state>
       </provider>
