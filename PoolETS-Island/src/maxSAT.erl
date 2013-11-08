@@ -12,6 +12,8 @@
 -module(maxSAT).
 -author("jalbertcruz@gmail.com").
 
+-include("../include/mtypes.hrl").
+
 -compile(export_all).
 
 readClauses(IoDevice, Acc) ->
@@ -35,7 +37,7 @@ readClauses(IoDevice, Acc) ->
   end.
 
 init() ->
-  {ok, IoDevice} = file:open("../problems/uf100-01.cnf", [{read_ahead, 100}]),
+  {ok, IoDevice} = file:open("problems/uf100-01.cnf", [{read_ahead, 100}]),
   [file:read_line(IoDevice) || _ <- lists:seq(1, 5)],
   {ok, L} = file:read_line(IoDevice),
   R1 = string:tokens(string:strip(L), " "),
@@ -48,10 +50,12 @@ init() ->
   Clauses = readClauses(IoDevice, []),
   file:close(IoDevice),
   ets:new(maxSAT, [named_table, set, public]),
+
   ets:insert(maxSAT, [{clauseLength, ClauseLength}, {varsCount, VarsCount},
     {clausesCount, ClausesCount}, {clauses, Clauses}]).
 
-finalize() -> ets:delete(maxSAT).
+finalize() ->
+  ets:delete(maxSAT).
 
 function(Ind) ->
   Clauses = ets:lookup_element(maxSAT, clauses, 2),
@@ -69,18 +73,35 @@ fitnessTerminationCondition(Ind, Fit) -> Fit > 395.
 genInd() ->
   [random:uniform(200) rem 2 == 0 || _ <- lists:seq(1, chromosomeSize())].
 
-evaluatorsCount() -> 25.
+evaluatorsCount() ->
+  GAConfig = configuration:gaConfig(),
+  GAConfig#gAConfig.evaluatorsCount.
 
-reproducersCount() -> 10.
+reproducersCount() ->
+  GAConfig = configuration:gaConfig(),
+  GAConfig#gAConfig.reproducersCount.
 
-evaluatorsCapacity() -> 50.
+evaluatorsCapacity() ->
+  GAConfig = configuration:gaConfig(),
+  GAConfig#gAConfig.evaluatorsCapacity.
 
-reproducersCapacity() -> 50.
+reproducersCapacity() ->
+  GAConfig = configuration:gaConfig(),
+  GAConfig#gAConfig.reproducersCapacity.
 
 changeGen(G) -> not G.
 
-evaluations() -> 5000.
+evaluations() ->
+  GAConfig = configuration:gaConfig(),
+  GAConfig#gAConfig.evaluations.
 
-popSize() -> 1024.
+popSize() ->
+  GAConfig = configuration:gaConfig(),
+  GAConfig#gAConfig.popSize.
 
-chromosomeSize() -> ets:lookup_element(maxSAT, varsCount, 2).
+terminationCondition() ->
+  GAConfig = configuration:gaConfig(),
+  GAConfig#gAConfig.terminationCondition.
+
+chromosomeSize() ->
+  ets:lookup_element(maxSAT, varsCount, 2).

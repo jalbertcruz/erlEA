@@ -70,3 +70,17 @@
   poolName,
   evalDone
 }).
+
+-record(gAConfig, {
+  terminationCondition,
+  seqOutputFilename,
+  parallelOutputFilename,
+  evaluatorsCount,
+  reproducersCount,
+  evaluatorsCapacity,
+  reproducersCapacity,
+  popSize,
+  evaluations,
+  chromosomeSize,
+  repetitions
+}).

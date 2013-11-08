@@ -18,6 +18,7 @@
 
 init() ->
   {A1, A2, A3} = now(),
+  GAConfig = configuration:gaConfig(),
   random:seed(A1, A2, A3),
 
   Profiler = profiler:start(),
@@ -27,5 +28,5 @@ init() ->
   Profiler ! {init, Manager},
 
   Manager ! {session,
-    [{experiment, r2, [Profiler, Manager]} || _ <- lists:seq(1, 20)]
+    [{experiment, r2, [Profiler, Manager]} || _ <- lists:seq(1, GAConfig#gAConfig.repetitions)]
   }.

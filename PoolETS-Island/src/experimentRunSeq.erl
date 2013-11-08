@@ -18,8 +18,9 @@
 -compile(export_all).
 
 run() ->
-  NRes = [testsRunSeqEA() || _ <- lists:seq(1, 20)],
-  {ok, IODevice} = file:open("../../results/book2013/erlEA/seqResults.csv", [write]),
+  GAConfig = configuration:gaConfig(),
+  NRes = [testsRunSeqEA() || _ <- lists:seq(1, GAConfig#gAConfig.repetitions)],
+  {ok, IODevice} = file:open(GAConfig#gAConfig.seqOutputFilename, [write]),
   file:write(IODevice, "EvolutionDelay,BestSol\n"),
   lists:foreach(
     fun({EvolutionDelay, BestSol}) ->
@@ -109,7 +110,7 @@ seqEALoop(EvalDone) ->
     true ->
       0
   end,
-% Se realiza la reproduccion.
+% Se realiza la reproduccion
   Sels2 = ets:select(tb,
     ets:fun2ms(fun({Ind, F, State}) when State == 2 -> {Ind, F} end)
   ),

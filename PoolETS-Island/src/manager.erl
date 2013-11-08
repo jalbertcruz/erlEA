@@ -38,7 +38,8 @@ loop(D) ->
       if
         LInstances == 0 ->
           io:format("All ends!~n", []),
-          {ok, IODevice} = file:open("../../results/book2013/erlEA/parResults.csv", [write]),
+          GAConfig = configuration:gaConfig(),
+          {ok, IODevice} = file:open(GAConfig#gAConfig.parallelOutputFilename, [write]),
           file:write(IODevice, "EvolutionDelay,NumberOfEvals,Emigrations,EvaluatorsCount,ReproducersCount,IslandsCount,BestSol\n"),
           lists:foreach(
             fun([EvolutionDelay, NEmig, Conf, NIslands, NumberOfEvals, BestSol]) ->
@@ -49,6 +50,7 @@ loop(D) ->
             lists:reverse(TResults)
           ),
           file:close(IODevice),
+          halt(),
           ok;
         true ->
           self() ! mkExperiment

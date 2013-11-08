@@ -14,40 +14,56 @@
 
 -compile(export_all).
 
-dispatcher() -> problemName().
-
-terminationCondition() ->
-  fitnessTerminationCondition.
-%%   cantEvalsTerminationCondition.
-
 problemName() ->
 %%   maxOnes.
   maxSAT.
 
-init() -> apply(dispatcher(), init, []).
+dispatcher() ->
+  problemName().
 
-finalize() -> apply(dispatcher(), finalize, []).
+terminationCondition() ->
+  apply(dispatcher(), terminationCondition, []).
+%%   fitnessTerminationCondition.
+%%   cantEvalsTerminationCondition.
 
-function(Ind) -> apply(dispatcher(), function, [Ind]).
+init() ->
+  apply(dispatcher(), init, []).
 
-fitnessTerminationCondition(Ind, Fit) -> apply(dispatcher(), fitnessTerminationCondition, [Ind, Fit]).
+finalize() ->
+  apply(dispatcher(), finalize, []).
 
-genInitPop() -> [genInd() || _ <- lists:seq(1, popSize())].
+function(Ind) ->
+  apply(dispatcher(), function, [Ind]).
 
-genInd() -> apply(dispatcher(), genInd, []).
+fitnessTerminationCondition(Ind, Fit) ->
+  apply(dispatcher(), fitnessTerminationCondition, [Ind, Fit]).
 
-evaluatorsCount() -> apply(dispatcher(), evaluatorsCount, []).
+genInitPop() ->
+  [genInd() || _ <- lists:seq(1, popSize())].
 
-evaluatorsCapacity() -> apply(dispatcher(), evaluatorsCapacity, []).
+genInd() ->
+  apply(dispatcher(), genInd, []).
 
-reproducersCount() -> apply(dispatcher(), reproducersCount, []).
+evaluatorsCount() ->
+  apply(dispatcher(), evaluatorsCount, []).
 
-reproducersCapacity() -> apply(dispatcher(), reproducersCapacity, []).
+evaluatorsCapacity() ->
+  apply(dispatcher(), evaluatorsCapacity, []).
 
-changeGen(G) -> apply(dispatcher(), changeGen, [G]).
+reproducersCount() ->
+  apply(dispatcher(), reproducersCount, []).
 
-evaluations() -> apply(dispatcher(), evaluations, []).
+reproducersCapacity() ->
+  apply(dispatcher(), reproducersCapacity, []).
 
-popSize() -> apply(dispatcher(), popSize, []).
+changeGen(G) ->
+  apply(dispatcher(), changeGen, [G]).
 
-chromosomeSize() -> apply(dispatcher(), chromosomeSize, []).
+evaluations() ->
+  apply(dispatcher(), evaluations, []).
+
+popSize() ->
+  apply(dispatcher(), popSize, []).
+
+chromosomeSize() ->
+  apply(dispatcher(), chromosomeSize, []).
