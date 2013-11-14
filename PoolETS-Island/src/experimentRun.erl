@@ -16,7 +16,7 @@
 
 -compile(export_all).
 
-init() ->
+run() ->
   {A1, A2, A3} = now(),
   GAConfig = configuration:gaConfig(),
   random:seed(A1, A2, A3),

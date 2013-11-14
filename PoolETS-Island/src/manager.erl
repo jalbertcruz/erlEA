@@ -53,7 +53,8 @@ loop(D) ->
           halt(),
           ok;
         true ->
-          self() ! mkExperiment
+          timer:send_after(1500, self(), mkExperiment)
+%%           self() ! mkExperiment
       end,
       loop(D#manager{results = TResults});
 

@@ -30,7 +30,8 @@ run() ->
   ),
   file:close(IODevice),
 
-  io:format("Ends!~n", []).
+  io:format("Ends!~n", []),
+  halt().
 
 testsRunSeqEA() ->
   {A1, A2, A3} = now(),
