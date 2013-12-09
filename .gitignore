@@ -14,8 +14,8 @@ ebin/
 *.log
 *.7z
 *.xml
+*.cnf
 TODO.txt
 openEmacs.rb
 tests/
-problems/
 .idea/
