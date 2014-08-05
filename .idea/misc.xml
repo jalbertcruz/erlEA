@@ -3,7 +3,8 @@
   <component name="EntryPointsManager">
     <entry_points version="2.0" />
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_6" assert-keyword="true" jdk-15="true" project-jdk-name="Erlang R16B02" project-jdk-type="Erlang SDK">
+  <component name="IdProvider" IDEtalkID="EB8EB114554D0401D05FD83CBF24F05B" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_6" assert-keyword="true" jdk-15="true" project-jdk-name="Erlang 17" project-jdk-type="Erlang SDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>
