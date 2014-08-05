@@ -121,7 +121,7 @@ loop(D) ->
       ets:insert(D#poolManager.tableName, NewPool),
       loop(D);
 
-    {add2Pool, NewPool} -> % Adiciona (NewPool: list())
+    {add2Pool, NewPool} -> % Adiciona NewPool: list()
       ets:insert(D#poolManager.tableName, NewPool),
       loop(D);
 
@@ -135,11 +135,11 @@ loop(D) ->
     {evaluatorFinalized, Pid} ->
       Res = lists:member(Pid, D#poolManager.evals),
       REvals = if
-        Res ->
-          lists:delete(Pid, D#poolManager.evals);
-        true ->
-          D#poolManager.evals
-      end,
+                 Res ->
+                   lists:delete(Pid, D#poolManager.evals);
+                 true ->
+                   D#poolManager.evals
+               end,
       LReps = length(D#poolManager.reps),
       LEvals = length(REvals),
       if
@@ -152,11 +152,11 @@ loop(D) ->
     {reproducerFinalized, Pid} ->
       Res = lists:member(Pid, D#poolManager.reps),
       RReps = if
-        Res ->
-          lists:delete(Pid, D#poolManager.reps);
-        true ->
-          D#poolManager.reps
-      end,
+                Res ->
+                  lists:delete(Pid, D#poolManager.reps);
+                true ->
+                  D#poolManager.reps
+              end,
 
       LEvals = length(D#poolManager.evals),
       LReps = length(RReps),
@@ -187,43 +187,45 @@ loop(D) ->
 
     {evalDone, Pid, N} ->
 
-      {DResult, CurrentEvaluations} = if
+      {DResult, CurrentEvaluations} =
+        if
 
-        D#poolManager.active ->
-          D#poolManager.manager ! {evalDone, self(), N},
+          D#poolManager.active ->
+            D#poolManager.manager ! {evalDone, self(), N},
 
-          {EvaluatorsCapacity, NewEvaluations} = case problem:terminationCondition() of
-            fitnessTerminationCondition ->
-              {problem:evaluatorsCapacity(), D#poolManager.evaluations};
+            {EvaluatorsCapacity, NewEvaluations} =
+              case problem:terminationCondition() of
+                fitnessTerminationCondition ->
+                  {problem:evaluatorsCapacity(), D#poolManager.evaluations};
 
-            _ ->
-              RNewEvaluationsTemp = D#poolManager.evaluations - N,
+                _ -> %% else
+                  RNewEvaluationsTemp = D#poolManager.evaluations - N,
 
-              RNewEvaluations = if
-                RNewEvaluationsTemp < 0 ->
-                  0;
-                true ->
-                  RNewEvaluationsTemp
+                  RNewEvaluations = if
+                                      RNewEvaluationsTemp < 0 ->
+                                        0;
+                                      true ->
+                                        RNewEvaluationsTemp
+                                    end,
+
+                  {min(RNewEvaluations, problem:evaluatorsCapacity()), RNewEvaluations}
               end,
 
-              {min(RNewEvaluations, problem:evaluatorsCapacity()), RNewEvaluations}
-          end,
+            RD = if
+                   EvaluatorsCapacity > 0 ->
+                     Pid ! {evaluate, D#poolManager.tableName, EvaluatorsCapacity},
+                     D;
 
-          RD = if
-            EvaluatorsCapacity > 0 ->
-              Pid ! {evaluate, D#poolManager.tableName, EvaluatorsCapacity},
-              D;
+                   true ->
+                     evaluationsDone(D, self())
+                 end,
 
-            true ->
-              evaluationsDone(D, self())
-          end,
+            {RD, NewEvaluations};
 
-          {RD, NewEvaluations};
-
-        true ->
-          Pid ! finalize,
-          {D, D#poolManager.evaluations}
-      end,
+          true ->
+            Pid ! finalize,
+            {D, D#poolManager.evaluations}
+        end,
 
       loop(DResult#poolManager{evaluations = CurrentEvaluations});
 
@@ -238,7 +240,7 @@ loop(D) ->
     deactivate ->
       loop(D#poolManager{active = false});
 
-    {solutionReachedbyEvaluator, {Ind, Fit}, Pid} ->
+    {solutionReachedbyEvaluator, {Ind, Fit}, _} ->
       if
         D#poolManager.active ->
 

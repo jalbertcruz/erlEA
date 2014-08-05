@@ -26,7 +26,6 @@ init() ->
 
 takeAndMapWhile(_, [], Accu) ->
   {false, Accu};
-
 takeAndMapWhile(PredMap, [Head | Rest], Accu) ->
   {Follow, ResPred} = PredMap(Head),
   Result = [ResPred | Accu],
@@ -83,7 +82,7 @@ loop(D) ->
           if
             Founded ->
               [{Ind, Fit} | _] = NSels,
-              D#evaluator.manager ! {solutionReachedbyEvaluator, {Ind, Fit}, self()}    ;
+              D#evaluator.manager ! {solutionReachedbyEvaluator, {Ind, Fit}, self()};
             true ->
               ok
           end,

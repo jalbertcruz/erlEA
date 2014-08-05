@@ -129,7 +129,7 @@ mergeFunction(Table, Subpop, NoParents, NInds, BestParents, PoolSize) ->
 
 
 % 2. Se seleccionarán 2n padres
-%     - tomar aleatoriamente 3 inds, seleccinar el mejor
+%     - tomar aleatoriamente 3 inds, seleccionar el mejor
 % Pop: [{Ind, IndFitness}]
 % N = integer(),  cantidad de inds a seleccionar
 selectPop2Reproduce(Pop, N) ->
